@@ -1,0 +1,16 @@
+{
+  "name": "@resume-buddy/ai-engine",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.15.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@resume-buddy/utils",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "resume-buddy",
+  "private": true,
+  "version": "1.0.0",
+  "description": "AI-powered career decision engine that helps students and freshers evaluate jobs and internships before applying.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-rohit-gupta/resume-buddy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dev-rohit-gupta/resume-buddy/issues"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace=@resume-buddy/server",
+    "build": "npm run build --workspaces",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.0"
+  },
+  "homepage": "https://github.com/dev-rohit-gupta/resume-buddy#readme"
+}
