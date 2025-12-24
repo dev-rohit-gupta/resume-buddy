@@ -17,5 +17,5 @@ export const authController = asyncHandler(async (req: Request, res: Response) =
     res.cookie("accessToken", result.accessToken, cookieOptions);
 
 
-    res.status(200).json(new ApiResponse(result, "Login successful"));
+    res.status(200).json(new ApiResponse({user: result.user}, "Login successful"));
 });
