@@ -14,7 +14,7 @@ export const authController = asyncHandler(async (req: Request, res: Response) =
     const result = await loginService({ email, password });
 
     // Set access token in HTTP-only cookie
-    res.cookie("accessToken", result.token, cookieOptions);
+    res.cookie("accessToken", result.accessToken, cookieOptions);
 
 
     res.status(200).json(new ApiResponse(result, "Login successful"));
