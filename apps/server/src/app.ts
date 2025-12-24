@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { errorMiddleware } from "./middleware/error.middleware.js";
@@ -22,12 +22,13 @@ app.use(express.static(path.join(__dirname, "static")));
 
 /* -------------------- FALLBACK -------------------- */
 
-// SPA / direct reload support
-app.get("*", (_req, res) => {
+/* --------- SPA / direct reload support --------------*/
+app.get("*", (_req : Request, res : Response) => {
+  
   res.sendFile(path.join(__dirname, "static/index.html"));
 });
 
-//* -------------------- ERROR HANDLING -------------------- */
+/* -------------------- ERROR HANDLING -------------------- */
 app.use(errorMiddleware);
 
 export default app;
