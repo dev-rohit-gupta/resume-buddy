@@ -12,6 +12,8 @@ export interface IUser extends Document {
   password: string; // optional (future)
   role: "user" | "admin";
   avatar: string;
+  isPasswordCorrect(password: string): Promise<boolean>;
+  generateAccessToken(): Promise<string>;
 }
 
 const UserSchema = new Schema<IUser>(
