@@ -2,6 +2,12 @@ import express, { Request, Response } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { errorMiddleware } from "./middleware/error.middleware.js";
+import cookieParser from "cookie-parser";
+
+// Routes
+import LoginRouter from "./routes/login.route.js";
+
+
 
 //__filename & __dirname setup
 const __filename = fileURLToPath(import.meta.url);
@@ -14,11 +20,16 @@ const app = express();
 
 // JSON body parse
 app.use(express.json());
+app.use(cookieParser());
+
+// URL-encoded body parse
+app.use(express.urlencoded({ extended: true }));
 
 // Static frontend (client)
 app.use(express.static(path.join(__dirname, "static")));
 
 /* -------------------- ROUTES -------------------- */
+app.use("/api/auth", LoginRouter);
 
 /* -------------------- FALLBACK -------------------- */
 
