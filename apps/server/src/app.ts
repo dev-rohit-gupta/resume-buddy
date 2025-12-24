@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 
 // Routes
 import LoginRouter from "./routes/login.route.js";
-
+import SignupRouter from "./routes/signup.route.js";
 
 
 //__filename & __dirname setup
@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, "static")));
 
 /* -------------------- ROUTES -------------------- */
 app.use("/api/auth", LoginRouter);
+app.use("/api/auth", SignupRouter);
 
 /* -------------------- FALLBACK -------------------- */
 
