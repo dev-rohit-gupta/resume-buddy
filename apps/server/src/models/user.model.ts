@@ -6,8 +6,8 @@ import { SignJWT } from "jose";
 const encoder = new TextEncoder();
 
 export interface IUser extends Document {
-  name: string;
   id: string;
+  name: string;
   email: string;
   password: string; // optional (future)
   role: "user" | "admin";
