@@ -5,9 +5,7 @@ import { errorMiddleware } from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
 
 // Routes
-import LoginRouter from "./routes/login.route.js";
-import SignupRouter from "./routes/signup.route.js";
-import LogoutRouter from "./routes/logout.route.js";
+import UserRouter from "./routes/user.route.js";
 
 //__filename & __dirname setup
 const __filename = fileURLToPath(import.meta.url);
@@ -30,9 +28,7 @@ app.use(express.static(path.join(__dirname, "static")));
 
 /* -------------------- ROUTES -------------------- */
 // authentication routes
-app.use("/api/auth", LoginRouter);
-app.use("/api/auth", SignupRouter);
-app.use("/api/auth", LogoutRouter);
+app.use("/api/users", UserRouter);
 
 /* -------------------- FALLBACK -------------------- */
 
