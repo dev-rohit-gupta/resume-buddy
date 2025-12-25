@@ -10,9 +10,7 @@ export const AI_ENGINE_CONFIG = {
     topK: 40,
     maxOutputTokens: 2048,
     systemInstruction: SYSTEM_INSTRUCTION,
-  
   } satisfies GenerateContentConfig,
 } as const;
-
 
 export type AIEngineConfig = typeof AI_ENGINE_CONFIG;

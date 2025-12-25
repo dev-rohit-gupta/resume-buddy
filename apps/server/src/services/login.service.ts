@@ -7,7 +7,6 @@ interface LoginInput {
 }
 
 export async function loginService({ email, password }: LoginInput) {
-  
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {

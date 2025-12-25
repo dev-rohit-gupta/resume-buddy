@@ -37,8 +37,7 @@ app.use("/api/auth", LogoutRouter);
 /* -------------------- FALLBACK -------------------- */
 
 /* --------- SPA / direct reload support --------------*/
-app.get("*", (_req : Request, res : Response) => {
-  
+app.get("*", (_req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "static/index.html"));
 });
 

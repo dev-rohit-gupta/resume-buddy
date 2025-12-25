@@ -37,11 +37,7 @@ export const AIOutputSchema = z.object({
 
   applicationDecision: z.object({
     shouldApply: z.boolean(),
-    recommendation: z.enum([
-      "Apply Now",
-      "Apply After Preparation",
-      "Skip",
-    ]),
+    recommendation: z.enum(["Apply Now", "Apply After Preparation", "Skip"]),
     reasoning: z.array(z.string()),
   }),
 

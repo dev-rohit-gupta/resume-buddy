@@ -9,14 +9,13 @@ interface RunEngineParams {
 
 /**
  *  Run the AI engine with the given prompt and configuration.
- * @returns The generated content from the AI engine. 
+ * @returns The generated content from the AI engine.
  */
 export async function runEngine({ ai, prompt, config }: RunEngineParams) {
   const response = await ai.models.generateContent({
     model: config.model ?? "gemini-1.5-flash",
     contents: prompt,
     ...config.generation,
-    
   });
 
   if (!response?.text) {

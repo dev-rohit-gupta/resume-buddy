@@ -1,12 +1,7 @@
 import { ApiError } from "@resume-buddy/utils";
 import { Request, Response, NextFunction } from "express";
 
-export function errorMiddleware(
-  err: unknown,
-  _req: Request,
-  res: Response,
-  _next: NextFunction
-) {
+export function errorMiddleware(err: unknown, _req: Request, res: Response, _next: NextFunction) {
   // Known / expected error
   if (err instanceof ApiError) {
     return res.status(err.statusCode).json({
@@ -33,4 +28,3 @@ export function errorMiddleware(
     message: "Internal Server Error",
   });
 }
-

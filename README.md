@@ -1,13 +1,14 @@
-
 # Resume Buddy 🧠📄
 
-**Resume Buddy** is an AI-powered **career decision engine** that helps students and freshers evaluate jobs and internships *before applying*.
+**Resume Buddy** is an AI-powered **career decision engine** that helps students and freshers evaluate jobs and internships _before applying_.
 
 Instead of blindly applying, Resume Buddy analyzes:
+
 - the **job/internship details**
 - the **user’s skills, projects, and profile**
 
 and returns a **structured, honest analysis** such as:
+
 - ATS compatibility score
 - Skill gap analysis
 - Learning roadmap
@@ -51,11 +52,11 @@ Dashboard (HTML / CSS / JS)
 
 ```
 
-- **Frontend**: Static HTML, CSS, JavaScript  
-- **Backend**: Node.js + Express  
-- **AI Engine**: Google Gemini (via SDK)  
-- **Database**: MongoDB (for saving job + analysis history)  
-- **Monorepo**: apps + packages structure  
+- **Frontend**: Static HTML, CSS, JavaScript
+- **Backend**: Node.js + Express
+- **AI Engine**: Google Gemini (via SDK)
+- **Database**: MongoDB (for saving job + analysis history)
+- **Monorepo**: apps + packages structure
 
 ---
 
@@ -109,6 +110,7 @@ resume-buddy/
 - Gemini is treated as a **decision engine**, not a chatbot
 
 This makes the system:
+
 - predictable
 - debuggable
 - scalable
@@ -131,7 +133,7 @@ This makes the system:
     "recommendation": "Apply After Preparation"
   }
 }
-````
+```
 
 This JSON directly powers the dashboard — **no parsing hacks**.
 
@@ -160,8 +162,8 @@ cp .env.example .env
 
 Add:
 
-* `GEMINI_API_KEY`
-* `MONGODB_URI`
+- `GEMINI_API_KEY`
+- `MONGODB_URI`
 
 ### 4️⃣ Run the development server
 
@@ -179,11 +181,11 @@ http://localhost:3000
 
 ## 🧩 Who Is This For?
 
-* 🎓 College students
-* 👶 Freshers
-* 🧑‍💻 Early-career developers
-* ❌ Not for mass resume spamming
-* ✅ For thoughtful, strategic applications
+- 🎓 College students
+- 👶 Freshers
+- 🧑‍💻 Early-career developers
+- ❌ Not for mass resume spamming
+- ✅ For thoughtful, strategic applications
 
 <!-- ---
 
@@ -204,9 +206,9 @@ Contributions are welcome.
 
 Before contributing:
 
-* Follow schema-first design
-* Do not add chat-based features
-* Keep AI output strictly structured
+- Follow schema-first design
+- Do not add chat-based features
+- Keep AI output strictly structured
 
 ---
 
@@ -225,4 +227,3 @@ Resume Buddy is built on one belief:
 Apply less.
 Prepare better.
 Apply smarter.
-

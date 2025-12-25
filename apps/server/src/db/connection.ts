@@ -30,4 +30,3 @@ export async function connectToDataBase() {
   cached.conn = await cached.promise;
   return cached.conn;
 }
-

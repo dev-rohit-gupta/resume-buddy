@@ -69,9 +69,7 @@ UserSchema.methods.isPasswordCorrect = async function (password: string) {
 };
 
 UserSchema.methods.generateAccessToken = async function () {
-  const secret = encoder.encode(
-    process.env.ACCESS_TOKEN_SECRET!
-  );
+  const secret = encoder.encode(process.env.ACCESS_TOKEN_SECRET!);
 
   return await new SignJWT({
     id: this._id.toString(),
@@ -79,9 +77,7 @@ UserSchema.methods.generateAccessToken = async function () {
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime(
-      process.env.ACCESS_TOKEN_EXPIRY ?? "7d"
-    )
+    .setExpirationTime(process.env.ACCESS_TOKEN_EXPIRY ?? "7d")
     .sign(secret);
 };
 
