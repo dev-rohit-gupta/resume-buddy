@@ -1,4 +1,4 @@
-import { User } from "../models/user.model.js";
+import { UserModel } from "../models/user.model.js";
 import { ApiError } from "@resume-buddy/utils";
 
 interface LoginInput {
@@ -7,7 +7,7 @@ interface LoginInput {
 }
 
 export async function loginService({ email, password }: LoginInput) {
-  const user = await User.findOne({ email }).select("+password");
+  const user = await UserModel.findOne({ email }).select("+password");
 
   if (!user) {
     throw new ApiError(401, "Invalid credentials");

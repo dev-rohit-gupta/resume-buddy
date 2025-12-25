@@ -1,20 +1,14 @@
 import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
-
+import { User } from "@resume-buddy/schemas";
 import { SignJWT } from "jose";
 
 const encoder = new TextEncoder();
 
-export interface IUser extends Document {
-  id: string;
-  name: string;
-  email: string;
-  password: string; // optional (future)
-  role: "user" | "admin";
-  avatar: string;
+export interface IUser extends Document , Omit<User, "id" > {
   isPasswordCorrect(password: string): Promise<boolean>;
   generateAccessToken(): Promise<string>;
-}
+} 
 
 const UserSchema = new Schema<IUser>(
   {
@@ -52,6 +46,11 @@ const UserSchema = new Schema<IUser>(
       type: String,
       default: "https://ui-avatars.com/api/?name=user&background=0D8ABC&color=fff",
     },
+    resume: {
+      type: Object,
+      default: {},
+      required: true,
+    },
   },
   { timestamps: true }
 );
@@ -81,4 +80,4 @@ UserSchema.methods.generateAccessToken = async function () {
     .sign(secret);
 };
 
-export const User = mongoose.model<IUser>("User", UserSchema);
+export const UserModel = mongoose.model<IUser>("User", UserSchema);

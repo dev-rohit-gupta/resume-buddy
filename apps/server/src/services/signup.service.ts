@@ -1,4 +1,4 @@
-import { User } from "../models/user.model.js";
+import { UserModel } from "../models/user.model.js";
 import { ApiError } from "@resume-buddy/utils";
 
 interface SignupInput {
@@ -10,13 +10,13 @@ interface SignupInput {
 
 export async function signupService({ name, email, password, avatar }: SignupInput) {
   // Check if a user with the given email already exists
-  const existingUser = await User.exists({ email });
+  const existingUser = await UserModel.exists({ email });
 
   if (existingUser) {
     throw new ApiError(409, "User with this email already exists");
   }
 
-  const newUser = new User({
+  const newUser = new UserModel({
     id: crypto.randomUUID(),
     name,
     email,
