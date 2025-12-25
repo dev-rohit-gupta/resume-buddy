@@ -1,19 +1,36 @@
 import { ApiError } from "@resume-buddy/utils";
 import { Request, Response, NextFunction } from "express";
 
-export function errorMiddleware(err: ApiError, _req: Request, res: Response, _next: NextFunction) {
+export function errorMiddleware(
+  err: unknown,
+  _req: Request,
+  res: Response,
+  _next: NextFunction
+) {
+  // Known / expected error
   if (err instanceof ApiError) {
     return res.status(err.statusCode).json({
       success: false,
-      message: err.message
+      message: err.message,
     });
   }
 
-  // Unknown / crash error
-  console.error("🔥 Unexpected Error:", err);
+  // Unknown error but still an Error object
+  if (err instanceof Error) {
+    console.error("Unexpected Error:", err.message);
 
-  res.status(500).json({
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+
+  // Very rare non-error throw (string, number, etc.)
+  console.error("Non-error thrown:", err);
+
+  return res.status(500).json({
     success: false,
-    message: "Internal Server Error"
+    message: "Internal Server Error",
   });
 }
+
