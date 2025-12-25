@@ -9,7 +9,7 @@ coverage/
 # Environment variables
 .env
 .env.*
-!.env.example
+!.env.sample
 
 # Logs
 npm-debug.log*
