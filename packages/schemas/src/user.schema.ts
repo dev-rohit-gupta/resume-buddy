@@ -14,6 +14,7 @@ export const UserSchema = z.object({
   role: z.enum(["user", "admin"]).default("user"),
   avatar: urlSchema.optional(),
   resume: ResumeSchema,
+  resumeUrl: urlSchema,
 });
 
 // Type for UserSchema

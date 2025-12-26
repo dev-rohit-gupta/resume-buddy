@@ -51,6 +51,10 @@ const UserSchema = new Schema<IUser>(
       default: {},
       required: true,
     },
+    resumeUrl: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
