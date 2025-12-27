@@ -46,10 +46,6 @@ const UserSchema = new Schema<IUser>(
       type: String,
       default: "https://ui-avatars.com/api/?name=user&background=0D8ABC&color=fff",
     },
-    resumeUrl: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );
