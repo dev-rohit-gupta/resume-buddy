@@ -4,7 +4,7 @@ import { Resume } from "@resume-buddy/schemas";
 export interface IResume {
   user: mongoose.Types.ObjectId;
   content: Resume;
-  version : number;
+  version: number;
   createdAt: Date;
   updatedAt: Date;
 }

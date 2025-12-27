@@ -21,6 +21,9 @@ router.route("/signup").post(uploader.single("file"), signupController);
 router.route("/logout").post(logoutController);
 
 // GET /api/users/profile & PUT /api/users/profile
-router.route("/profile").get(authMiddleware, getUserProfileController).put(authMiddleware, updateUserProfileController);
+router
+  .route("/profile")
+  .get(authMiddleware, getUserProfileController)
+  .put(authMiddleware, updateUserProfileController);
 
 export default router;

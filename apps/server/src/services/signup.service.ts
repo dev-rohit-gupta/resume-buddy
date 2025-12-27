@@ -26,7 +26,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
   }
   // extract from resume
   const resumeData = await extractResumeService(resume);
-  
+
   // Create a new user
   const newUser = new UserModel({
     id: crypto.randomUUID(),

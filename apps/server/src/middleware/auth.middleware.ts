@@ -10,10 +10,10 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
   const encoder = new TextEncoder();
   const encodedSecret = encoder.encode(process.env.ACCESS_TOKEN_SECRET!);
   const { payload } = await jwtVerify<{ id: string; role: "user" | "admin" }>(token, encodedSecret);
-  
+
   req.user = {
     id: payload.id,
-    role: payload.role, 
+    role: payload.role,
   };
 
   next();
