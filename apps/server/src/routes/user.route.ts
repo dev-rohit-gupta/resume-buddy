@@ -3,7 +3,10 @@ import { loginController } from "../controllers/login.controller.js";
 import { logoutController } from "../controllers/logout.controller.js";
 import { signupController } from "../controllers/signup.controller.js";
 import { uploader } from "../middleware/multer.middleware.js";
-import { getUserProfileController } from "../controllers/profile.controller.js";
+import {
+  getUserProfileController,
+  updateUserProfileController,
+} from "../controllers/profile.controller.js";
 
 const router = Router();
 
@@ -17,5 +20,6 @@ router.route("/signup").post(uploader.single("file"), signupController);
 router.route("/logout").post(logoutController);
 
 // GET /api/users/profile/:id
-router.route("/profile/:id").get(getUserProfileController);
+router.route("/profile/:id").get(getUserProfileController).put(updateUserProfileController);
+
 export default router;
