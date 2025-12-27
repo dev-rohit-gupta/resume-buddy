@@ -1,4 +1,5 @@
 import { UserModel } from "../models/user.model.js";
+import { ResumeModel } from "../models/resume.model.js";
 import { ApiError } from "@resume-buddy/utils";
 import { uploadToCloudinary } from "./cloudinary.service.js";
 import { extractResumeService } from "./resumeExtraction.service.js";
@@ -25,7 +26,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
   }
   // extract from resume
   const resumeData = await extractResumeService(resume);
-
+  
   // Create a new user
   const newUser = new UserModel({
     id: crypto.randomUUID(),
@@ -34,8 +35,16 @@ export async function signupService({ name, email, password, avatar, resume }: S
     password,
     ...(avatar && { avatar }), // only include avatar if provided else use default
     resumeUrl: resumeUrl,
-    resume: resumeData,
   });
+
+  // Create a new resume document
+  const newResume = new ResumeModel({
+    userId: newUser._id,
+    content: resumeData,
+    version: 1,
+  });
+  // Save the new resume to the database
+  await newResume.save();
 
   // Save the new user to the database
   await newUser.save();
