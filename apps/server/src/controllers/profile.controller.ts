@@ -5,14 +5,20 @@ import { getUserProfileService, updateUserProfileService } from "../services/pro
 import { UserModel } from "../models/user.model.js";
 
 export const getUserProfileController = asyncHandler(async (req: Request, res: Response) => {
-  const userId = req.params.id;
+  const userId = req.user?.id;
+  if (!userId) {
+    throw new Error("User ID not found in request");
+  }
   const userProfile = await getUserProfileService(userId);
   res.status(200).json(new ApiResponse({ userProfile }, "User profile fetched successfully"));
 });
 
 export const updateUserProfileController = asyncHandler(async (req: Request, res: Response) => {
-  const userId = req.params.id;
+  const userId = req.user?.id;
   const updateData: Partial<typeof UserModel> = req.body;
+  if (!userId) {
+    throw new Error("User ID not found in request");
+  }
   const updatedProfile = await updateUserProfileService(userId, updateData);
   res.status(200).json(new ApiResponse({ updatedProfile }, "User profile updated successfully"));
 });

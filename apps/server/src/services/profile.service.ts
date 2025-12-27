@@ -2,7 +2,7 @@ import { UserModel } from "../models/user.model.js";
 import { ApiError } from "@resume-buddy/utils";
 
 export async function getUserProfileService(id: string) {
-  const user = await UserModel.findOne({ id })
+  const user = await UserModel.findOne({ _id: id })
     .select("-password -__v -_id")
     .lean()
     .then((data) => {
@@ -15,7 +15,7 @@ export async function getUserProfileService(id: string) {
 }
 
 export async function updateUserProfileService(id: string, updateData: Partial<typeof UserModel>) {
-  const updatedUser = await UserModel.findOneAndUpdate({ id }, updateData, { new: true });
+  const updatedUser = await UserModel.findOneAndUpdate({ _id: id }, updateData, { new: true });
   if (!updatedUser) {
     throw new ApiError(404, "User not found");
   }
