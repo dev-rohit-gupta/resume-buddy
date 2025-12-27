@@ -9,11 +9,9 @@ import {
 
 const router = Router();
 
-router.use(authMiddleware);
-
-router.post("/suggestions/generate", suggestionController);
-router.get("/suggestions/:id", getSuggestionByIdController);
-router.delete("/suggestions/:id", removeSuggestionByIdController);
-router.get("/suggestions", getUserSuggestionsController);
+router.post("/generate", suggestionController);
+router.get("/:id", getSuggestionByIdController);
+router.delete("/:id", removeSuggestionByIdController);
+router.get("", getUserSuggestionsController);
 
 export default router;
