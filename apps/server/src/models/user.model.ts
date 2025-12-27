@@ -5,7 +5,7 @@ import { SignJWT } from "jose";
 
 const encoder = new TextEncoder();
 
-export interface IUser extends Document, Omit<User, "id"> {
+export interface IUser extends Document, Omit<User, "id" | "resume"> {
   isPasswordCorrect(password: string): Promise<boolean>;
   generateAccessToken(): Promise<string>;
 }
@@ -45,11 +45,6 @@ const UserSchema = new Schema<IUser>(
     avatar: {
       type: String,
       default: "https://ui-avatars.com/api/?name=user&background=0D8ABC&color=fff",
-    },
-    resume: {
-      type: Object,
-      default: {},
-      required: true,
     },
     resumeUrl: {
       type: String,
