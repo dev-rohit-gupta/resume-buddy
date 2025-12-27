@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 // Routes
 import UserRouter from "./routes/user.route.js";
+import AuthRouter from "./routes/auth.router.js";
 
 //__filename & __dirname setup
 const __filename = fileURLToPath(import.meta.url);
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, "static")));
 /* -------------------- ROUTES -------------------- */
 // authentication routes
 app.use("/api/users", UserRouter);
+app.use("/api/auth", AuthRouter);
 
 /* -------------------- FALLBACK -------------------- */
 
