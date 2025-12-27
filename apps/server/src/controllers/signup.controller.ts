@@ -28,9 +28,8 @@ export const signupController = asyncHandler(async (req: Request, res: Response)
     throw new ApiError(400, "resume is required");
   }
 
- 
   // parse the resume
-  const { accessToken, user } = await signupService({ name, email, password , resume });
+  const { accessToken, user } = await signupService({ name, email, password, resume });
   res.cookie("accessToken", accessToken, cookieOptions);
   res.status(201).json(new ApiResponse({ user }, "User registered successfully"));
 });

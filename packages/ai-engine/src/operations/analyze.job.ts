@@ -9,15 +9,15 @@ import { EngineInput } from "@resume-buddy/schemas";
 // create Gemini AI client
 const ai = createGeminiClient();
 
-export async function analyzeJob(input: AIInput) : Promise<AIOutput> {
+export async function analyzeJob(input: AIInput): Promise<AIOutput> {
   // validate input first
   const validatedInput = AIInputSchema.parse(input);
-  const inputs: EngineInput[] = [{type: 'text', value: JSON.stringify(validatedInput)}];
+  const inputs: EngineInput[] = [{ type: "text", value: JSON.stringify(validatedInput) }];
   const result = await runEngine({
     ai,
     systemInstruction: SYSTEM_INSTRUCTION.JOB_ANALYSIS,
     inputs,
-    config: AI_ENGINE_CONFIG
+    config: AI_ENGINE_CONFIG,
   });
 
   // validate AI output

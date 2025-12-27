@@ -2,7 +2,6 @@ import { Resume, ResumeSchema } from "@resume-buddy/schemas";
 import { analyzeResume } from "@resume-buddy/ai-engine";
 import { parseResume } from "@resume-buddy/utils";
 
-
 export async function extractResumeService(resume: Express.Multer.File): Promise<Resume> {
   // Parse the resume
   const { text: ResumeText, confidenceScore } = await parseResume({

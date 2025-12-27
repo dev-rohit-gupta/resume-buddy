@@ -24,7 +24,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
     throw new ApiError(500, "File upload failed");
   }
   // extract from resume
-  const resumeData =  await extractResumeService(resume);
+  const resumeData = await extractResumeService(resume);
 
   // Create a new user
   const newUser = new UserModel({

@@ -20,7 +20,7 @@ const FileInputSchema = z.object({
 
 const MetadataInputSchema = z.object({
   type: z.literal("metadata"),
-  value: z.record(z.string(),z.unknown()),
+  value: z.record(z.string(), z.unknown()),
 });
 
 /* ---------- Union ---------- */

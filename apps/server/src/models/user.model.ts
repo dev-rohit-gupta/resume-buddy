@@ -5,10 +5,10 @@ import { SignJWT } from "jose";
 
 const encoder = new TextEncoder();
 
-export interface IUser extends Document , Omit<User, "id" > {
+export interface IUser extends Document, Omit<User, "id"> {
   isPasswordCorrect(password: string): Promise<boolean>;
   generateAccessToken(): Promise<string>;
-} 
+}
 
 const UserSchema = new Schema<IUser>(
   {

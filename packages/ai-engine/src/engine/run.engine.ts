@@ -15,11 +15,11 @@ interface RunEngineParams {
  * @returns The generated content from the AI engine.
  */
 export async function runEngine({
-  ai ,
+  ai,
   systemInstruction,
   inputs,
   config,
-} : {
+}: {
   ai: InstanceType<typeof GoogleGenAI>;
   inputs: EngineInput[];
   config: AIEngineConfig;
@@ -42,4 +42,3 @@ export async function runEngine({
 
   return response.text;
 }
-

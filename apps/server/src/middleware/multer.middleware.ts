@@ -17,12 +17,7 @@ const storage = multer.memoryStorage();
 /* ---------- file filter ---------- */
 const fileFilter: multer.Options["fileFilter"] = (_req, file, cb) => {
   if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
-    return cb(
-      new ApiError(
-        400,
-        "Invalid file type. Only PDF or DOCX resumes are allowed."
-      )
-    );
+    return cb(new ApiError(400, "Invalid file type. Only PDF or DOCX resumes are allowed."));
   }
 
   cb(null, true);

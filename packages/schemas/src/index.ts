@@ -3,7 +3,7 @@ export * from "./ai/input.schema.js";
 export * from "./ai/output.schema.js";
 export * from "./ai/resume.schema.js";
 export * from "./user.schema.js";
-export * from "./email.schema.js"
+export * from "./email.schema.js";
 export * from "./url.schema.js";
 export * from "./candidate.level.js";
 export * from "./ai/engineInput.schema.js";

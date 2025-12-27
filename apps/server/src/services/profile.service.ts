@@ -7,7 +7,7 @@ export async function getUserProfileService(id: string) {
     .lean()
     .then((data) => {
       if (!data) {
-        throw new ApiError(404,"User not found");
+        throw new ApiError(404, "User not found");
       }
       return data;
     });
@@ -15,9 +15,9 @@ export async function getUserProfileService(id: string) {
 }
 
 export async function updateUserProfileService(id: string, updateData: Partial<typeof UserModel>) {
-    const updatedUser = await UserModel.findOneAndUpdate({ id }, updateData, { new: true });
-    if (!updatedUser) {
-        throw new ApiError(404,"User not found");
-    }
-    return updatedUser;
+  const updatedUser = await UserModel.findOneAndUpdate({ id }, updateData, { new: true });
+  if (!updatedUser) {
+    throw new ApiError(404, "User not found");
+  }
+  return updatedUser;
 }

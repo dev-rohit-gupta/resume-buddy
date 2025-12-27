@@ -1,4 +1,4 @@
-import { EngineInput } from "@resume-buddy/schemas";    
+import { EngineInput } from "@resume-buddy/schemas";
 
 /**
  *  Map EngineInput array to contents suitable for AI engine consumption.
