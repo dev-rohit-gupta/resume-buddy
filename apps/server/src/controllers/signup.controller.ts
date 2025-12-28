@@ -16,7 +16,8 @@ const signupSchema = z.object({
 });
 
 export const signupController = asyncHandler(async (req: Request, res: Response) => {
-  const parsedBody = signupSchema.safeParse(req.body);
+  const data = req.body || req.params;
+  const parsedBody = signupSchema.safeParse(data);
   if (!parsedBody.success) {
     const errors = parsedBody.error.message;
     throw new ApiError(400, `Invalid input: ${errors}`);
