@@ -6,10 +6,10 @@ import { AI_ENGINE_CONFIG } from "../ai-engine.config.js";
 import { SYSTEM_INSTRUCTION } from "../prompts/system.prompt.js";
 import { EngineInput } from "@resume-buddy/schemas";
 
-// create Gemini AI client
-const ai = createGeminiClient();
 
 export async function analyzeJob(user: User , jobData: AIInput): Promise<AIOutput> {
+  // create Gemini AI client
+  const ai = createGeminiClient();
   // validate input first
   const validatedInput = AIInputSchema.parse(jobData);
   // prepare inputs for the engine
