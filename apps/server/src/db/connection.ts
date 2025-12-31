@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 import { options } from "../config/mongo.connection.config.js";
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  throw new Error("⚠️ MONGODB_URI is not defined in .env");
-}
 
 // Define the cache interface
 interface MongooseCache {
@@ -21,6 +16,11 @@ declare global {
 let cached: MongooseCache = global.mongoose || { conn: null, promise: null };
 
 export async function connectToDataBase() {
+  const MONGODB_URI = process.env.MONGODB_URI;
+  
+  if (!MONGODB_URI) {
+    throw new Error("⚠️ MONGODB_URI is not defined in .env");
+  }
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {

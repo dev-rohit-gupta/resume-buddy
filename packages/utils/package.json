@@ -5,5 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc"
+  },
+  "dependencies": {
+    "@resume-buddy/schemas": "^1.0.0",
+    "mammoth": "^1.11.0",
+    "pdf-parse": "^2.4.5"
   }
 }
