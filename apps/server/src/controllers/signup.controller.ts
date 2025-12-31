@@ -19,7 +19,7 @@ export const signupController = asyncHandler(async (req: Request, res: Response)
   const data = req.body || req.params;
   const parsedBody = signupSchema.safeParse(data);
   if (!parsedBody.success) {
-    const errors = parsedBody.error.message;
+    const errors = parsedBody.error.message.replaceAll("\n", ", ");
     throw new ApiError(400, `Invalid input: ${errors}`);
   }
   const { name, email, password } = parsedBody.data;
