@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Buddy Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="side-strip"></aside>
+
+  <div class="dashboard">
+
+    <header class="topbar">
+      <div>
+        <h1>Dashboard</h1>
+        <span class="subtitle">Resume Buddy</span>
+      </div>
+      <div class="top-user">
+        <span class="user-name">Ankita Sharma</span>
+        <img src="profileimg.jpg" class="avatar" alt="User">
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title" ><h4>Resume Score</h4></span>
+          <span class="stat-sub">7 days</span>
+        </div>
+        <div class="score-circle">
+          <span>78</span>
+          <small>/100</small>
+        </div>
+        <p class="stat-footer">Keep up good work!</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title"><h4>Jobs Matched</h4></span>
+          <span class="stat-icon"><i class="fa-duotone fa-solid fa-briefcase"></i></span>
+        </div>
+        <h2 class="stat-main">12</h2>
+        <p class="stat-footer"><span class="green">+2</span> since last visit</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title"><h4>Skill Gaps</h4></span>
+          <span class="stat-icon alert">!</span>
+        </div>
+        <h2 class="stat-main red">3 Missing Skills</h2>
+        <p class="stat-footer">React Testing, Figma, SEO</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title"><h4>Best Role Suggestion</h4></span>
+        </div>
+        <h2 class="stat-main">Frontend Developer</h2>
+        <p class="stat-footer">Based on skills & experience</p>
+      </div>
+    </section>
+
+    <div class="content">
+      <section class="jobs">
+        <div class="jobs-header">
+          <h2>Job Matches</h2>
+          <input type="text" placeholder="Search jobs..." class="search">
+        </div>
+
+        <div class="job-card">
+          <div class="job-main">
+            <div class="job-icon">F</div>
+            <div>
+              <h3>Frontend Developer</h3>
+              <p class="company">Tech Innovators</p>
+              <div class="tags">
+                <span>JavaScript</span>
+                <span>React</span>
+                <span>HTML</span>
+                <span>CSS</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-meta">
+            <div class="align">
+                <span class="match green">92%</span>
+                <span class="badge good">Good match</span>
+            </div>
+            <span class="time">2h ago</span>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-main">
+            <div class="job-icon">M</div>
+            <div>
+              <h3>Marketing Specialist</h3>
+              <p class="company">Bright Ideas Co.</p>
+              <div class="tags">
+                <span>SEO</span>
+                <span>Google Ads</span>
+                <span>Content Strategy</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-meta">
+            <div class="align">
+                <span class="match yellow">74%</span>
+                <span class="badge partial">Partial match</span>
+            </div>
+            <span class="time">1 day ago</span>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-main">
+            <div class="job-icon">U</div>
+            <div>
+              <h3>UX Designer</h3>
+              <p class="company">PixelCraft Studios</p>
+              <div class="tags">
+                <span>Figma</span>
+                <span>Prototyping</span>
+                <span>Wireframing</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-meta">
+            <div class="align">
+                <span class="match red">48%</span>
+                <span class="badge low">Low match</span>
+            </div>
+            <span class="time">3 days ago</span>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-main">
+            <div class="job-icon">D</div>
+            <div>
+              <h3>Data Analyst</h3>
+              <p class="company">FinTech Solutions</p>
+              <div class="tags">
+                <span>Excel</span>
+                <span>SQL</span>
+                <span>Tableau</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-meta">
+            <div class="align">
+                <span class="match green">88%</span>
+                <span class="badge good">Good match</span>
+            </div>
+            <span class="time">4 days ago</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="right">
+        <section class="card">
+          <h3>Skill Gaps</h3>
+          <ul class="skill-list">
+            <li>React Testing</li>
+            <li>Figma</li>
+            <li>SEO</li>
+          </ul>
+          <p class="tip">Consider learning React Testing to boost your match rate.</p>
+        </section>
+
+        <section class="card">
+          <h3>Recent Activity</h3>
+          <ul class="activity">
+            <li>Analyzed resume <span>3 roles matched</span></li>
+            <li>Searched <span>Frontend Developer</span></li>
+            <li>Uploaded new resume</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <button class="fab">+</button>
+  </div>
+</div>
+
+</body>
+</html>
