@@ -3,8 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/global.css" />
-    <title>Login page</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <title>Login Page</title>
   </head>
-  <body></body>
+  <body>
+    <div class="background">
+      <div class="card-login">
+        <h2>WELCOME BACK</h2>
+        <p class="subtitle">Fill below details to login</p>
+
+        <form id="loginForm" >
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Enter email here" required>
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" placeholder="Enter password here" required>
+            </div>
+             <button type="submit" class="login-btn">Login</button>
+             </form>
+
+             <p class="footer-text"> Don't have account? <a href="../pages/signup.html">sign up</a></p>
+        
+        
+      </div>
+    </div>
+  <script src="../js/index.js"></script>
+  
+</body>
 </html>
