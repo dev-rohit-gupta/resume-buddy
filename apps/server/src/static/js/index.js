@@ -1,10 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const fileInput = document.getElementById('resumeUpload');
-  const fileNameBtn = document.getElementById('fileNameBtn');
-  const dropText = document.getElementById('dropText');
-  const loginForm = document.getElementById('loginForm');
+const fileInput = document.getElementById('resumeUpload');
+    const fileNameBtn = document.getElementById('fileNameBtn');
+    const dropText = document.getElementById('dropText');
+    const form = document.getElementById('loginForm');
 
-  if (fileInput && fileNameBtn && dropText) {
     fileInput.addEventListener('change', function () {
       const file = this.files[0];
 
@@ -15,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const fileName = file.name;
-      const fileSize = file.size;
+      const fileSize = file.size; 
       const ext = fileName.split('.').pop().toLowerCase();
 
       const allowed = ['pdf', 'docx'];
@@ -40,25 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
       fileNameBtn.textContent = 'selected: ' + fileName;
       dropText.textContent = 'File ready to upload';
     });
-  }
 
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      if (fileInput && !fileInput.files[0]) {
+    form.addEventListener('submit', function (e) {
+      if (!fileInput.files[0]) {
         alert('Please select a resume file before submitting.');
+        e.preventDefault();
         return;
       }
 
-      const formData = new FormData(loginForm);
-      const data = {};
-      for (const [key, value] of formData.entries()) {
-        data[key] = value;
-      }
-
-      console.log(data);
       alert('Form submitted successfully (demo only).');
+      e.preventDefault();
     });
-  }
-});
