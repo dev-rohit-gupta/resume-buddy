@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { errorMiddleware } from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
+import fs from "fs";
 
 // Routes
 import UserRouter from "./routes/user.route.js";
@@ -11,7 +12,7 @@ import AuthRouter from "./routes/auth.router.js";
 //__filename & __dirname setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+const STATIC_DIR = path.join(__dirname, "static");
 // Express app
 const app = express();
 
@@ -25,18 +26,23 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 // Static frontend (client)
-app.use(express.static(path.join(__dirname, "static")));
+app.use(express.static(STATIC_DIR));
 
 /* -------------------- ROUTES -------------------- */
 // authentication routes
 app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);
 
-/* -------------------- FALLBACK -------------------- */
+/* -------------------- FRONTEND ROUTES -------------------- */
+app.get("*", (req : Request, res: Response) => {
+  const page = req.path.replace("/", "") || "login";
+  const filePath = path.join(STATIC_DIR,"pages", `${page}.html`);
 
-/* --------- SPA / direct reload support --------------*/
-app.get("*", (_req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "static/index.html"));
+  if (fs.existsSync(filePath)) {
+    return res.sendFile(filePath);
+  }
+
+  res.status(404).sendFile(path.join(STATIC_DIR,"pages", "notFound.html"));
 });
 
 /* -------------------- ERROR HANDLING -------------------- */
