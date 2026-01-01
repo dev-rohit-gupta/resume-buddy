@@ -1,0 +1,74 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("../assets/images/backimg.jpeg") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.card-login{
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 2rem 1rem;
+    width: 100%;
+    max-width: 320px;
+}
+.card-login .title{
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+}
+.card-login .subtitle{
+    text-align: center;
+    font-size: 0.8rem;
+    color: #747474;
+}
+.card-login form{
+    margin: 1rem 0;
+}
+.input-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 13px;
+  color: #000000;
+  margin-bottom: 6px;
+}
+.input-group input{
+  border: 1px solid #ffffff91;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+.input-group input::placeholder{
+    color: #282828;
+}
+.card-login form .login-btn{
+    margin: auto;
+    outline: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2563EB;
+    color: white;
+    cursor: pointer;
+}
+.footer-text{
+    margin: auto;
+    font-size: 0.8rem;
+    text-align: center;
+    color: #ffffff;
+    a {
+        color : #2563EB;
+        text-decoration: none;
+    }
+}
