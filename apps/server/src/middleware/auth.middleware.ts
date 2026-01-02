@@ -1,20 +1,44 @@
 import { Request, Response, NextFunction } from "express";
-import { ApiError } from "@resume-buddy/utils";
-import { jwtVerify } from "jose";
+import { verifyAccessToken ,getToken } from "@resume-buddy/utils";
 
-export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies?.accessToken || req.headers["authorization"]?.split(" ")[1];
+export async function requireAuth(req: Request, res: Response, next: NextFunction) {
+  const token = getToken(req);
   if (!token) {
-    throw new ApiError(401, "Unauthorized");
+    return res.redirect("/login");
   }
-  const encoder = new TextEncoder();
-  const encodedSecret = encoder.encode(process.env.ACCESS_TOKEN_SECRET!);
-  const { payload } = await jwtVerify<{ id: string; role: "user" | "admin" }>(token, encodedSecret);
 
-  req.user = {
-    id: payload.id,
-    role: payload.role,
-  };
+  try {
+    const payload = await verifyAccessToken(token);
 
-  next();
+    req.user = {
+      id: payload.id,
+      role: payload.role,
+    };
+
+    next();
+  } catch {
+    return res.redirect("/login");
+  }
+}
+
+export async function requireGuest(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const token =
+    req.cookies?.accessToken ||
+    req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return next(); // guest allowed
+  }
+  try {
+    await verifyAccessToken(token);
+    // token valid → already logged in
+    return res.redirect("/dashboard");
+  } catch {
+    // token invalid → treat as guest
+    return next();
+  }
 }
