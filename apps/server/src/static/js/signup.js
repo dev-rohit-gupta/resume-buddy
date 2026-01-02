@@ -1,7 +1,7 @@
 const fileInput = document.getElementById('resumeUpload');
     const fileNameBtn = document.getElementById('fileNameBtn');
     const dropText = document.getElementById('dropText');
-    const form = document.getElementById('loginForm');
+    const form = document.querySelector('form.signup-form');
 
     fileInput.addEventListener('change', function () {
       const file = this.files[0];

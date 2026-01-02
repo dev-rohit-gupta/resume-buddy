@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -41,32 +41,32 @@
               Please upload your resume in <strong>PDF</strong> or DOCX format only.
             </p>
             
-            <label for="resumeUpload" class="upload-dropzone">
-              <span class="drop-main-text">Drop your resume here or click to upload</span>
-              <span class="drop-sub-text">PDF or DOCX (max 3MB)</span>
-              <input
-                type="file"
-                name="file"
-                id="resumeUpload"
-                accept=".pdf,.docx"
-                max-size="3145728"
-                required
-              />
-            </label>
+              <label for="resumeUpload" class="upload-dropzone">
+                <span id="dropText" class="drop-main-text">
+                  Drop your resume here or click to upload
+                </span>
+  
+                <span class="drop-sub-text"> PDF or DOCX (max 3MB) </span>
+  
+                <input type="file" name="file" id="resumeUpload" accept=".pdf,.docx" required />
+              </label>
+  
+              <button type="button" id="fileNameBtn" class="file-name-btn">
+                selected: no file chosen
+              </button>
+  
+              <button type="submit" class="btn-submit-resume">Submit Resume</button>
+            </div>
+          </form>
+        </div>
 
-            <button type="submit" class="btn-submit-resume">
-              Submit Resume
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div class="card-right">
-        <div class="circle large"></div>
-        <div class="circle small"></div>
-        <div class="avatar"></div>
-        <div class="gear gear-1"></div>
-        <div class="gear gear-2"></div>
+        <div class="card-right">
+          <div class="circle large"></div>
+          <div class="circle small"></div>
+          <div class="avatar"></div>
+          <div class="gear gear-1"></div>
+          <div class="gear gear-2"></div>
+        </div>
       </div>
     </div>
   </div>
