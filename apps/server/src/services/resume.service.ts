@@ -1,7 +1,7 @@
 import { ResumeModel } from "../models/resume.model.js";
 import { Resume } from "@resume-buddy/schemas";
 import { uploadToCloudinary, deleteFromCloudinary } from "./cloudinary.service.js";
-
+import { deepMerge } from "@resume-buddy/utils";
 /**
  * Get resume by user ID
  */
@@ -18,18 +18,20 @@ export async function updateResumeContentService(userId: string, newContent: Par
     throw new Error("No fields to update");
   }
 
+  const resume = await ResumeModel.findOne({ user: userId });
+
+  if (!resume) {
+    throw new Error("Resume not found");
+  }
+
+  const mergedContent = deepMerge<Resume>(resume.content ?? {}, newContent);
+
   const updatedResume = await ResumeModel.findOneAndUpdate(
-    { user: userId },
-    [
-      {
-        $set: {
-          content: {
-            $mergeObjects: ["$content", newContent],
-          },
-          version: { $add: [{ $ifNull: ["$version", 0] }, 1] },
-        },
-      },
-    ],
+    { _id: resume._id },
+    {
+      $set: { content: mergedContent },
+      $inc: { version: 1 },
+    },
     {
       new: true,
       projection: {
@@ -40,15 +42,11 @@ export async function updateResumeContentService(userId: string, newContent: Par
     }
   ).lean();
 
-  if (!updatedResume) {
-    throw new Error("Resume not found");
-  }
-
   return updatedResume;
 }
 
 export async function updateResumeFileService(userId: string, file: Express.Multer.File) {
-// Find existing resume
+  // Find existing resume
   const resume = await ResumeModel.findOne({ user: userId }).select("id url version");
   if (!resume) {
     throw new Error("Resume not found");

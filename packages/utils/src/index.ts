@@ -7,3 +7,4 @@ export * from "./ai/mapInputsToContents.js";
 export * from "./resumeParser.js";
 export * from "./ai/safeParseAIJson.js";
 export * from "./auth/verifyToken.js";
+export * from "./deepMerge.js";
