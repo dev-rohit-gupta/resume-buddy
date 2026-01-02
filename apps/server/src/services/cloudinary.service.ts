@@ -1,8 +1,15 @@
 import { v2 as cloudinary } from "cloudinary";
-import { CLOUDINARY_CONFIG } from "../config/cloudinary.config.js";
+import { getCloudinaryConfig } from "../config/cloudinary.config.js";
 
 // Configuration
-cloudinary.config(CLOUDINARY_CONFIG);
+let isInitialized = false;
+
+export function initCloudinary() {
+  if (isInitialized) return;
+
+  cloudinary.config(getCloudinaryConfig());
+  isInitialized = true;
+}
 
 export function uploadToCloudinary(file: Buffer, folder: string) {
   return new Promise<{url: string , id : string}>((resolve, reject) => {
