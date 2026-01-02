@@ -12,6 +12,9 @@ export function errorMiddleware(err: unknown, _req: Request, res: Response, _nex
 
   // Unknown error but still an Error object
   if (err instanceof Error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.error(err.stack || err);
+    }
     console.error("Unexpected Error:", err.message);
 
     return res.status(500).json({

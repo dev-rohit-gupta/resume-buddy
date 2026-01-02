@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { errorMiddleware } from "./middleware/error.middleware.js";
+import { verifyAccessToken, getToken } from "@resume-buddy/utils";
 import cookieParser from "cookie-parser";
 import fs from "fs";
 
@@ -33,16 +34,58 @@ app.use(express.static(STATIC_DIR));
 app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);
 
+/* -------------------- FRONTEND ROUTES INFO -------------------- */
+// Define protected prefixes 
+const protectedPrefixes = ["dashboard"];
+// Define guest-only pages
+const guestOnlyPages = new Set(["login", "signup"]);
+
 /* -------------------- FRONTEND ROUTES -------------------- */
-app.get("*", (req : Request, res: Response) => {
-  const page = req.path.replace("/", "") || "login";
-  const filePath = path.join(STATIC_DIR,"pages", `${page}.html`);
+app.get("*", async (req, res) => {
+  if (req.path.startsWith("/api")) {
+    return res.status(404).end();
+  }
+
+  const page = req.path.replace(/^\/+/, "");
+  // Check if the page is protected
+  const isProtected = protectedPrefixes.some(
+    (prefix) => page === prefix || page.startsWith(`${prefix}/`)
+  );
+  const token = getToken(req);
+
+  // Protected pages
+  if (isProtected) {
+    if (!token) {
+      return res.redirect("/login");
+    }
+
+    try {
+      await verifyAccessToken(token);
+    } catch {
+      return res.redirect("/login");
+    }
+  }
+
+  // Guest-only pages
+  if (guestOnlyPages.has(page)) {
+    if (token) {
+      try {
+        await verifyAccessToken(token);
+        return res.redirect("/dashboard");
+      } catch {
+        // invalid token → allow guest
+      }
+    }
+  }
+
+  // Serve HTML
+  const filePath = path.join(STATIC_DIR, "pages", `${page}.html`);
 
   if (fs.existsSync(filePath)) {
     return res.sendFile(filePath);
   }
 
-  res.status(404).sendFile(path.join(STATIC_DIR,"pages", "notFound.html"));
+  return res.status(404).sendFile(path.join(STATIC_DIR, "pages", "notFound.html"));
 });
 
 /* -------------------- ERROR HANDLING -------------------- */

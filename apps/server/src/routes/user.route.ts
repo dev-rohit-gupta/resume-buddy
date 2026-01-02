@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authMiddleware } from "../middleware/auth.middleware.js";
+import { requireAuth } from "../middleware/auth.middleware.js";
 import suggestionRoute from "./sugestion.route.js";
 import resumeRouter from "./resume.route.js";
 import {
@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 // Apply authentication middleware to all  routes
-router.use(authMiddleware);
+router.use(requireAuth);
 // ---- ME ROUTES ----
 const meRouter = Router();
 

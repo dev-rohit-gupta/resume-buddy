@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { authMiddleware } from "../middleware/auth.middleware.js";
 import { uploader } from "../middleware/multer.middleware.js";
 import {
   getResumeController,

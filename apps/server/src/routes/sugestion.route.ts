@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { authMiddleware } from "../middleware/auth.middleware.js";
 import {
   suggestionController,
   getUserSuggestionsController,
@@ -12,6 +11,6 @@ const router = Router();
 router.post("/generate", suggestionController);
 router.get("/:id", getSuggestionByIdController);
 router.delete("/:id", removeSuggestionByIdController);
-router.get("", getUserSuggestionsController);
+router.get("/", getUserSuggestionsController);
 
 export default router;
