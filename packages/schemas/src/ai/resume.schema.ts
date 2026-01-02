@@ -1,102 +1,93 @@
 import { z } from "zod";
 import { emailSchema } from "../email.schema.js";
-import { urlSchema } from "../url.schema.js";
+import { optionalString, optionalUrl, safeArray } from "../optional.schemas.js";
 
 /**
  * Schema for validating and parsing resume data.
  */
 export const ResumeSchema = z.object({
   basics: z.object({
-    name: z.string().optional(),
-    email: emailSchema.optional(),
-    phone: z.string().optional(),
-    location: z.string().optional(),
+    name: optionalString,
+    email: emailSchema.optional().nullable(),
+    phone: optionalString,
+    location: optionalString,
+
     links: z
       .object({
-        linkedin: urlSchema.optional(),
-        github: urlSchema.optional(),
-        portfolio: urlSchema.optional(),
+        linkedin: optionalUrl,
+        github: optionalUrl,
+        portfolio: optionalUrl,
       })
-      .optional(),
+      .optional()
+      .nullable(),
   }),
 
-  summary: z.string().optional(),
+  summary: optionalString,
 
-  education: z
-    .array(
-      z.object({
-        degree: z.string().optional(),
-        field: z.string().optional(),
-        institution: z.string().optional(),
-        startYear: z.string().optional(),
-        endYear: z.string().optional(),
-        grade: z.string().optional(),
-      })
-    )
-    .optional(),
+  education: safeArray(
+    z.object({
+      degree: optionalString,
+      field: optionalString,
+      institution: optionalString,
+      startYear: optionalString,
+      endYear: optionalString,
+      grade: optionalString,
+    })
+  ),
 
-  experience: z
-    .array(
-      z.object({
-        role: z.string().optional(),
-        company: z.string().optional(),
-        location: z.string().optional(),
-        startDate: z.string().optional(),
-        endDate: z.string().optional(),
-        description: z.array(z.string()).optional(),
-        type: z.enum(["job", "internship"]).optional(),
-      })
-    )
-    .optional(),
+  experience: safeArray(
+    z.object({
+      role: optionalString,
+      company: optionalString,
+      location: optionalString,
+      startDate: optionalString,
+      endDate: optionalString,
+      description: safeArray(z.string()),
+      type: z.enum(["job", "internship"]).optional(),
+    })
+  ),
 
-  projects: z
-    .array(
-      z.object({
-        title: z.string().optional(),
-        description: z.string().optional(),
-        techStack: z.array(z.string()).optional(),
-        link: urlSchema.optional(),
-      })
-    )
-    .optional(),
+  projects: safeArray(
+    z.object({
+      title: optionalString,
+      description: optionalString,
+      techStack: safeArray(z.string()),
+      link: optionalUrl,
+    })
+  ),
 
   skills: z
     .object({
-      technical: z.array(z.string()).optional(),
-      soft: z.array(z.string()).optional(),
-      tools: z.array(z.string()).optional(),
+      technical: safeArray(z.string()),
+      soft: safeArray(z.string()),
+      tools: safeArray(z.string()),
     })
-    .optional(),
+    .optional()
+    .nullable(),
 
-  certifications: z
-    .array(
-      z.object({
-        name: z.string().optional(),
-        issuer: z.string().optional(),
-        year: z.string().optional(),
-        url: urlSchema.optional(),
-      })
-    )
-    .optional(),
+  certifications: safeArray(
+    z.object({
+      name: optionalString,
+      issuer: optionalString,
+      year: optionalString,
+      url: optionalUrl,
+    })
+  ),
 
-  achievements: z
-    .array(
-      z.object({
-        title: z.string().optional(),
-        description: z.string().optional(),
-        year: z.string().optional(),
-      })
-    )
-    .optional(),
+  achievements: safeArray(
+    z.object({
+      title: optionalString,
+      description: optionalString,
+      year: optionalString,
+    })
+  ),
 
-  languages: z
-    .array(
-      z.object({
-        name: z.string(),
-        proficiency: z.enum(["basic", "intermediate", "fluent", "native"]).optional(),
-      })
-    )
-    .optional(),
+  languages: safeArray(
+    z.object({
+      name: z.string(),
+      proficiency: z.enum(["basic", "intermediate", "fluent", "native"]).optional(),
+    })
+  ),
 
   metadata: z.object({
     resumeVersion: z.number().default(1),

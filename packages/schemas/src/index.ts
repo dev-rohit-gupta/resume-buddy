@@ -7,3 +7,4 @@ export * from "./email.schema.js";
 export * from "./url.schema.js";
 export * from "./candidate.level.js";
 export * from "./ai/engineInput.schema.js";
+export * from "./optional.schemas.js";

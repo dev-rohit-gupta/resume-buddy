@@ -10,7 +10,7 @@ export async function extractResumeService(resume: Express.Multer.File): Promise
   });
 
   // analyzing resume on the basis of confidence score
-  let resumeJson: Resume;
+  let resumeJson;
   if (confidenceScore >= 0.7) {
     // text only analysis
     resumeJson = await analyzeResume(ResumeText);
