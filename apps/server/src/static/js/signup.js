@@ -26,9 +26,9 @@ const fileInput = document.getElementById('resumeUpload');
         return;
       }
 
-      const maxSize = 5 * 1024 * 1024;
+      const maxSize = 3 * 1024 * 1024;
       if (fileSize > maxSize) {
-        alert('File is too large. Maximum size is 5MB.');
+        alert('File is too large. Maximum size is 3MB.');
         this.value = '';
         fileNameBtn.textContent = 'selected: no file chosen';
         dropText.textContent = 'Drop your resume here or click to upload';
@@ -39,13 +39,24 @@ const fileInput = document.getElementById('resumeUpload');
       dropText.textContent = 'File ready to upload';
     });
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit',async function (e) {
+      e.preventDefault();
       if (!fileInput.files[0]) {
         alert('Please select a resume file before submitting.');
-        e.preventDefault();
         return;
       }
-
-      alert('Form submitted successfully (demo only).');
-      e.preventDefault();
+     const form = e.target;
+     const formData = new FormData(form);
+     
+     const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        body: formData
+     });
+      if (response.ok) {
+        window.location.href = '/login';
+        return;
+      } else {
+        const errorData = await response.json();
+        alert('Error: ' + (errorData.message || 'Signup failed.'));
+      }
     });

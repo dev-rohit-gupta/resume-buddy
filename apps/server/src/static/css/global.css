@@ -7,3 +7,9 @@ body {
   height: 100%;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* adding * for required inputs */
+label:has(+ input[required])::after {
+  content: " *";
+  color: red;
+}
