@@ -357,3 +357,79 @@ body {
     gap: 8px;
   }
 }
+
+.job-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+  transform: translateX(100%);
+  transition: 0.3s ease;
+  z-index: 100;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.job-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.drawer-header h2 {
+  font-size: 18px;
+}
+
+.drawer-header button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.drawer-body {
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.drawer-body input,
+.drawer-body select,
+.drawer-body textarea {
+  padding: 8px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid #c7d2fe;
+}
+
+.drawer-body textarea {
+  min-height: 60px;
+}
+
+.drawer-body h4 {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #2563eb;
+}
+
+.submit-btn {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+}

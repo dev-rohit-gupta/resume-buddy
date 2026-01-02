@@ -188,6 +188,86 @@
     <button class="fab">+</button>
   </div>
 </div>
+<div id="jobDrawer" class="job-drawer">
+  <div class="drawer-header">
+    <h2>Add Job Details</h2>
+    <button id="closeDrawer">&times;</button>
+  </div>
 
+  <form id="jobForm" class="drawer-body">
+
+    <h4>Job Meta</h4>
+
+    <input type="text" placeholder="Source (e.g. Internshala)" id="source" required>
+
+    <select id="jobType">
+      <option>Internship</option>
+      <option>Job</option>
+      <option>Freelance</option>
+    </select>
+
+    <input type="text" placeholder="Job Title" id="title" required>
+    <input type="text" placeholder="Company Name" id="companyName">
+
+    <select id="companyType">
+      <option>Startup</option>
+      <option>NGO</option>
+      <option>MNC</option>
+      <option>Unknown</option>
+    </select>
+
+    <select id="locationType">
+      <option>Remote</option>
+      <option>Onsite</option>
+      <option>Hybrid</option>
+    </select>
+
+    <input type="text" placeholder="City (optional)" id="city">
+    <input type="text" placeholder="Country" id="country" value="India">
+
+    <input type="date" id="postedDate">
+    <input type="date" id="applyBy">
+    <input type="number" placeholder="Openings" id="openings">
+
+    <h4>Work Details</h4>
+
+    <input type="text" placeholder="Duration (e.g. 3 Months)" id="duration">
+    <input type="text" placeholder="Start Date (e.g. Immediately)" id="startDate">
+
+    <select id="stipendType">
+      <option>Paid</option>
+      <option>Unpaid</option>
+    </select>
+
+    <input type="number" placeholder="Stipend Amount" id="stipendAmount">
+    <input type="text" placeholder="Currency (INR)" id="currency">
+
+    <textarea placeholder="Responsibilities (comma separated)"
+      id="responsibilities"></textarea>
+
+    <textarea placeholder="Learning Outcomes (comma separated)"
+      id="learningOutcomes"></textarea>
+
+    <h4>Skills</h4>
+
+    <input type="text" placeholder="Required Skills (comma separated)" id="requiredSkills">
+    <input type="text" placeholder="Frameworks" id="frameworks">
+    <input type="text" placeholder="Databases" id="databases">
+    <input type="text" placeholder="Tools" id="tools">
+
+    <h4>Company Info</h4>
+
+    <textarea placeholder="Company Description" id="companyDesc"></textarea>
+    <input type="text" placeholder="Industry" id="industry">
+    <input type="url" placeholder="Website" id="website">
+
+    <h4>Raw Data</h4>
+
+    <textarea placeholder="Full Description Text" id="fullDesc"></textarea>
+    <input type="url" placeholder="Source URL" id="sourceURL">
+
+    <button type="submit" class="submit-btn">Save Job</button>
+  </form>
+</div>
 </body>
 </html>
