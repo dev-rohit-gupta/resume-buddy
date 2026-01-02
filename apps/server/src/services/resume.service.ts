@@ -1,7 +1,7 @@
 import { ResumeModel } from "../models/resume.model.js";
 import { Resume } from "@resume-buddy/schemas";
 import { uploadToCloudinary, deleteFromCloudinary ,getResumeUrl} from "./cloudinary.service.js";
-import { deepMerge } from "@resume-buddy/utils";
+import { ApiError, deepMerge } from "@resume-buddy/utils";
 /**
  * Get resume by user ID
  */
@@ -17,13 +17,13 @@ export async function getResumeByUserIdService(userId: string) {
  */
 export async function updateResumeContentService(userId: string, newContent: Partial<Resume>) {
   if (!Object.keys(newContent).length) {
-    throw new Error("No fields to update");
+    throw new ApiError(400, "No fields to update");
   }
 
   const resume = await ResumeModel.findOne({ user: userId });
 
   if (!resume) {
-    throw new Error("Resume not found");
+    throw new ApiError(404, "Resume not found");
   }
 
   const mergedContent = deepMerge<Resume>(resume.content ?? {}, newContent);
@@ -52,14 +52,14 @@ export async function updateResumeFileService(userId: string, file: Express.Mult
   // Find existing resume
   const resume = await ResumeModel.findOne({ user: userId }).select("id content extension resourceType version");
   if (!resume) {
-    throw new Error("Resume not found");
+    throw new ApiError(404, "Resume not found");
   }
   // Delete old resume from Cloudinary
   await deleteFromCloudinary(resume.id);
   // Upload new resume to Cloudinary
   const { id, extension ,resourceType } = await uploadToCloudinary(file, "resumes");
   if (!id) {
-    throw new Error("File upload failed");
+    throw new ApiError(500, "File upload failed");
   }
   // Update resume document
   resume.extension = extension;

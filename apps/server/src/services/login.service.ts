@@ -10,13 +10,13 @@ export async function loginService({ email, password }: LoginInput) {
   const user = await UserModel.findOne({ email }).select("+password");
 
   if (!user) {
-    throw new ApiError(401, "Invalid credentials");
+    throw new ApiError(401, "user with this email does not exist");
   }
 
   const isMatch = await user.isPasswordCorrect(password);
 
   if (!isMatch) {
-    throw new Error("Invalid credentials");
+    throw new ApiError(401, "Invalid credentials");
   }
 
   const accessToken = await user.generateAccessToken();

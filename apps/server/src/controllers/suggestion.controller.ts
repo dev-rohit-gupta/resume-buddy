@@ -61,7 +61,7 @@ export const getUserSuggestionsController = asyncHandler(async (req: Request, re
  */
 export const getSuggestionByIdController = asyncHandler(async (req: Request, res: Response) => {
   const userId = req.user?.id;
-  const suggestionId = req.params.id;
+  const suggestionId = req.params.id?.toString();
 
   if (!userId) throw new ApiError(401, "Unauthorized");
   if (!suggestionId) throw new ApiError(400, "Suggestion ID is required");

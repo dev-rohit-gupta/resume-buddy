@@ -4,6 +4,7 @@ import { analyzeJob } from "@resume-buddy/ai-engine";
 import { AIInput } from "@resume-buddy/schemas";
 import { User } from "@resume-buddy/schemas";
 import { SuggestionModel } from "../models/suggestion.model.js";
+import { ApiError } from "@resume-buddy/utils";
 
 // Fields to select when fetching suggestions
 const suggestionAllowedFields = "id job aiResponse status createdAt";
@@ -12,13 +13,13 @@ export async function suggestionService(userId: string, jobData: AIInput) {
   // Fetch user by ID
   const user = await UserModel.findById(userId);
   if (!user) {
-    throw new Error("User not found");
+    throw new ApiError(401, "Unauthorized: User not found");
   }
 
   // Fetch the latest resume for the user
-  const resume = await ResumeModel.findOne({ userId: user._id }).sort({ createdAt: -1 });
+  const resume = await ResumeModel.findOne({ user: user._id }).sort({ createdAt: -1 });
   if (!resume) {
-    throw new Error("Resume not found for the user");
+    throw new ApiError(404, "Resume not found for the user");
   }
 
   // Prepare user info with resume content
@@ -73,11 +74,12 @@ export async function getUserSuggestionsService(userId: string, page = 1, limit 
 
 export async function getSuggestionByIdService(userId: string, suggestionId: string) {
   // Fetch suggestion by ID and user ID
-  const suggestion = await SuggestionModel.findOne({ id: suggestionId, user: userId })
+  const suggestion = await SuggestionModel.findOne({ id: suggestionId , user: userId })
   .select(suggestionAllowedFields)
   .lean();
+  console.log({userId, suggestionId, suggestion});
   if (!suggestion) {
-    throw new Error("Suggestion not found");
+    throw new ApiError(404,"Suggestion not found");
   }
   return suggestion;
 }
@@ -85,6 +87,6 @@ export async function removeSuggestionByIdService(userId: string, suggestionId: 
   // Remove suggestion by ID and user ID
   const result = await SuggestionModel.deleteOne({ id: suggestionId, user: userId });
   if (result.deletedCount === 0) {
-    throw new Error("Suggestion not found or could not be deleted");
+    throw new ApiError(404,"Suggestion not found or could not be deleted");
   }
 }
