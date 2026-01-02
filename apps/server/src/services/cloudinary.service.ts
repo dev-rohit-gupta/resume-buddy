@@ -11,17 +11,24 @@ export function initCloudinary() {
   isInitialized = true;
 }
 
-export function uploadToCloudinary(file: Buffer, folder: string) {
-  return new Promise<{url: string , id : string}>((resolve, reject) => {
+export function uploadToCloudinary(file: Express.Multer.File, folder: string) {
+  return new Promise<{ id: string; resourceType: string; extension: string }>((resolve, reject) => {
+    const EXTENSION = file.originalname.split(".").pop()?.toLowerCase();
+    if (!EXTENSION) throw new Error("only pdf and  docx are allowed");
     cloudinary.uploader
       .upload_stream({ resource_type: "raw", folder }, (error, result) => {
         if (error) return reject(error);
-        if (!result?.secure_url) {
+        if (!result?.public_id) {
           return reject(new Error("Upload failed"));
         }
-        resolve({ url: result.secure_url, id: result.public_id });
+
+        resolve({
+          id: result.public_id,
+          resourceType: result.resource_type,
+          extension: EXTENSION,
+        });
       })
-      .end(file);
+      .end(file.buffer);
   });
 }
 
@@ -32,4 +39,13 @@ export function deleteFromCloudinary(publicId: string) {
       resolve();
     });
   });
+}
+export function getResumeUrl(publicId: string, extension: string) {
+  return cloudinary.url(publicId, {
+    resource_type: "raw",
+    flags: "attachment",
+    sign_url: true,
+    format: extension,
+    expires_at: Math.floor(Date.now() / 1000) + 300,
+  });;
 }

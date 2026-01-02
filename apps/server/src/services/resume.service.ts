@@ -1,15 +1,17 @@
 import { ResumeModel } from "../models/resume.model.js";
 import { Resume } from "@resume-buddy/schemas";
-import { uploadToCloudinary, deleteFromCloudinary } from "./cloudinary.service.js";
+import { uploadToCloudinary, deleteFromCloudinary ,getResumeUrl} from "./cloudinary.service.js";
 import { deepMerge } from "@resume-buddy/utils";
 /**
  * Get resume by user ID
  */
 export async function getResumeByUserIdService(userId: string) {
-  const resume = await ResumeModel.findOne({ user: userId }).select("content version url").lean();
+  const resume = await ResumeModel.findOne({ user: userId }).select("content id extension resourceType").lean();
   if (!resume) throw new Error("Resume not found");
-  return resume;
+  const resumeUrl = getResumeUrl(resume.id, resume.extension );
+  return { ...resume, url: resumeUrl };
 }
+
 /**
  * Update resume content by merging new content with existing content
  */
@@ -37,29 +39,31 @@ export async function updateResumeContentService(userId: string, newContent: Par
       projection: {
         content: 1,
         version: 1,
-        url: 1,
+        id: 1,
+        extension: 1,
       },
     }
   ).lean();
-
-  return updatedResume;
+  const resumeUrl = getResumeUrl(updatedResume!.id, updatedResume!.extension );
+  return {...updatedResume, url: resumeUrl};
 }
 
 export async function updateResumeFileService(userId: string, file: Express.Multer.File) {
   // Find existing resume
-  const resume = await ResumeModel.findOne({ user: userId }).select("id url version");
+  const resume = await ResumeModel.findOne({ user: userId }).select("id content extension resourceType version");
   if (!resume) {
     throw new Error("Resume not found");
   }
   // Delete old resume from Cloudinary
   await deleteFromCloudinary(resume.id);
   // Upload new resume to Cloudinary
-  const { url, id } = await uploadToCloudinary(file.buffer, "resumes");
-  if (!url || !id) {
+  const { id, extension ,resourceType } = await uploadToCloudinary(file, "resumes");
+  if (!id) {
     throw new Error("File upload failed");
   }
   // Update resume document
-  resume.url = url;
+  resume.extension = extension;
+  resume.resourceType = resourceType;
   resume.id = id;
   resume.version += 1;
   // Save updated resume

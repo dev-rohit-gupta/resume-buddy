@@ -20,7 +20,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
     throw new ApiError(409, "User with this email already exists");
   }
   // Upload resume to Cloudinary
-  const resumeInfoFromCloudinary = await uploadToCloudinary(resume.buffer, "resumes");
+  const resumeInfoFromCloudinary = await uploadToCloudinary(resume, "resumes");
   if (!resumeInfoFromCloudinary) {
     throw new ApiError(500, "File upload failed");
   }
@@ -39,8 +39,9 @@ export async function signupService({ name, email, password, avatar, resume }: S
   // Create a new resume document
   const newResume = new ResumeModel({
     user: newUser._id,
-    url: resumeInfoFromCloudinary.url,
     id: resumeInfoFromCloudinary.id,
+    resourceType :resumeInfoFromCloudinary.resourceType ,
+    extension : resumeInfoFromCloudinary.extension,
     content: resumeData,
     version: 1,
   });

@@ -3,7 +3,8 @@ import mammoth from "mammoth";
 import { getResumeConfidenceScore } from "./getResumeConfidenceScore.js";
 
 async function parsePdf(buffer: Buffer): Promise<string> {
-  const parser = new PDFParse(buffer);
+  const uint8Array = new Uint8Array(buffer);
+  const parser = new PDFParse(uint8Array);
   const data = await parser.getText();
   return data.text;
 }
