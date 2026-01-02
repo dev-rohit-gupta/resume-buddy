@@ -1,13 +1,12 @@
 import type { GenerateContentConfig } from "@google/genai";
 
 export const AI_ENGINE_CONFIG = {
-  model: "gemini-1.5-flash",
+  model: "gemini-2.5-flash-lite",
 
   generation: {
     temperature: 0.2,
     topP: 0.9,
     topK: 40,
-    maxOutputTokens: 2048,
   } satisfies Omit<GenerateContentConfig, "systemInstruction">,
 } as const;
 

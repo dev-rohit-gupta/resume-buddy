@@ -5,7 +5,7 @@ import type { AIInput, AIOutput, User } from "@resume-buddy/schemas";
 import { AI_ENGINE_CONFIG } from "../ai-engine.config.js";
 import { SYSTEM_INSTRUCTION } from "../prompts/system.prompt.js";
 import { EngineInput } from "@resume-buddy/schemas";
-
+import { safeParseAIJson } from "@resume-buddy/utils";
 
 export async function analyzeJob(user: User , jobData: AIInput): Promise<AIOutput> {
   // create Gemini AI client
@@ -25,5 +25,6 @@ export async function analyzeJob(user: User , jobData: AIInput): Promise<AIOutpu
   });
 
   // validate AI output
-  return AIOutputSchema.parse(result);
+  const cleanedResult = safeParseAIJson<AIOutput>(result);
+  return AIOutputSchema.parse(cleanedResult);
 }
