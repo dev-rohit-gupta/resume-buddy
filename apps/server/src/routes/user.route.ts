@@ -2,6 +2,7 @@ import { Router } from "express";
 import { requireAuth } from "../middleware/auth.middleware.js";
 import suggestionRoute from "./sugestion.route.js";
 import resumeRouter from "./resume.route.js";
+import dashboardRouter from "./dasboard.route.js";
 import {
   getUserProfileController,
   updateUserProfileController,
@@ -22,6 +23,7 @@ meRouter
 // sub-resources
 meRouter.use("/suggestions", suggestionRoute);
 meRouter.use("/resume", resumeRouter);
+meRouter.use("/dashboard", dashboardRouter);
 
 // mount the /me router
 router.use("/me", meRouter);

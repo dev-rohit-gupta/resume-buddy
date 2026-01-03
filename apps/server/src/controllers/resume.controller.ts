@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { asyncHandler } from "@resume-buddy/utils";
 import {
   getResumeByUserIdService,
-  updateResumeContentService,
+  updateResumeService,
   updateResumeFileService,
 } from "../services/resume.service.js";
 
@@ -36,7 +36,7 @@ export const updateResumeController = asyncHandler(async (req: Request, res: Res
     throw new ApiError(400, "No fields to update");
   }
 
-  const updatedResume = await updateResumeContentService(userId, newContent);
+  const updatedResume = await updateResumeService(userId, newContent);
 
   if (!updatedResume) {
     throw new ApiError(404, "Resume not found");
