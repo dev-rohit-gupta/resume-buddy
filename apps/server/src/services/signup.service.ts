@@ -3,7 +3,7 @@ import { ResumeModel } from "../models/resume.model.js";
 import { ApiError } from "@resume-buddy/utils";
 import { uploadToCloudinary } from "./cloudinary.service.js";
 import { extractResumeService } from "./resumeExtraction.service.js";
-
+import { buildCareerProfile } from "@resume-buddy/ai-engine";
 interface SignupInput {
   name: string;
   email: string;
@@ -26,7 +26,13 @@ export async function signupService({ name, email, password, avatar, resume }: S
   }
   // extract from resume
   const resumeData = await extractResumeService(resume);
-
+  if (!resumeData) {
+    throw new ApiError(500, "Resume extraction failed");
+  }
+  const careerProfile = await buildCareerProfile(resumeData);
+  if (!careerProfile) {
+    throw new ApiError(500, "Career profile building failed");
+  }
   // Create a new user
   const newUser = new UserModel({
     id: crypto.randomUUID(),
@@ -44,6 +50,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
     extension : resumeInfoFromCloudinary.extension,
     content: resumeData,
     version: 1,
+    ...careerProfile,
   });
   // Save the new resume to the database
   await newResume.save();
@@ -55,7 +62,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
   return {
     accessToken,
     user: {
-      _id: newUser._id,
+      id: newUser.id,
       name: newUser.name,
       role: newUser.role,
       email: newUser.email,
