@@ -1,11 +1,15 @@
 const form = document.querySelector('form.login-form');
-
+const submitButton = document.querySelector('button.login-btn');
 if (!form) {
   console.error("Login form not found");
-  return;
+
+}
+if (!submitButton) {
+  console.error("Login button not found");
+
 }
 
-form.addEventListener('submit', async function (e) {
+submitButton.addEventListener('click', async function (e) {
   e.preventDefault();
 
   try {
