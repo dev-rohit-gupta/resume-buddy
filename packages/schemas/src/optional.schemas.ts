@@ -11,7 +11,7 @@ export const optionalString = z
   .trim()
   .optional()
   .nullable()
-  .transform((v) => (v && v.length > 0 ? v : undefined));
+  .catch(null);
 
 /**
  * AI-friendly optional URL
@@ -30,7 +30,7 @@ export const optionalUrl = z
       /^[\w.-]+\.[a-z]{2,}/i.test(v),
     "Invalid URL"
   )
-  .transform((v) => (v && v.length > 0 ? v : undefined));
+  .catch(null);
 
 /**
  * Safe array (AI sometimes sends null instead of [])

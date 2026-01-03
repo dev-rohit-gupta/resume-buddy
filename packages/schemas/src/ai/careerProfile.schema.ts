@@ -19,8 +19,7 @@ export const CareerProfileSchema = z.object({
   nearestNextRole: RoleSchema,
 
   skillGaps: z
-    .array(z.string().min(1).max(50))
-    .max(6)
+    .array(z.string().min(1))
 })
 .refine(data => {
   if (data.bestRole === "N/A") {

@@ -12,7 +12,6 @@ export async function getCareerStatsService(userId: string) {
         `
     )
     .lean();
-  if (!jobStats) throw new ApiError(404, "Job stats not found for user");
   return jobStats;
 }
 export async function updateCareerInsightsService(

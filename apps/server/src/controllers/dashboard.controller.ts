@@ -11,7 +11,7 @@ export const getDashboardDataController = asyncHandler(async (req: Request, res:
   if (!dashboardData) {
     throw new ApiError(500, "Failed to retrieve dashboard data");
   }
-  const stringifiedData = JSON.stringify(dashboardData);
+  
 
-  res.json(new ApiResponse("Dashboard data retrieved successfully", stringifiedData));
+  res.json(new ApiResponse(dashboardData,"Dashboard data retrieved successfully"));
 });
