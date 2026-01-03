@@ -5,6 +5,7 @@ export const AIOutputSchema = z.object({
     difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]),
     learningFocused: z.boolean(),
     competitionLevel: z.enum(["Low", "Medium", "High"]),
+    match: z.enum(["Low", "Partial", "Good", "Perfect"]),
   }),
 
   atsAnalysis: z.object({

@@ -8,3 +8,5 @@ export * from "./url.schema.js";
 export * from "./candidate.level.js";
 export * from "./ai/engineInput.schema.js";
 export * from "./optional.schemas.js";
+export * from "./ai/careerProfile.schema.js";
+export * from "./db/resume.schema.js";
