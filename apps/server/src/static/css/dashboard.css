@@ -110,13 +110,23 @@ body {
   width: 70px;
   height: 70px;
   border-radius: 999px;
-  border: 4px solid #2563eb;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2px;
   color: #0f172a;
   margin: 4px 0;
+  isolation: isolate;
+  position: relative;
+  background: conic-gradient(var(--color) 0 var(--score-percentage), #ccc 0);
+}
+.score-circle::after{
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  background-color: white;
+  inset: 4px;
+  z-index: -1;
 }
 
 .score-circle span {
