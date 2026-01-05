@@ -4,6 +4,7 @@ import { ApiError } from "@resume-buddy/utils";
 import { uploadToCloudinary } from "./cloudinary.service.js";
 import { extractResumeService } from "./resumeExtraction.service.js";
 import { buildCareerProfile } from "@resume-buddy/ai-engine";
+import { JobStatsModel } from "../models/jobStats.model.js";
 interface SignupInput {
   name: string;
   email: string;
@@ -41,6 +42,15 @@ export async function signupService({ name, email, password, avatar, resume }: S
     password,
     ...(avatar && { avatar }), // only include avatar if provided else use defaul
   });
+
+  // Initialize job stats for the new user
+  const newJobStats = new JobStatsModel({
+    user: newUser._id,
+    totalMatched: 0,
+    thisWeekMatched: 0,
+    previousWeekMatched: 0,
+  });
+  await newJobStats.save();
 
   // Create a new resume document
   const newResume = new ResumeModel({

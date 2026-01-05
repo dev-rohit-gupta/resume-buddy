@@ -13,6 +13,7 @@ export async function getDashboardDataService(userId: string) {
   ]);
 
   return {
+    user : careerInsights?.user,
     resume: {
       url: resume.url,
       version: resume.version,

@@ -8,7 +8,7 @@ import { ApiError } from "@resume-buddy/utils";
 import { JobStatsModel } from "../models/jobStats.model.js";
 import { isSameWeek } from "@resume-buddy/utils";
 // Fields to select when fetching suggestions
-const suggestionAllowedFields = "id job aiResponse status createdAt";
+const suggestionAllowedFields = "id job aiResponse status createdAt -_id";
 
 export async function suggestionService(userId: string, jobData: AIInput) {
   // Fetch user by ID
@@ -37,38 +37,38 @@ export async function suggestionService(userId: string, jobData: AIInput) {
     throw new ApiError(500, "Failed to analyze the job");
   }
 
-  const isGoodMatch =
-    analysisResult.jobStats.match === "Good" || analysisResult.jobStats.match === "Perfect";
-  if (isGoodMatch) {
-    const now = new Date();
+const isGoodMatch =
+  analysisResult.stats.match === "Good" ||
+  analysisResult.stats.match === "Perfect";
 
-    const stats = await JobStatsModel.findOne({ user: userId }).lean();
-    const sameWeek = stats && isSameWeek(now, stats.updatedAt);
+if (isGoodMatch) {
+  const now = new Date();
 
-    await JobStatsModel.updateOne(
-      { user: userId },
-      sameWeek
-        ? {
-            $inc: {
-              totalMatched: 1,
-              thisWeekMatched: 1,
-            },
-          }
-        : {
-            $inc: {
-              totalMatched: 1,
-            },
-            $set: {
-              previousWeekMatched: stats?.thisWeekMatched ?? 0,
-              thisWeekMatched: 1,
-            },
-            $setOnInsert: {
-              previousWeekMatched: 0,
-            },
+  const stats = await JobStatsModel.findOne({ user: userId }).lean();
+  const sameWeek = stats && isSameWeek(now, stats.updatedAt);
+
+  await JobStatsModel.updateOne(
+    { user: userId },
+    sameWeek
+      ? {
+          $inc: {
+            totalMatched: 1,
+            thisWeekMatched: 1,
           },
-      { upsert: true }
-    );
-  }
+        }
+      : {
+          $inc: {
+            totalMatched: 1,
+          },
+          $set: {
+            previousWeekMatched: stats?.thisWeekMatched ?? 0,
+            thisWeekMatched: 1,
+          },
+        },
+    { upsert: true }
+  );
+}
+
 
   // create a new suggestion document
   const suggestion = new SuggestionModel({
