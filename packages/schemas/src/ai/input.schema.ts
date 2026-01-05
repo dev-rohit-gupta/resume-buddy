@@ -18,9 +18,9 @@ export const FrequencySchema = z.enum(["Monthly", "Weekly"]);
 
 export const AIInputSchema = z
   .object({
-    jobMeta: z.object({
+    meta: z.object({
       source: z.string(),
-      jobType: JobTypeSchema,
+      type: JobTypeSchema,
       title: z.string(),
       companyName: z.string(),
       companyType: CompanyTypeSchema,

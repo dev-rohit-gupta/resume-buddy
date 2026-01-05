@@ -4,10 +4,11 @@ You are an AI system that analyzes job data.
 You MUST return output strictly in the following JSON format:
 
 {
-  jobStats: {
+  stats: {
     difficulty: "Beginner" | "Intermediate" | "Advanced";
     learningFocused: boolean;
     competitionLevel: "Low" | "Medium" | "High";
+    match : "Low" | "Partial" | "Good" | "Perfect";
   };
 
   atsAnalysis: {

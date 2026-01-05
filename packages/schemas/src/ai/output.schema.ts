@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const AIOutputSchema = z.object({
-  jobStats: z.object({
+  stats: z.object({
     difficulty: z.enum(["Beginner", "Intermediate", "Advanced"]),
     learningFocused: z.boolean(),
     competitionLevel: z.enum(["Low", "Medium", "High"]),
