@@ -5,11 +5,11 @@
 html,
 body {
   height: 100%;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--font-family-primary);
 }
 
 /* adding * for required inputs */
 label:has(+ input[required])::after {
   content: " *";
-  color: red;
+  color: var(--error);
 }

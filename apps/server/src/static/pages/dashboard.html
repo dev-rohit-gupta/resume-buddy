@@ -1,34 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Resume Buddy Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="dashboard.css">
-  <link rel="stylesheet" href="../css/dashboard.css">
-  <script src="../js/utils.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resume Buddy Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="../css/animations.css" />
+    <link rel="stylesheet" href="../css/variable.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
 
-<div class="app">
-  <aside class="side-strip"></aside>
+    <!-- JS files  -->
+    <script src="../js/api.js"></script>
+    <script src="../js/helper.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/dashboard.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="side-strip"></aside>
 
-  <div class="dashboard">
+      <div class="dashboard">
+        <header class="topbar">
+          <div>
+            <h1>Dashboard</h1>
+            <span class="subtitle">Resume Buddy</span>
+          </div>
+          <div class="top-user">
+            <span class="user-name">Ankita Sharma</span>
+            <img src="../assets/profileimg.jpg" class="avatar" alt="User" />
+          </div>
+        </header>
 
-    <header class="topbar">
-      <div>
-        <h1>Dashboard</h1>
-        <span class="subtitle">Resume Buddy</span>
-      </div>
-      <div class="top-user">
-        <span class="user-name">Ankita Sharma</span>
-        <img src="../assets/profileimg.jpg" class="avatar" alt="User">
-      </div>
-    </header>
-
-    <section id="stats-container" class="stats">
-      <!-- <div class="stat-card">
+        <section id="stats-container" class="stats">
+          <!-- <div class="stat-card">
         <div class="stat-header">
           <span class="stat-title" ><h4>Resume Score</h4></span>
           <span class="stat-sub">7 days</span>
@@ -65,211 +77,118 @@
         <h2 class="stat-main">Frontend Developer</h2>
         <p class="stat-footer">Based on skills & experience</p>
       </div> -->
-    </section>
-
-    <div class="content">
-      <section class="jobs">
-        <div class="jobs-header">
-          <h2>Job Matches</h2>
-          <input type="text" placeholder="Search jobs..." class="search">
-        </div>
-
-        <div class="job-card">
-          <div class="job-main">
-            <div class="job-icon">F</div>
-            <div>
-              <h3>Frontend Developer</h3>
-              <p class="company">Tech Innovators</p>
-              <div class="tags">
-                <span>JavaScript</span>
-                <span>React</span>
-                <span>HTML</span>
-                <span>CSS</span>
-              </div>
-            </div>
-          </div>
-          <div class="job-meta">
-            <div class="align">
-                <span class="match green">92%</span>
-                <span class="badge good">Good match</span>
-            </div>
-            <span class="time">2h ago</span>
-          </div>
-        </div>
-
-        <div class="job-card">
-          <div class="job-main">
-            <div class="job-icon">M</div>
-            <div>
-              <h3>Marketing Specialist</h3>
-              <p class="company">Bright Ideas Co.</p>
-              <div class="tags">
-                <span>SEO</span>
-                <span>Google Ads</span>
-                <span>Content Strategy</span>
-              </div>
-            </div>
-          </div>
-          <div class="job-meta">
-            <div class="align">
-                <span class="match yellow">74%</span>
-                <span class="badge partial">Partial match</span>
-            </div>
-            <span class="time">1 day ago</span>
-          </div>
-        </div>
-
-        <div class="job-card">
-          <div class="job-main">
-            <div class="job-icon">U</div>
-            <div>
-              <h3>UX Designer</h3>
-              <p class="company">PixelCraft Studios</p>
-              <div class="tags">
-                <span>Figma</span>
-                <span>Prototyping</span>
-                <span>Wireframing</span>
-              </div>
-            </div>
-          </div>
-          <div class="job-meta">
-            <div class="align">
-                <span class="match red">48%</span>
-                <span class="badge low">Low match</span>
-            </div>
-            <span class="time">3 days ago</span>
-          </div>
-        </div>
-
-        <div class="job-card">
-          <div class="job-main">
-            <div class="job-icon">D</div>
-            <div>
-              <h3>Data Analyst</h3>
-              <p class="company">FinTech Solutions</p>
-              <div class="tags">
-                <span>Excel</span>
-                <span>SQL</span>
-                <span>Tableau</span>
-              </div>
-            </div>
-          </div>
-          <div class="job-meta">
-            <div class="align">
-                <span class="match green">88%</span>
-                <span class="badge good">Good match</span>
-            </div>
-            <span class="time">4 days ago</span>
-          </div>
-        </div>
-      </section>
-
-      <aside class="right">
-        <section class="card">
-          <h3>Skill Gaps</h3>
-          <ul class="skill-list">
-            <li>React Testing</li>
-            <li>Figma</li>
-            <li>SEO</li>
-          </ul>
-          <p class="tip">Consider learning React Testing to boost your match rate.</p>
         </section>
 
-        <section class="card">
-          <h3>Recent Activity</h3>
-          <ul class="activity">
-            <li>Analyzed resume <span>3 roles matched</span></li>
-            <li>Searched <span>Frontend Developer</span></li>
-            <li>Uploaded new resume</li>
-          </ul>
-        </section>
-      </aside>
+        <div class="content">
+          <section class="jobs">
+            <div class="jobs-header">
+              <h2>Analyzed Opportunities</h2>
+              <input type="text" placeholder="Search opportunities..." class="search" />
+            </div>
+            <!-- The Opportunities card will load here -->
+          </section>
+
+          <aside class="right">
+            <section class="card" id="skills-gap-list">
+              <h3>Skill Gaps</h3>
+              
+            </section>
+
+            <section class="card">
+              <h3>Recent Activity</h3>
+              <ul class="activity">
+                <li>Analyzed resume <span>3 roles matched</span></li>
+                <li>Searched <span>Frontend Developer</span></li>
+                <li>Uploaded new resume</li>
+              </ul>
+            </section>
+          </aside>
+        </div>
+
+        <button class="fab">+</button>
+      </div>
     </div>
+    <div id="jobDrawer" class="job-drawer">
+      <div class="drawer-header">
+        <h2>Add Job Details</h2>
+        <button id="closeDrawer">&times;</button>
+      </div>
 
-    <button class="fab">+</button>
-  </div>
-</div>
-<div id="jobDrawer" class="job-drawer">
-  <div class="drawer-header">
-    <h2>Add Job Details</h2>
-    <button id="closeDrawer">&times;</button>
-  </div>
+      <form id="jobForm" class="drawer-body">
+        <h4>Job Meta</h4>
 
-  <form id="jobForm" class="drawer-body">
+        <input type="text" placeholder="Source (e.g. Internshala)" id="source" required />
 
-    <h4>Job Meta</h4>
+        <select id="jobType">
+          <option>Internship</option>
+          <option>Job</option>
+          <option>Freelance</option>
+        </select>
 
-    <input type="text" placeholder="Source (e.g. Internshala)" id="source" required>
+        <input type="text" placeholder="Job Title" id="title" required />
+        <input type="text" placeholder="Company Name" id="companyName" />
 
-    <select id="jobType">
-      <option>Internship</option>
-      <option>Job</option>
-      <option>Freelance</option>
-    </select>
+        <select id="companyType">
+          <option>Startup</option>
+          <option>NGO</option>
+          <option>MNC</option>
+          <option>Unknown</option>
+        </select>
 
-    <input type="text" placeholder="Job Title" id="title" required>
-    <input type="text" placeholder="Company Name" id="companyName">
+        <select id="locationType">
+          <option>Remote</option>
+          <option>Onsite</option>
+          <option>Hybrid</option>
+        </select>
 
-    <select id="companyType">
-      <option>Startup</option>
-      <option>NGO</option>
-      <option>MNC</option>
-      <option>Unknown</option>
-    </select>
+        <input type="text" placeholder="City (optional)" id="city" />
+        <input type="text" placeholder="Country" id="country" value="India" />
 
-    <select id="locationType">
-      <option>Remote</option>
-      <option>Onsite</option>
-      <option>Hybrid</option>
-    </select>
+        <input type="date" id="postedDate" />
+        <input type="date" id="applyBy" />
+        <input type="number" placeholder="Openings" id="openings" />
 
-    <input type="text" placeholder="City (optional)" id="city">
-    <input type="text" placeholder="Country" id="country" value="India">
+        <h4>Work Details</h4>
 
-    <input type="date" id="postedDate">
-    <input type="date" id="applyBy">
-    <input type="number" placeholder="Openings" id="openings">
+        <input type="text" placeholder="Duration (e.g. 3 Months)" id="duration" />
+        <input type="text" placeholder="Start Date (e.g. Immediately)" id="startDate" />
 
-    <h4>Work Details</h4>
+        <select id="stipendType">
+          <option>Paid</option>
+          <option>Unpaid</option>
+        </select>
 
-    <input type="text" placeholder="Duration (e.g. 3 Months)" id="duration">
-    <input type="text" placeholder="Start Date (e.g. Immediately)" id="startDate">
+        <input type="number" placeholder="Stipend Amount" id="stipendAmount" />
+        <input type="text" placeholder="Currency (INR)" id="currency" />
 
-    <select id="stipendType">
-      <option>Paid</option>
-      <option>Unpaid</option>
-    </select>
+        <textarea placeholder="Responsibilities (comma separated)" id="responsibilities"></textarea>
 
-    <input type="number" placeholder="Stipend Amount" id="stipendAmount">
-    <input type="text" placeholder="Currency (INR)" id="currency">
+        <textarea
+          placeholder="Learning Outcomes (comma separated)"
+          id="learningOutcomes"
+        ></textarea>
 
-    <textarea placeholder="Responsibilities (comma separated)"
-      id="responsibilities"></textarea>
+        <h4>Skills</h4>
 
-    <textarea placeholder="Learning Outcomes (comma separated)"
-      id="learningOutcomes"></textarea>
+        <input type="text" placeholder="Required Skills (comma separated)" id="requiredSkills" />
+        <input type="text" placeholder="Frameworks" id="frameworks" />
+        <input type="text" placeholder="Databases" id="databases" />
+        <input type="text" placeholder="Tools" id="tools" />
 
-    <h4>Skills</h4>
+        <h4>Company Info</h4>
 
-    <input type="text" placeholder="Required Skills (comma separated)" id="requiredSkills">
-    <input type="text" placeholder="Frameworks" id="frameworks">
-    <input type="text" placeholder="Databases" id="databases">
-    <input type="text" placeholder="Tools" id="tools">
+        <textarea placeholder="Company Description" id="companyDesc"></textarea>
+        <input type="text" placeholder="Industry" id="industry" />
+        <input type="url" placeholder="Website" id="website" />
 
-    <h4>Company Info</h4>
+        <h4>Raw Data</h4>
 
-    <textarea placeholder="Company Description" id="companyDesc"></textarea>
-    <input type="text" placeholder="Industry" id="industry">
-    <input type="url" placeholder="Website" id="website">
+        <textarea placeholder="Full Description Text" id="fullDesc"></textarea>
+        <input type="url" placeholder="Source URL" id="sourceURL" />
 
-    <h4>Raw Data</h4>
-
-    <textarea placeholder="Full Description Text" id="fullDesc"></textarea>
-    <input type="url" placeholder="Source URL" id="sourceURL">
-
-    <button type="submit" class="submit-btn">Save Job</button>
-  </form>
-</div>
-<script src="../js/dashboard.js"></script>
-</body>
+        <button type="submit" class="submit-btn">Save Job</button>
+      </form>
+    </div>
+    <script src="../js/dashboard.js"></script>
+  </body>
 </html>
