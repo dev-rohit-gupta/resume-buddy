@@ -4,9 +4,7 @@ import { asyncHandler } from "@resume-buddy/utils";
 import { ApiError } from "@resume-buddy/utils";
 import { ApiResponse } from "@resume-buddy/utils";
 import { cookieOptions } from "../config/cookie.config.js";
-import { uploadToCloudinary } from "../services/cloudinary.service.js";
 import { emailSchema } from "@resume-buddy/schemas";
-import { analyzeResume } from "@resume-buddy/ai-engine";
 import z from "zod";
 
 const signupSchema = z.object({
@@ -16,11 +14,11 @@ const signupSchema = z.object({
 });
 
 export const signupController = asyncHandler(async (req: Request, res: Response) => {
-  const data = req.body || req.params;
+  const data = req.body;
   const parsedBody = signupSchema.safeParse(data);
   if (!parsedBody.success) {
-    const errors = parsedBody.error.message.replaceAll("\n", ", ");
-    throw new ApiError(400, `Invalid input: ${errors}`);
+    const errors = parsedBody.error.issues.map((issue) => issue.message).join(", ");
+    throw new ApiError(400, errors);
   }
   const { name, email, password } = parsedBody.data;
 
