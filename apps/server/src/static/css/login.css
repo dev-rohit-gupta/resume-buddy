@@ -7,9 +7,9 @@ body{
     background-position: center;
 }
 .card-login{
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-glass-dark);
     backdrop-filter: blur(10px);
-    border-radius: 10px;
+    border-radius: var(--border-radius-md);
     padding: 2rem 1rem;
     width: 100%;
     max-width: 320px;
@@ -17,12 +17,12 @@ body{
 .card-login .title{
     font-size: 2rem;
     text-align: center;
-    color: #fff;
+    color: var(--text-white);
 }
 .card-login .subtitle{
     text-align: center;
     font-size: 0.8rem;
-    color: #747474;
+    color: var(--text-footer);
 }
 .card-login form{
     margin: 1rem 0;
@@ -34,41 +34,41 @@ body{
 }
 
 .input-group label {
-  font-size: 13px;
-  color: #000000;
-  margin-bottom: 6px;
+  font-size: var(--font-size-base);
+  color: var(--text-black);
+  margin-bottom: var(--spacing-sm);
 }
 .input-group input{
-  border: 1px solid #ffffff91;
+  border: 1px solid var(--border-white);
   background-color: transparent;
-  border-radius: 10px;
+  border-radius: var(--border-radius-md);
   padding: 10px 12px;
-  font-size: 14px;
+  font-size: var(--font-size-md);
   outline: none;
 }
 .input-group input::placeholder{
-    color: #282828;
+    color: var(--text-placeholder);
 }
 .card-login form .login-btn{
     margin: auto;
     outline: none;
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 10px;
+    border-radius: var(--border-radius-md);
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #2563EB;
-    color: white;
+    background-color: var(--primary-blue);
+    color: var(--text-white);
     cursor: pointer;
 }
 .footer-text{
     margin: auto;
     font-size: 0.8rem;
     text-align: center;
-    color: #ffffff;
+    color: var(--text-white);
     a {
-        color : #2563EB;
+        color : var(--primary-blue);
         text-decoration: none;
     }
 }
