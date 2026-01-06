@@ -39,18 +39,20 @@ function setDashboardInfo(user) {
   const userNameElement = document.querySelector(".top-user > span.user-name");
   const userAvatarElement = document.querySelector(".top-user > img.avatar");
   if (userAvatarElement) {
-    userAvatarElement.src = user.profileImage || "../assets/default-avatar.png";
+    // Set default avatar for now data point : user.profileImage
+    userAvatarElement.src =  "../assets/default-avatar.png";
   }
   if (userNameElement) {
-    userNameElement.textContent = user.name || "User";
+    userNameElement.textContent = capitalizeEachLetter(user.name) || "User";
   }
-
 }
-
 
 // Initialization of the dashboard
 async function initializeDashboard() {
+  const dashboard = document.querySelector(".app .dashboard");
   // Fetch and load stats
+  hideElement(dashboard);
+  showLoader("Loading dashboard...", dashboard.parentElement);
   const stats = await getDashboardStats();
   loadStats(stats.data);
   setDashboardInfo(stats.data.user);
@@ -61,9 +63,14 @@ async function initializeDashboard() {
   } else {
     loadAnalysedJobs(jobs.data);
   }
-
   // Load skill gaps list
   loadSkillGapsList(stats.data.career.skillGaps);
+  // simulating delay of 1sec for testing loader 
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  removeLoader(dashboard.parentElement);
+  showElement(dashboard);
+  const contentWrapper = document.querySelector("#analyzeModal  #contentWrapper");
+  insertOpportunityAnalysisForm(contentWrapper);
 }
 
 window.addEventListener("DOMContentLoaded", async () => {

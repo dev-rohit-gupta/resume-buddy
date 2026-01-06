@@ -25,3 +25,31 @@ function getPassedTime(createdAt) {
     return `${diffInDays} day ago`;
   }
 }
+
+// show or hide DOM elements
+function hideElement(element) {
+  const el =
+    typeof element === "string" ? document.querySelector(element) : element;
+  if (el) {
+    el.style.display = "none";
+  }
+}
+
+function showElement(element, displayStyle = "block") {
+  const el =
+    typeof element === "string" ? document.querySelector(element) : element;
+  if (el) {
+    el.style.display = displayStyle;
+  }
+}
+
+// capitalize first letter of a string
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+function capitalizeEachLetter(string) {
+  return string
+    .split(" ")
+    .map((word) => capitalizeFirstLetter(word))
+    .join(" ");
+}

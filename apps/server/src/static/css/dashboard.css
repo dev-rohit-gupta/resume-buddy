@@ -372,78 +372,58 @@ body {
   }
 }
 
-.job-drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: var(--bg-white);
 
-  transform: translateY(100%);
-  transition: var(--transition-base);
+.job-form .form-control,
+.job-form .form-select,
+.job-form textarea {
+  margin-bottom: 10px;
+}
 
-  z-index: var(--z-drawer);
+.section-title {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-blue);
+  border-left: 3px solid var(--primary-blue);
+  padding-left: 8px;
+}
+
+.add-row {
   display: flex;
-  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 6px;
 }
 
-.job-drawer.open {
-  transform: translateY(0);
-  overflow: hidden;
-}
-
-.drawer-header {
+.chip-list {
+  list-style: none;
+  padding: 0;
   display: flex;
-  justify-content: space-between;
-  padding: var(--spacing-lg);
-  border-bottom: 1px solid var(--border-default);
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
 }
 
-.drawer-header h2 {
-  font-size: var(--font-size-2xl);
+.chip {
+  background: var(--blue-100);
+  color: var(--blue-700);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.drawer-header button {
-  font-size: 24px;
+.chip button {
   background: none;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
-
-.drawer-body {
-  padding: var(--spacing-lg);
+#analyzeModal #contentWrapper {
+  padding: 0 10px;
+  max-height: 70vh;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
-.drawer-body input,
-.drawer-body select,
-.drawer-body textarea {
-  padding: 8px 10px;
-  font-size: var(--font-size-base);
-  border-radius: var(--border-radius-sm);
-  border: 1px solid var(--blue-300);
-}
-
-.drawer-body textarea {
-  min-height: 60px;
-}
-
-.drawer-body h4 {
-  margin-top: var(--spacing-md);
-  font-size: var(--font-size-md);
-  color: var(--primary-blue);
-}
-
-.submit-btn {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: var(--border-radius-md);
-  border: none;
-  background: var(--primary-blue);
-  color: var(--text-white);
-  font-size: var(--font-size-md);
-}
