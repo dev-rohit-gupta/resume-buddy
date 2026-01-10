@@ -83,12 +83,12 @@ export async function suggestionService(userId: string, jobData: AIInput) {
   return analysisResult;
 }
 
-export async function getUserSuggestionsService(userId: string, page = 1, limit = 10) {
+export async function getUserSuggestionsService(userId: string, page = 1, limit = 10, query = "") {
   // Calculate skip value for pagination
   const skip = (page - 1) * limit;
   // Fetch suggestions with pagination
   const [suggestions, total] = await Promise.all([
-    SuggestionModel.find({ user: userId })
+    SuggestionModel.find({ user: userId, "job.meta.title": { $regex: query, $options: "i" } })
       .select(suggestionAllowedFields)
       .sort({ createdAt: -1 })
       .skip(skip)

@@ -38,6 +38,8 @@ export const getUserSuggestionsController = asyncHandler(async (req: Request, re
   const userId = req.user?.id;
   const page = Number(req.query.page ?? 1);
   const limit = Number(req.query.limit ?? 10);
+  const query = req.query.q?.toString() || "";
+
   // Validate page and limit
   if (isNaN(page) || page < 1) {
     throw new ApiError(400, "Invalid page number");
@@ -52,7 +54,7 @@ export const getUserSuggestionsController = asyncHandler(async (req: Request, re
     throw new ApiError(401, "Unauthorized");
   }
 
-  const suggestions = await getUserSuggestionsService(userId, page, safeLimit);
+  const suggestions = await getUserSuggestionsService(userId, page, safeLimit, query);
   res.status(200).json(new ApiResponse({ suggestions }, "User suggestions fetched successfully"));
 });
 /**
