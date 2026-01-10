@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { optionalUrl } from "../optional.schemas.js";
 /* ---------------- ENUMS ---------------- */
 
 export const JobTypeSchema = z.enum(["Internship", "Job", "Freelance"]);
@@ -72,19 +72,19 @@ export const AIInputSchema = z
       certificate: z.boolean(),
       letterOfRecommendation: z.boolean(),
       jobOffer: z.boolean(),
-      flexibleHours: z.boolean(),
+      flexibleHours: z.boolean()
     }),
 
     companyInfo: z.object({
       description: z.string(),
       industry: z.string(),
-      website: z.string().url().nullable(),
+      website: optionalUrl,
       trustScore: z.number().min(0).max(100).nullable(),
     }),
 
     rawData: z.object({
       fullDescriptionText: z.string(),
-      sourceURL: z.string().url(),
+      sourceURL: optionalUrl,
     }),
   })
   .strict();
