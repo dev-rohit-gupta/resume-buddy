@@ -9,7 +9,7 @@ body {
 }
 
 /* adding * for required inputs */
-label:has(+ input[required])::after {
+label:has(+ :is(input[required],textarea[required],select[required]))::after {
   content: " *";
   color: var(--error);
 }
