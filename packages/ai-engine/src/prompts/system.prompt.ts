@@ -143,7 +143,7 @@ Rules:
 - Do NOT include explanations
 - Follow the schema exactly
 `,
- CAREER_PROFILE : `
+  CAREER_PROFILE: `
  You are a career intelligence engine.
 
 Your task is to build a structured career profile strictly based on
@@ -172,5 +172,5 @@ Your output MUST strictly follow this JSON schema below:
   "nearestNextRole": string,
   "skillGaps": string[]
 }
-`
+`,
 };

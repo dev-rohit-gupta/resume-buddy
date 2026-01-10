@@ -1,31 +1,31 @@
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url("../assets/images/backimg.jpeg") no-repeat;
-    background-size: cover;
-    background-position: center;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../assets/images/backimg.jpeg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-.card-login{
-    background-color: var(--bg-glass-dark);
-    backdrop-filter: blur(10px);
-    border-radius: var(--border-radius-md);
-    padding: 2rem 1rem;
-    width: 100%;
-    max-width: 320px;
+.card-login {
+  background-color: var(--bg-glass-dark);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius-md);
+  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 320px;
 }
-.card-login .title{
-    font-size: 2rem;
-    text-align: center;
-    color: var(--text-white);
+.card-login .title {
+  font-size: 2rem;
+  text-align: center;
+  color: var(--text-white);
 }
-.card-login .subtitle{
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--text-footer);
+.card-login .subtitle {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-footer);
 }
-.card-login form{
-    margin: 1rem 0;
+.card-login form {
+  margin: 1rem 0;
 }
 .input-group {
   margin-bottom: 16px;
@@ -38,7 +38,7 @@ body{
   color: var(--text-black);
   margin-bottom: var(--spacing-sm);
 }
-.input-group input{
+.input-group input {
   border: 1px solid var(--border-white);
   background-color: transparent;
   border-radius: var(--border-radius-md);
@@ -46,29 +46,29 @@ body{
   font-size: var(--font-size-md);
   outline: none;
 }
-.input-group input::placeholder{
-    color: var(--text-placeholder);
+.input-group input::placeholder {
+  color: var(--text-placeholder);
 }
-.card-login form .login-btn{
-    margin: auto;
-    outline: none;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-md);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--primary-blue);
-    color: var(--text-white);
-    cursor: pointer;
+.card-login form .login-btn {
+  margin: auto;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-md);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-blue);
+  color: var(--text-white);
+  cursor: pointer;
 }
-.footer-text{
-    margin: auto;
-    font-size: 0.8rem;
-    text-align: center;
-    color: var(--text-white);
-    a {
-        color : var(--primary-blue);
-        text-decoration: none;
-    }
+.footer-text {
+  margin: auto;
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--text-white);
+  a {
+    color: var(--primary-blue);
+    text-decoration: none;
+  }
 }

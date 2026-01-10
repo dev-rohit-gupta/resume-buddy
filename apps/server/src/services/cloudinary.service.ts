@@ -47,5 +47,5 @@ export function getResumeUrl(publicId: string, extension: string) {
     sign_url: true,
     format: extension,
     expires_at: Math.floor(Date.now() / 1000) + 300,
-  });;
+  });
 }

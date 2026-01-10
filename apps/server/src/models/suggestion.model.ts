@@ -18,7 +18,7 @@ const SuggestionSchema = new mongoose.Schema<ISuggestion>(
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     id: { type: String, requiered: true, default: crypto.randomUUID },
     job: { type: Object, required: true },
-    status : { type: String, enum: ["completed"], default: "completed" },
+    status: { type: String, enum: ["completed"], default: "completed" },
     aiResponse: { type: Object, required: true },
     resumeVersion: { type: Number, required: true },
   },

@@ -1,13 +1,10 @@
 import { z } from "zod";
 import { ResumeSchema } from "../ai/resume.schema.js";
 // ---- Helpers ----
-const ObjectIdSchema = z.any(); 
+const ObjectIdSchema = z.any();
 // (DB layer pe mongoose handle karega, yaha sirf placeholder)
 
-const RoleSchema = z.union([
-  z.literal("N/A"),
-  z.string().min(2).max(100)
-]);
+const RoleSchema = z.union([z.literal("N/A"), z.string().min(2).max(100)]);
 
 // ---- Main Resume Schema ----
 export const ResumeDbSchema = z.object({
@@ -20,7 +17,7 @@ export const ResumeDbSchema = z.object({
   extension: z.string().min(1),
 
   // -------- Resume Content --------
-  content: ResumeSchema, 
+  content: ResumeSchema,
   // Resume ka internal shape tum @resume-buddy/schemas se already validate kar rahe ho
 
   // -------- Career Analysis --------
@@ -30,9 +27,7 @@ export const ResumeDbSchema = z.object({
 
   nearestNextRole: RoleSchema,
 
-  skillGaps: z
-    .array(z.string().min(1).max(50))
-    .max(6),
+  skillGaps: z.array(z.string().min(1).max(50)).max(6),
 
   // -------- Meta --------
   version: z.number().int().min(1),
@@ -41,7 +36,7 @@ export const ResumeDbSchema = z.object({
 
   createdAt: z.date(),
 
-  updatedAt: z.date()
+  updatedAt: z.date(),
 });
 
 export type ResumeDb = z.infer<typeof ResumeDbSchema>;

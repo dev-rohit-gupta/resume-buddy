@@ -15,10 +15,7 @@ router.use(requireAuth);
 const meRouter = Router();
 
 // profile
-meRouter
-  .route("/")
-  .get(getUserProfileController)
-  .put(updateUserProfileController);
+meRouter.route("/").get(getUserProfileController).put(updateUserProfileController);
 
 // sub-resources
 meRouter.use("/suggestions", suggestionRoute);

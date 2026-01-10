@@ -11,7 +11,7 @@ export async function getCareerStatsService(userId: string) {
         previousWeekMatched
         `
     )
-    .populate({path : "user", select: "name email avatar role"})
+    .populate({ path: "user", select: "name email avatar role" })
     .lean();
   return jobStats;
 }

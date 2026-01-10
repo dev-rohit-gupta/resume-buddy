@@ -19,9 +19,12 @@ function getWarningColor(score) {
 //["Low(red)", "Partial(yellow)", "Good(green)", "Perfect(primary)"]
 function getMatchColor(match) {
   const lowerMatch = match.toLowerCase();
-  if (lowerMatch === "low") return "var(--danger)"; // Red
-  else if (lowerMatch === "partial") return "var(--warning)"; // Yellow
-  else if (lowerMatch === "good") return "var(--success)"; // Green
+  if (lowerMatch === "low")
+    return "var(--danger)"; // Red
+  else if (lowerMatch === "partial")
+    return "var(--warning)"; // Yellow
+  else if (lowerMatch === "good")
+    return "var(--success)"; // Green
   else if (lowerMatch === "perfect") return "var(--primary-blue)"; // Primary
   return "var(--text-secondary)"; // Grey
 }
@@ -33,7 +36,7 @@ function getPassedTime(createdAt) {
   const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
   const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
   const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-  
+
   if (diffInMinutes < 60) {
     return `${diffInMinutes}min ago`;
   } else if (diffInHours < 24) {
@@ -45,16 +48,14 @@ function getPassedTime(createdAt) {
 
 // show or hide DOM elements
 function hideElement(element) {
-  const el =
-    typeof element === "string" ? document.querySelector(element) : element;
+  const el = typeof element === "string" ? document.querySelector(element) : element;
   if (el) {
     el.style.display = "none";
   }
 }
 
 function showElement(element, displayStyle = "block") {
-  const el =
-    typeof element === "string" ? document.querySelector(element) : element;
+  const el = typeof element === "string" ? document.querySelector(element) : element;
   if (el) {
     el.style.display = displayStyle;
   }
@@ -70,7 +71,6 @@ function capitalizeEachLetter(string) {
     .map((word) => capitalizeFirstLetter(word))
     .join(" ");
 }
-
 
 function loadComponents(components, containerNode) {
   if (!containerNode) return;
@@ -92,9 +92,5 @@ function isUrlValid(value) {
   const v = value.trim();
   if (v === "") return true; // empty string allowed (optional)
 
-  return (
-    /^https?:\/\//i.test(v) ||
-    /^[\w.-]+\.[a-z]{2,}/i.test(v)
-  );
+  return /^https?:\/\//i.test(v) || /^[\w.-]+\.[a-z]{2,}/i.test(v);
 }
-

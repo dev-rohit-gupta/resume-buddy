@@ -37,38 +37,36 @@ export async function suggestionService(userId: string, jobData: AIInput) {
     throw new ApiError(500, "Failed to analyze the job");
   }
 
-const isGoodMatch =
-  analysisResult.stats.match === "Good" ||
-  analysisResult.stats.match === "Perfect";
+  const isGoodMatch =
+    analysisResult.stats.match === "Good" || analysisResult.stats.match === "Perfect";
 
-if (isGoodMatch) {
-  const now = new Date();
+  if (isGoodMatch) {
+    const now = new Date();
 
-  const stats = await JobStatsModel.findOne({ user: userId }).lean();
-  const sameWeek = stats && isSameWeek(now, stats.updatedAt);
+    const stats = await JobStatsModel.findOne({ user: userId }).lean();
+    const sameWeek = stats && isSameWeek(now, stats.updatedAt);
 
-  await JobStatsModel.updateOne(
-    { user: userId },
-    sameWeek
-      ? {
-          $inc: {
-            totalMatched: 1,
-            thisWeekMatched: 1,
+    await JobStatsModel.updateOne(
+      { user: userId },
+      sameWeek
+        ? {
+            $inc: {
+              totalMatched: 1,
+              thisWeekMatched: 1,
+            },
+          }
+        : {
+            $inc: {
+              totalMatched: 1,
+            },
+            $set: {
+              previousWeekMatched: stats?.thisWeekMatched ?? 0,
+              thisWeekMatched: 1,
+            },
           },
-        }
-      : {
-          $inc: {
-            totalMatched: 1,
-          },
-          $set: {
-            previousWeekMatched: stats?.thisWeekMatched ?? 0,
-            thisWeekMatched: 1,
-          },
-        },
-    { upsert: true }
-  );
-}
-
+      { upsert: true }
+    );
+  }
 
   // create a new suggestion document
   const suggestion = new SuggestionModel({

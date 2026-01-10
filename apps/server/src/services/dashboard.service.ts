@@ -2,9 +2,9 @@ import { getCareerStatsService } from "./CareerInsights.service.js";
 import { getResumeByUserIdService } from "./resume.service.js";
 
 /**
- * 
- * @param userId 
- * @returns 
+ *
+ * @param userId
+ * @returns
  */
 export async function getDashboardDataService(userId: string) {
   const [resume, careerInsights] = await Promise.all([
@@ -13,7 +13,7 @@ export async function getDashboardDataService(userId: string) {
   ]);
 
   return {
-    user : careerInsights?.user,
+    user: careerInsights?.user,
     resume: {
       url: resume.url,
       version: resume.version,
@@ -31,4 +31,3 @@ export async function getDashboardDataService(userId: string) {
     },
   };
 }
-

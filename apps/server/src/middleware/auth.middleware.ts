@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { verifyAccessToken ,getToken } from "@resume-buddy/utils";
+import { verifyAccessToken, getToken } from "@resume-buddy/utils";
 
 export async function requireAuth(req: Request, res: Response, next: NextFunction) {
   const token = getToken(req);
@@ -21,14 +21,8 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function requireGuest(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const token =
-    req.cookies?.accessToken ||
-    req.headers.authorization?.split(" ")[1];
+export async function requireGuest(req: Request, res: Response, next: NextFunction) {
+  const token = req.cookies?.accessToken || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     return next(); // guest allowed

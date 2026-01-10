@@ -1,4 +1,3 @@
-
 function createList(items = []) {
   const html = `
     <ul class="skill-list">
@@ -616,11 +615,11 @@ async function initOpportunityFormLogic(form) {
         sourceURL: form.querySelector("#sourceURL").value,
       },
     };
-    if(isUrlValid(payload.companyInfo.website) === false) {
+    if (isUrlValid(payload.companyInfo.website) === false) {
       alert("Please enter a valid Company Website URL or leave it blank.");
       return;
     }
-    if(isUrlValid(payload.rawData.sourceURL) === false) {
+    if (isUrlValid(payload.rawData.sourceURL) === false) {
       alert("Please enter a valid Source URL.");
       return;
     }
@@ -633,7 +632,6 @@ async function initOpportunityFormLogic(form) {
     const response = await analyzeOpportunity(jsonString);
     // Handle response
 
- 
     if (!response.success) {
       submitButton.disabled = false;
       removeLoader(form);
@@ -670,7 +668,6 @@ function removeOpportunityAnalysisForm(container) {
   if (formElement) formElement.remove();
 }
 
-
 // show ai results on popup
 function createOpportunityAnalysisResults(response) {
   const html = `
@@ -700,13 +697,15 @@ function createOpportunityAnalysisResults(response) {
       ["Difficulty", response.stats.difficulty],
       ["Competition", response.stats.competitionLevel],
       ["Match", response.stats.match],
-    ].map(
-      ([label, value]) => `
+    ]
+      .map(
+        ([label, value]) => `
       <div class="bg-white p-3 rounded-xl border border-slate-100 shadow-sm text-center">
         <p class="text-[10px] uppercase font-bold text-slate-400 mb-1">${label}</p>
         <p class="text-sm font-bold text-slate-700">${value}</p>
       </div>`
-    ).join("")}
+      )
+      .join("")}
 
     <div class="bg-white p-3 rounded-xl border border-slate-100 shadow-sm text-center">
       <p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Apply Now?</p>
@@ -741,14 +740,18 @@ function createOpportunityAnalysisResults(response) {
     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
 
       <div class="flex flex-wrap gap-2 mb-4">
-        ${response.skillGapAnalysis.matchedSkills.map(
-          s => `<span class="px-3 py-1 bg-green-100 text-green-700 text-[11px] font-bold rounded-full">${s}</span>`
-        ).join("")}
+        ${response.skillGapAnalysis.matchedSkills
+          .map(
+            (s) =>
+              `<span class="px-3 py-1 bg-green-100 text-green-700 text-[11px] font-bold rounded-full">${s}</span>`
+          )
+          .join("")}
       </div>
 
       <div class="space-y-3">
-        ${response.skillGapAnalysis.missingSkills.map(
-          m => `
+        ${response.skillGapAnalysis.missingSkills
+          .map(
+            (m) => `
           <div class="flex items-start gap-3 p-3 bg-red-50 rounded-lg border border-red-100">
             <span class="px-2 py-0.5 bg-red-200 text-red-700 text-[9px] font-black uppercase mt-1">
               ${m.priority}
@@ -758,7 +761,8 @@ function createOpportunityAnalysisResults(response) {
               <p class="text-[11px] text-slate-600 italic">${m.whyItMatters}</p>
             </div>
           </div>`
-        ).join("")}
+          )
+          .join("")}
       </div>
 
     </div>
@@ -771,8 +775,9 @@ function createOpportunityAnalysisResults(response) {
       Must Learn First
     </h3>
 
-    ${response.learningPlan.mustLearnFirst.map(
-      l => `
+    ${response.learningPlan.mustLearnFirst
+      .map(
+        (l) => `
       <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r-lg flex justify-between items-center mb-3">
         <div>
           <p class="text-sm font-bold text-blue-900">${l.skill}</p>
@@ -782,7 +787,8 @@ function createOpportunityAnalysisResults(response) {
           ${l.estimatedTime}
         </span>
       </div>`
-    ).join("")}
+      )
+      .join("")}
   </section>
 
   <!-- RESUME ACTIONS -->
@@ -793,25 +799,26 @@ function createOpportunityAnalysisResults(response) {
     </h3>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      ${["add", "improve", "remove"].map(type => {
-        const list = response.resumeActions[type] || [];
-        return `
+      ${["add", "improve", "remove"]
+        .map((type) => {
+          const list = response.resumeActions[type] || [];
+          return `
         <div class="space-y-3">
           <p class="text-[10px] font-black uppercase tracking-widest
             ${type === "add" ? "text-green-400" : type === "improve" ? "text-yellow-400" : "text-red-400"}">
             ${type}
           </p>
           <ul class="text-[11px] space-y-2 text-slate-300">
-            ${list.length ? list.map(i => `<li>• ${i}</li>`).join("") : `<li class="opacity-50">Nothing</li>`}
+            ${list.length ? list.map((i) => `<li>• ${i}</li>`).join("") : `<li class="opacity-50">Nothing</li>`}
           </ul>
         </div>`;
-      }).join("")}
+        })
+        .join("")}
     </div>
   </section>
 
 </div>
 `;
-
 
   return htmlToElements(html);
 }

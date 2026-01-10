@@ -1,61 +1,79 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Join Our Platform</title>
-  <link rel="stylesheet" href="../css/variable.css" />
-  <link rel="stylesheet" href="../css/global.css" />
-  <link rel="stylesheet" href="../css/signup.css" />
-</head>
-<body>
-  <div class="page">
-    <div class="card">
-      <div class="card-left">
-        <p class="step-text">Personal Details</p>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Join Our Platform</title>
+    <link rel="stylesheet" href="../css/variable.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/signup.css" />
+  </head>
+  <body>
+    <div class="page">
+      <div class="card">
+        <div class="card-left">
+          <p class="step-text">Personal Details</p>
 
-        <form class="signup-form" method="post">
-          <h2 class="title">Join Our Platform</h2>
+          <form class="signup-form" method="post">
+            <h2 class="title">Join Our Platform</h2>
 
-          <div class="input-group">
-            <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="name" placeholder="Enter your full name" required />
-          </div>
+            <div class="input-group">
+              <label for="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                name="name"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
 
-          <div class="input-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required />
-          </div>
+            <div class="input-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            </div>
 
-          <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Create a password" required />
-          </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a password"
+                required
+              />
+            </div>
 
-          <div class="input-group">
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required />
-          </div>
+            <div class="input-group">
+              <label for="confirm_password">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                placeholder="Confirm your password"
+                required
+              />
+            </div>
 
-          <div class="upload-section">
-            <h3 class="upload-title">Submit Your Application</h3>
-            <p class="upload-subtitle">
-              Please upload your resume in <strong>PDF</strong> or DOCX format only.
-            </p>
-            
+            <div class="upload-section">
+              <h3 class="upload-title">Submit Your Application</h3>
+              <p class="upload-subtitle">
+                Please upload your resume in <strong>PDF</strong> or DOCX format only.
+              </p>
+
               <label for="resumeUpload" class="upload-dropzone">
                 <span id="dropText" class="drop-main-text">
                   Drop your resume here or click to upload
                 </span>
-  
+
                 <span class="drop-sub-text"> PDF or DOCX (max 3MB) </span>
-  
+
                 <input type="file" name="file" id="resumeUpload" accept=".pdf,.docx" required />
               </label>
-  
+
               <button type="button" id="fileNameBtn" class="file-name-btn">
                 selected: no file chosen
               </button>
-  
+
               <button type="submit" class="btn-submit-resume">Submit Resume</button>
             </div>
           </form>
@@ -70,7 +88,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <script src="../js/signup.js"></script>
-</body>
+    <script src="../js/signup.js"></script>
+  </body>
 </html>

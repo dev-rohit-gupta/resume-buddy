@@ -67,7 +67,7 @@ export async function updateResumeService(userId: string, partialData: Partial<R
       extension: merged.extension,
       resourceType: merged.resourceType,
       id: merged.id,
-      ...careerProfile
+      ...careerProfile,
     },
   };
 
@@ -84,7 +84,7 @@ export async function updateResumeService(userId: string, partialData: Partial<R
       version: 1,
       id: 1,
       extension: 1,
-      resourceType: 1
+      resourceType: 1,
     },
   })
     .select("id content extension resourceType version")
@@ -149,7 +149,7 @@ export async function updateResumeFileService(userId: string, file: Express.Mult
         version: 1,
         id: 1,
         extension: 1,
-        resourceType: 1
+        resourceType: 1,
       },
     }
   )

@@ -35,7 +35,7 @@ app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);
 
 /* -------------------- FRONTEND ROUTES INFO -------------------- */
-// Define protected prefixes 
+// Define protected prefixes
 const protectedPrefixes = ["dashboard"];
 // Define guest-only pages
 const guestOnlyPages = new Set(["login", "signup"]);

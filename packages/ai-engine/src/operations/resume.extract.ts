@@ -1,6 +1,6 @@
 import { createGeminiClient } from "../client/gemini.client.js";
 import { runEngine } from "../engine/run.engine.js";
-import { ResumeSchema ,Resume } from "@resume-buddy/schemas";
+import { ResumeSchema, Resume } from "@resume-buddy/schemas";
 import { AI_ENGINE_CONFIG } from "../ai-engine.config.js";
 import { SYSTEM_INSTRUCTION } from "../prompts/system.prompt.js";
 import { EngineInput } from "@resume-buddy/schemas";
@@ -13,7 +13,7 @@ export async function analyzeResume(
 ) {
   // create Gemini AI client
   const ai = createGeminiClient();
-  
+
   if (!text && !file && !metadata) {
     throw new Error("one parameter is required");
   }

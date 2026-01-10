@@ -1,62 +1,62 @@
-const fileInput = document.getElementById('resumeUpload');
-    const fileNameBtn = document.getElementById('fileNameBtn');
-    const dropText = document.getElementById('dropText');
-    const form = document.querySelector('form.signup-form');
+const fileInput = document.getElementById("resumeUpload");
+const fileNameBtn = document.getElementById("fileNameBtn");
+const dropText = document.getElementById("dropText");
+const form = document.querySelector("form.signup-form");
 
-    fileInput.addEventListener('change', function () {
-      const file = this.files[0];
+fileInput.addEventListener("change", function () {
+  const file = this.files[0];
 
-      if (!file) {
-        fileNameBtn.textContent = 'selected: no file chosen';
-        dropText.textContent = 'Drop your resume here or click to upload';
-        return;
-      }
+  if (!file) {
+    fileNameBtn.textContent = "selected: no file chosen";
+    dropText.textContent = "Drop your resume here or click to upload";
+    return;
+  }
 
-      const fileName = file.name;
-      const fileSize = file.size; 
-      const ext = fileName.split('.').pop().toLowerCase();
+  const fileName = file.name;
+  const fileSize = file.size;
+  const ext = fileName.split(".").pop().toLowerCase();
 
-      const allowed = ['pdf', 'docx'];
+  const allowed = ["pdf", "docx"];
 
-      if (!allowed.includes(ext)) {
-        alert('Only PDF or DOCX files are allowed.');
-        this.value = '';
-        fileNameBtn.textContent = 'selected: no file chosen';
-        dropText.textContent = 'Drop your resume here or click to upload';
-        return;
-      }
+  if (!allowed.includes(ext)) {
+    alert("Only PDF or DOCX files are allowed.");
+    this.value = "";
+    fileNameBtn.textContent = "selected: no file chosen";
+    dropText.textContent = "Drop your resume here or click to upload";
+    return;
+  }
 
-      const maxSize = 3 * 1024 * 1024;
-      if (fileSize > maxSize) {
-        alert('File is too large. Maximum size is 3MB.');
-        this.value = '';
-        fileNameBtn.textContent = 'selected: no file chosen';
-        dropText.textContent = 'Drop your resume here or click to upload';
-        return;
-      }
+  const maxSize = 3 * 1024 * 1024;
+  if (fileSize > maxSize) {
+    alert("File is too large. Maximum size is 3MB.");
+    this.value = "";
+    fileNameBtn.textContent = "selected: no file chosen";
+    dropText.textContent = "Drop your resume here or click to upload";
+    return;
+  }
 
-      fileNameBtn.textContent = 'selected: ' + fileName;
-      dropText.textContent = 'File ready to upload';
-    });
+  fileNameBtn.textContent = "selected: " + fileName;
+  dropText.textContent = "File ready to upload";
+});
 
-    form.addEventListener('submit',async function (e) {
-      e.preventDefault();
-      if (!fileInput.files[0]) {
-        alert('Please select a resume file before submitting.');
-        return;
-      }
-     const form = e.target;
-     const formData = new FormData(form);
-     
-     const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        body: formData
-     });
-      if (response.ok) {
-        window.location.href = '/login';
-        return;
-      } else {
-        const errorData = await response.json();
-        alert('Error: ' + (errorData.message || 'Signup failed.'));
-      }
-    });
+form.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  if (!fileInput.files[0]) {
+    alert("Please select a resume file before submitting.");
+    return;
+  }
+  const form = e.target;
+  const formData = new FormData(form);
+
+  const response = await fetch("/api/auth/signup", {
+    method: "POST",
+    body: formData,
+  });
+  if (response.ok) {
+    window.location.href = "/login";
+    return;
+  } else {
+    const errorData = await response.json();
+    alert("Error: " + (errorData.message || "Signup failed."));
+  }
+});

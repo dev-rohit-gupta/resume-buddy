@@ -1,8 +1,4 @@
-
-async function fetchData(
-  url,
-  { method = "GET", headers = {}, body = null } = {}
-) {
+async function fetchData(url, { method = "GET", headers = {}, body = null } = {}) {
   const response = await fetch(url, {
     method,
     headers: {

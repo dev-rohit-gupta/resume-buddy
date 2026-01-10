@@ -10,7 +10,7 @@ export const getUserProfileController = asyncHandler(async (req: Request, res: R
     throw new Error("User ID not found in request");
   }
   const userProfile = await getUserProfileService(userId);
-  res.status(200).json(new ApiResponse({ user : userProfile }, "User profile fetched successfully"));
+  res.status(200).json(new ApiResponse({ user: userProfile }, "User profile fetched successfully"));
 });
 
 export const updateUserProfileController = asyncHandler(async (req: Request, res: Response) => {
@@ -20,5 +20,7 @@ export const updateUserProfileController = asyncHandler(async (req: Request, res
     throw new Error("User ID not found in request");
   }
   const updatedProfile = await updateUserProfileService(userId, updateData);
-  res.status(200).json(new ApiResponse({ user : updatedProfile }, "User profile updated successfully"));
+  res
+    .status(200)
+    .json(new ApiResponse({ user: updatedProfile }, "User profile updated successfully"));
 });

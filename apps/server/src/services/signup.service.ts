@@ -56,8 +56,8 @@ export async function signupService({ name, email, password, avatar, resume }: S
   const newResume = new ResumeModel({
     user: newUser._id,
     id: resumeInfoFromCloudinary.id,
-    resourceType :resumeInfoFromCloudinary.resourceType ,
-    extension : resumeInfoFromCloudinary.extension,
+    resourceType: resumeInfoFromCloudinary.resourceType,
+    extension: resumeInfoFromCloudinary.extension,
     content: resumeData,
     version: 1,
     ...careerProfile,

@@ -72,7 +72,7 @@ export const AIInputSchema = z
       certificate: z.boolean(),
       letterOfRecommendation: z.boolean(),
       jobOffer: z.boolean(),
-      flexibleHours: z.boolean()
+      flexibleHours: z.boolean(),
     }),
 
     companyInfo: z.object({

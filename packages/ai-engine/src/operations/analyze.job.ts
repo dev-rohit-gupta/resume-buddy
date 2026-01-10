@@ -7,7 +7,7 @@ import { SYSTEM_INSTRUCTION } from "../prompts/system.prompt.js";
 import { EngineInput } from "@resume-buddy/schemas";
 import { safeParseAIJson } from "@resume-buddy/utils";
 
-export async function analyzeJob(user: User , jobData: AIInput): Promise<AIOutput> {
+export async function analyzeJob(user: User, jobData: AIInput): Promise<AIOutput> {
   // create Gemini AI client
   const ai = createGeminiClient();
   // validate input first
@@ -15,7 +15,7 @@ export async function analyzeJob(user: User , jobData: AIInput): Promise<AIOutpu
   // prepare inputs for the engine
   const inputs: EngineInput[] = [
     { type: "text", value: JSON.stringify(validatedInput) },
-    {type:"metadata", value: user}
+    { type: "metadata", value: user },
   ];
   const result = await runEngine({
     ai,

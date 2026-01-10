@@ -15,5 +15,4 @@ router.route("/signup").post(uploader.single("file"), signupController);
 // POST /api/users/logout
 router.route("/logout").post(logoutController);
 
-
 export default router;

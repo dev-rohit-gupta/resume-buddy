@@ -9,12 +9,9 @@ import {
 const router = Router();
 
 // Get resume & Update resume content
-router.route("/")
-.get(getResumeController)
-.put(updateResumeController);
+router.route("/").get(getResumeController).put(updateResumeController);
 
 // Update resume file
-router.route("/file")
-.put(uploader.single("file"), updateResumeFileController);
+router.route("/file").put(uploader.single("file"), updateResumeFileController);
 
 export default router;

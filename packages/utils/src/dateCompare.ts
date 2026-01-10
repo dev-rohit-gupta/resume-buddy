@@ -6,8 +6,5 @@ export function isSameWeek(dateA: Date, dateB: Date) {
     return new Date(date.setDate(diff));
   };
 
-  return (
-    startOfWeek(dateA).toDateString() ===
-    startOfWeek(dateB).toDateString()
-  );
+  return startOfWeek(dateA).toDateString() === startOfWeek(dateB).toDateString();
 }

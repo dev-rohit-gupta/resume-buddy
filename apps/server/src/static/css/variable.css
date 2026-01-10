@@ -5,7 +5,7 @@
   --primary-teal: #4fd1c5;
   --primary-teal-hover: #38b2ac;
   --primary-teal-light: #cffbf3;
-  
+
   /* ========== BACKGROUND COLORS ========== */
   --bg-gradient-start: #e3f0ff;
   --bg-gradient-end: #c2d6ff;
@@ -15,7 +15,7 @@
   --bg-glass: rgba(255, 255, 255, 0.9);
   --bg-glass-dark: rgba(0, 0, 0, 0.1);
   --bg-upload: #f8fbff;
-  
+
   /* ========== TEXT COLORS ========== */
   --text-primary: #0f172a;
   --text-secondary: #64748b;
@@ -30,7 +30,7 @@
   --text-placeholder: #282828;
   --text-footer: #747474;
   --text-time: #9ca3af;
-  
+
   /* ========== BLUE SHADES ========== */
   --blue-50: #f8fbff;
   --blue-100: #e0edff;
@@ -41,13 +41,13 @@
   --blue-600: #2563eb;
   --blue-700: #1d4ed8;
   --blue-text: rgb(77, 77, 214);
-  
+
   /* ========== STATUS COLORS ========== */
   --success: #16a34a;
   --warning: #eab308;
   --error: #ef4444;
   --danger: #dc2626;
-  
+
   /* ========== BORDER COLORS ========== */
   --border-light: #e4e9f2;
   --border-lighter: #edf1f7;
@@ -55,7 +55,7 @@
   --border-dashed: #cbd5f5;
   --border-white: #ffffff91;
   --border-default: #e5e7eb;
-  
+
   /* ========== SHADOW COLORS ========== */
   --shadow-sm: 0 6px 14px rgba(15, 23, 42, 0.08);
   --shadow-md: 0 8px 18px rgba(15, 23, 42, 0.08);
@@ -63,11 +63,11 @@
   --shadow-xl: 0 18px 45px rgba(0, 0, 0, 0.06);
   --shadow-2xl: 0 20px 40px rgba(15, 23, 42, 0.15);
   --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.08);
-  
+
   /* ========== GRADIENT COLORS ========== */
   --gradient-side-strip: linear-gradient(120deg, #f5f7fa, #5fa9f8);
   --gradient-radial: radial-gradient(circle at top, #e3f0ff, #c2d6ff);
-  
+
   /* ========== NEUTRAL GRAYS ========== */
   --gray-50: #f9fbff;
   --gray-100: #f5f7fa;
@@ -79,10 +79,10 @@
   --gray-700: #64748b;
   --gray-800: #475569;
   --gray-900: #222b45;
-  
+
   /* ========== OPACITY VARIANTS ========== */
   --opacity-circle: 0.15;
-  
+
   /* ========== SIZING ========== */
   --border-radius-sm: 8px;
   --border-radius-md: 10px;
@@ -92,7 +92,7 @@
   --border-radius-3xl: 20px;
   --border-radius-4xl: 24px;
   --border-radius-full: 999px;
-  
+
   /* ========== SPACING ========== */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -102,11 +102,11 @@
   --spacing-2xl: 24px;
   --spacing-3xl: 32px;
   --spacing-4xl: 40px;
-  
+
   /* ========== TYPOGRAPHY ========== */
   --font-family-primary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --font-family-system: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  
+
   --font-size-xs: 11px;
   --font-size-sm: 12px;
   --font-size-base: 13px;
@@ -118,12 +118,12 @@
   --font-size-4xl: 22px;
   --font-size-5xl: 24px;
   --font-size-6xl: 32px;
-  
+
   /* ========== TRANSITIONS ========== */
   --transition-fast: 0.15s ease;
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
-  
+
   /* ========== Z-INDEX ========== */
   --z-drawer: 999;
   --z-modal: 1000;

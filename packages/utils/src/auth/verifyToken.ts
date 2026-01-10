@@ -1,9 +1,7 @@
 import { jwtVerify } from "jose";
 
 export async function verifyAccessToken(token: string) {
-  const secret = new TextEncoder().encode(
-    process.env.ACCESS_TOKEN_SECRET!
-  );
+  const secret = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET!);
 
   const { payload } = await jwtVerify<{
     id: string;
@@ -13,9 +11,5 @@ export async function verifyAccessToken(token: string) {
   return payload;
 }
 export function getToken(req: any) {
-  return (
-    req.cookies?.accessToken ||
-    req.headers.authorization?.split(" ")[1]
-  );
+  return req.cookies?.accessToken || req.headers.authorization?.split(" ")[1];
 }
-
