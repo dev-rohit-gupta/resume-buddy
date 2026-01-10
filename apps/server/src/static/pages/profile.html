@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resume Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LEFT USER INFO -->
+  <div class="profile">
+    <div class="avatar">RG</div>
+
+    <label>Full Name</label>
+    <input value="Rohit Gupta">
+
+    <label>Email</label>
+    <input value="rohit@pro.dev">
+
+    <button class="btn">Save Profile</button>
+  </div>
+
+  <!-- RIGHT RESUME EDITOR -->
+  <div class="editor">
+
+    <div class="editor-header">
+      <h2>Resume Editor</h2>
+      <div class="actions">
+        <button class="btn" style="width:auto;padding:8px 16px;">Save Resume</button>
+        <div class="ats">ATS Score: 95</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" onclick="openTab('basics')">Basics</div>
+      <div class="tab" onclick="openTab('summary')">Summary</div>
+      <div class="tab" onclick="openTab('experience')">Experience</div>
+      <div class="tab" onclick="openTab('projects')">Projects</div>
+      <div class="tab" onclick="openTab('skills')">Skills</div>
+    </div>
+
+    <!-- BASICS -->
+    <div id="basics" class="tab-content active">
+      <div class="grid">
+        <div class="card">
+          <h4>Name</h4>
+          <input class="input" value="Rohit Gupta">
+        </div>
+
+        <div class="card">
+          <h4>Email</h4>
+          <input class="input" value="rohit@pro.dev">
+        </div>
+
+        <div class="card">
+          <h4>Phone</h4>
+          <input class="input" value="+91 8007977850">
+        </div>
+
+        <div class="card">
+          <h4>Location</h4>
+          <input class="input" value="Amravati, Maharashtra">
+        </div>
+
+        <div class="card">
+          <h4>Experience</h4>
+          <p class="muted">Content Creator at ShyamStack</p>
+        </div>
+
+        <div class="card">
+          <h4>Projects</h4>
+          <p class="muted">Full-Stack Micro-SaaS Auto Response</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div id="summary" class="tab-content">
+      <div class="card">
+        <h4>Professional Summary</h4>
+        <textarea rows="6">
+Full-Stack Developer & Open Source Contributor with strong MERN & Next.js experience. Passionate about scalable backend systems.
+        </textarea>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div id="experience" class="tab-content">
+      <div class="card">
+        <h4>Content Creator – ShyamStack</h4>
+        <p>2025 – Present</p>
+        <textarea rows="4">
+Created technical content, tutorials, and guided students on modern web technologies.
+        </textarea>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div id="projects" class="tab-content">
+      <div class="card">
+        <h4>Full-Stack Micro-SaaS Auto Response</h4>
+        <textarea rows="4">
+Built scalable backend using Redis, BullMQ, Docker, and Node.js.
+        </textarea>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div id="skills" class="tab-content">
+      <div class="skills">
+        <div class="skill">Node.js</div>
+        <div class="skill">React</div>
+        <div class="skill">Next.js</div>
+        <div class="skill">Docker</div>
+        <div class="skill">Redis</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+    event.target.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
