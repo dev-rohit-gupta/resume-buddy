@@ -15,7 +15,7 @@ async function fetchData(
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || `HTTP ${response.status}`);
+    console.error("API Error:", error);
   }
 
   return response.json();
@@ -29,3 +29,11 @@ const getAnalysedJobs = async (limit = 10) => {
   const data = await fetchData(`/api/users/me/suggestions?limit=${limit}`);
   return data;
 };
+
+async function analyzeOpportunity(formData) {
+  const data = await fetchData("/api/users/me/suggestions/generate", {
+    method: "POST",
+    body: formData,
+  });
+  return data;
+}
