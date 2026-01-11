@@ -19,14 +19,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="../css/variable.css" />
-    <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="/css/variable.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
 
     <!-- JS files  -->
-    <script src="../js/api.js"></script>
-    <script src="../js/helper.js"></script>
-    <script src="../js/components.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/helper.js"></script>
+    <script src="/js/components.js"></script>
 
     <!-- Tailwind css -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,7 +48,21 @@
           </div>
           <div class="top-user">
             <span class="user-name">Ankita Sharma</span>
-            <img src="/assets/defaulat-avatar.png" class="avatar" alt="User" />
+
+            <div class="dropdown">
+              <img
+                src="/assets/default-avatar.png"
+                class="avatar"
+                class="btn btn-secondary dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                alt="User"
+              />
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
+              </ul>
+            </div>
           </div>
         </header>
 
@@ -60,14 +74,49 @@
           <section class="jobs">
             <div class="jobs-header">
               <h2>Analyzed Opportunities</h2>
-              <input type="text" placeholder="Search opportunities..." class="search" />
+              <div class="search-bar" id="opportunitySearchForm">
+                <input
+                  id="opportunitySearch"
+                  type="text"
+                  placeholder="Search opportunities..."
+                  class="search"
+                />
+                <button
+                  type="button"
+                  id="opportunitySearchBtn"
+                  class="search-button border-none bg-transparent outline-none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-search-icon lucide-search"
+                  >
+                    <path d="m21 21-4.34-4.34" />
+                    <circle cx="11" cy="11" r="8" />
+                  </svg>
+                </button>
+              </div>
             </div>
             <!-- The Opportunities card will load here -->
+            <div class="opportunities"></div>
+
+            <nav aria-label="pagination" class="pagination-container">
+              <!-- Pagination will load here -->
+            </nav>
           </section>
 
           <aside class="right">
             <section class="card" id="skills-gap-list">
-              <h3>Skill Gaps</h3>
+              <h3 class="sub-title">Skills to become:</h3>
+              <h2 class="role-title">Next Best Fit Role</h2>
+              <!-- Skills gap list will load here -->
             </section>
           </aside>
         </div>

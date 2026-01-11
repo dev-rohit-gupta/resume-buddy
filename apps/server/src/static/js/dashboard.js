@@ -4,24 +4,45 @@ function loadStats(stats, containerSelector = "#stats-container") {
   const jobMatchCard = createJobMatchCard(stats.jobStats.thisWeek);
   const skillsGapCard = createSkillsGapCard(stats.career.skillGaps);
   const bestRoleCard = createBestRoleCard(stats.career.bestRole);
+  const nextBestRoleCard = createNextBestRoleCard(stats.career.nearestNextRole);
+  
+  let container;
+  if (typeof containerSelector === "string") {
+    container = document.querySelector(containerSelector);
+  } else {
+    container = containerSelector;
+  }
+  // Clear existing content
+  container.innerHTML = "";
   //Load components into the container
-  loadComponents([atsCard, jobMatchCard, skillsGapCard, bestRoleCard], containerSelector);
+  
+  loadComponents([atsCard, jobMatchCard, bestRoleCard ,nextBestRoleCard], containerSelector);
 }
-function loadAnalysedJobs(jobs, containerSelector = "section.jobs") {
+function loadAnalysedJobs(jobs, containerSelector = "section.jobs .opportunities") {
   const container = document.querySelector(containerSelector);
+  // Clear existing content
+  container.innerHTML = "";
   const jobElements = jobs.suggestions.suggestions.map(({ job, aiResponse, createdAt }) => {
-    return createAnalysedJobCard({
+    const card = createAnalysedJobCard({
       title: job.meta.title,
       company: job.meta.companyName,
       skills: job.skills.required.map((s) => s.name),
       match: aiResponse.stats.match,
       createdAt,
     });
+    const contentWrapper = document.querySelector("#analyzeModal  #contentWrapper");
+    // Add event listener to open modal on click
+    card.addEventListener("click", () => {
+      insertOpportunityAnalysisResults(aiResponse, contentWrapper);
+    });
+    return card;
   });
   loadComponents(jobElements, container);
 }
-function loadSkillGapsList(skills, containerSelector = "#skills-gap-list") {
+function loadSkillGapsList(skills,nearestRole, containerSelector = "#skills-gap-list") {
   const container = document.querySelector(containerSelector);
+  const titleElement = container.querySelector(".role-title");
+  titleElement.textContent = capitalizeEachLetter(nearestRole);
   const listComponent = createList(skills);
   container.appendChild(listComponent);
 }
@@ -32,7 +53,7 @@ function showNoOpportunitiesMessage() {
     title: "No analyzed opportunities",
     message: "Click the + button to analyze how well an opportunity fits your resume.",
   });
-  loadComponents(noResultsElement, "section.jobs");
+  loadComponents(noResultsElement, "section.jobs .opportunities");
 }
 function setDashboardInfo(user) {
   const userNameElement = document.querySelector(".top-user > span.user-name");
@@ -51,133 +72,33 @@ async function handleOpportunityAnalysis(event) {
   const form = event.target;
 }
 
-const response = {
-  success: true,
-  message: "Job analyzed successfully",
-  data: {
-    analysisResult: {
-      stats: {
-        difficulty: "Beginner",
-        learningFocused: true,
-        competitionLevel: "High",
-        match: "Low",
-      },
-      atsAnalysis: {
-        atsScore: 45,
-        selectionProbability: "Low",
-        reasons: [
-          "Missing specific keywords related to stock market analysis, financial modeling, and valuation.",
-          "Resume heavily focused on software development, with limited direct experience in finance or stock markets.",
-          "Required skills like 'Stock Trading' and 'Financial modeling valuation' are not explicitly mentioned or demonstrated.",
-        ],
-      },
-      skillGapAnalysis: {
-        matchedSkills: [
-          "Adaptability",
-          "Critical thinking",
-          "Time Management",
-          "English Proficiency (Spoken)",
-        ],
-        missingSkills: [
-          {
-            skill: "Stock Trading",
-            priority: "High",
-            whyItMatters:
-              "This is a core skill for a Stock Market Analyst, directly related to the primary responsibilities of tracking and identifying investment opportunities.",
-          },
-          {
-            skill: "Financial modeling valuation",
-            priority: "High",
-            whyItMatters:
-              "Essential for analyzing company performance, forecasting future financial outcomes, and determining the intrinsic value of stocks.",
-          },
-          {
-            skill: "Business Analytics",
-            priority: "Medium",
-            whyItMatters:
-              "Helps in interpreting economic data, market trends, and company performance to make informed investment decisions.",
-          },
-          {
-            skill: "Stocks and Trading",
-            priority: "High",
-            whyItMatters:
-              "Fundamental knowledge required to understand the stock market, different types of stocks, and trading strategies.",
-          },
-          {
-            skill: "Economic data analysis",
-            priority: "High",
-            whyItMatters:
-              "Directly relates to the responsibility of studying economic data and global events to understand their impact on markets.",
-          },
-          {
-            skill: "Market indices tracking",
-            priority: "High",
-            whyItMatters: "Crucial for understanding overall market performance and sector trends.",
-          },
-          {
-            skill: "Company performance analysis",
-            priority: "High",
-            whyItMatters: "Necessary for evaluating individual stock potential.",
-          },
-        ],
-      },
-      learningPlan: {
-        mustLearnFirst: [
-          {
-            skill: "Stocks and Trading",
-            estimatedTime: "1-2 weeks",
-            impact: "Fundamental knowledge for the role.",
-          },
-          {
-            skill: "Stock Trading",
-            estimatedTime: "2-3 weeks",
-            impact: "Practical application of trading knowledge.",
-          },
-          {
-            skill: "Economic data analysis",
-            estimatedTime: "1-2 weeks",
-            impact: "Understanding market drivers.",
-          },
-        ],
-        goodToHave: [
-          "Financial modeling valuation",
-          "Business Analytics",
-          "Learn Business Communication",
-        ],
-      },
-      applicationDecision: {
-        shouldApply: false,
-        recommendation: "Apply After Preparation",
-        reasoning: [
-          "The internship is heavily focused on stock market analysis, which is not your primary area of expertise.",
-          "There is a significant skill gap in core financial and trading knowledge.",
-          "While your analytical and critical thinking skills are transferable, you lack the specific domain knowledge required for this role.",
-          "The internship duration is short (1 month), making it difficult to acquire the necessary skills and contribute effectively within that timeframe.",
-        ],
-      },
-      precautions: {
-        riskLevel: "Medium",
-        notes: [
-          "The company is a startup, which can offer great learning but also comes with inherent risks.",
-          "The internship is very short (1 month), so ensure clear expectations are set regarding deliverables and learning outcomes.",
-          "Verify the legitimacy of the 'Stock Trading' and 'Financial modeling valuation' certifications offered, as their value can vary.",
-        ],
-      },
-      resumeActions: {
-        add: [
-          "Quantify any experience related to market research, data analysis, or investment in personal projects or academic work.",
-          "Add a section for 'Financial Skills' or 'Market Analysis' if you acquire any relevant knowledge or certifications.",
-          "Tailor the summary to highlight transferable skills like analytical thinking, data interpretation, and problem-solving, even if not directly in finance.",
-        ],
-        improve: [
-          "Reframe project descriptions to emphasize any analytical or data-driven aspects, even if the core technology is software development.",
-          "Highlight any experience with data analysis tools or techniques, even if applied in a different domain.",
-        ],
-        remove: [],
-      },
-    },
-  },
-};
+async function handleSearchInput(query) {
+  setParams({ q: query });
+  window.location.reload();
+  // await initializeDashboard();
+}
+function applyPagination(metadata) {
+  const paginationContainer = document.querySelector("section.jobs .pagination-container");
+  // Clear existing pagination
+  paginationContainer.innerHTML = "";
+  const paginationComponent = createPagination(metadata);
+  paginationContainer.appendChild(paginationComponent);
+}
+
+function applyOpportunitySearchFilter() {
+  const searchInput = document.getElementById("opportunitySearch");
+  const searchBtn = document.getElementById("opportunitySearchBtn");
+  searchInput.addEventListener("keyup", (event)=>{
+    const key = event.key ;
+    if (key === "Enter"){
+      handleSearchInput(searchInput.value.trim());
+    }
+  });
+  searchBtn.addEventListener("click", (event)=>{
+    if (searchInput.value.trim() === "") return;
+    handleSearchInput(searchInput.value.trim());
+  });
+}
 
 // Initialization of the dashboard
 async function initializeDashboard() {
@@ -189,14 +110,16 @@ async function initializeDashboard() {
   loadStats(stats.data);
   setDashboardInfo(stats.data.user);
   // Fetch and load analysed jobs
-  const jobs = await getAnalysedJobs(10);
+  const jobs = await getAnalysedJobs();
   if (jobs.data.suggestions.suggestions.length === 0) {
     showNoOpportunitiesMessage();
   } else {
+    
     loadAnalysedJobs(jobs.data);
+    applyPagination(jobs.data.suggestions.meta);
   }
   // Load skill gaps list
-  loadSkillGapsList(stats.data.career.skillGaps);
+  loadSkillGapsList(stats.data.career.skillGaps, stats.data.career.nearestNextRole);
   // simulating delay of 1sec for testing loader
   await new Promise((resolve) => setTimeout(resolve, 1000));
   removeLoader(dashboard.parentElement);
@@ -205,6 +128,7 @@ async function initializeDashboard() {
   insertOpportunityAnalysisForm(contentWrapper);
   const form = contentWrapper.querySelector("#jobForm");
   await initOpportunityFormLogic(form);
+  applyOpportunitySearchFilter();
 }
 
 window.addEventListener("DOMContentLoaded", async () => {
