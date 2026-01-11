@@ -61,9 +61,22 @@ function createBestRoleCard(role) {
     content: html,
   });
 }
+function createNextBestRoleCard(role) {
+  const html = `
+    <h2 class="stat-main">
+      ${role}
+    </h2>
+    <p class="stat-footer">Next career step based on skill gap</p>
+  `;
+  
+  return createStatCard({
+    title: "Next Best Fit Role",
+    content: html,
+  });
+}
 function createAnalysedJobCard({ title, company, skills, match, createdAt }) {
   const html = `
-    <div class="job-card">
+    <div class="job-card" data-bs-toggle="modal" data-bs-target="#analyzeModal">
           <div class="job-main">
             <div class="job-icon">${title.charAt(0)}</div>
             <div>
@@ -76,7 +89,7 @@ function createAnalysedJobCard({ title, company, skills, match, createdAt }) {
           </div>
           <div class="job-meta">
             <div class="align">
-                <span class="badge" style="background-color: ${getMatchColor(match)};">${match} match &gt;</span>
+                <span class="badge" style="background-color: ${getMatchColor(match)};">${match} match</span>
             </div>
             <span class="time">${getPassedTime(createdAt)}</span>
           </div>
@@ -91,11 +104,11 @@ function createNoResultsMessageElement({
   const html = `<div class="text-center py-5">
               <img
                 src="../assets/${illustration}"
-                class="img-fluid mb-4"
+                class="img-fluid mx-auto"
                 style="max-width: 280px"
               />
 
-              <h5>${title}</h5>
+              <h5 class="mb-2 font-semibold">${title}</h5>
               <p class="text-muted small">
                 ${message}
               </p>
@@ -846,4 +859,28 @@ function showFooter(display) {
 }
 function hideFooter() {
   showFooter("none");
+}
+
+// pagination components
+function createPagination({ page, totalPages ,hasNextPage, hasPrevPage}) {
+  const html = `
+      <ul class="pagination">
+        <li class="page-item ${hasPrevPage ? "" : "disabled"}">
+          <a href="/dashboard?page=${page - 1}" class="page-link" data-page="${page - 1}">Previous</a>
+        </li>
+        ${Array.from({ length: totalPages }, (_, i) => i + 1)
+          .map(
+            (pageNumber) => `
+          <li class="page-item ${pageNumber === page ? "active" : ""}">
+            <a href="/dashboard?page=${pageNumber}" class="page-link" data-page="${pageNumber}">${pageNumber}</a>
+          </li>
+        `
+          )
+          .join("")}
+        <li class="page-item ${hasNextPage ? "" : "disabled"}">
+          <a href="/dashboard?page=${page + 1}" class="page-link" data-page="${page + 1}">Next</a>
+        </li>
+      </ul>
+    `;
+  return htmlToElements(html)[0];
 }
