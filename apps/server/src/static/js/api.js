@@ -9,12 +9,13 @@ async function fetchData(url, { method = "GET", headers = {}, body = null } = {}
     credentials: "include", // Include cookies for authentication
   });
 
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    console.error("API Error:", error);
+  const data = await response.json().catch(() => ({}));
+
+  if (!data.success) {
+    console.error("API Error:", data);
   }
 
-  return response.json();
+  return data;
 }
 async function logout() {
   await fetch("/api/auth/logout", {
@@ -46,10 +47,21 @@ function setParams(params) {
   window.history.replaceState({}, "", url.toString());
 }
 
+async function getResume(){
+  const response = await fetchData("/api/users/me/resume");
+  return response;
+}
+async function updateResume(formData) {
+  const response = await fetchData("/api/users/me/resume", {
+    method: "PUT",
+    body: formData,
+  });
+  return response;
+}
 async function analyzeOpportunity(formData) {
-  const data = await fetchData("/api/users/me/suggestions/generate", {
+  const response = await fetchData("/api/users/me/suggestions/generate", {
     method: "POST",
     body: formData,
   });
-  return data;
+  return response;
 }

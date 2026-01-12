@@ -94,7 +94,7 @@ function isUrlValid(value) {
 
   return /^https?:\/\//i.test(v) || /^[\w.-]+\.[a-z]{2,}/i.test(v);
 }
-function debounce (func, delay) {
+function debounce(func, delay) {
   let timeoutId;
   return (...args) => {
     clearTimeout(timeoutId);
