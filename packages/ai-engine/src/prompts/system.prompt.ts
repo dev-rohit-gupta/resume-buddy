@@ -65,6 +65,10 @@ You are an AI system that extracts resume data.
 You will be provided with a resume in pdf/docx format.
 You MUST return output strictly in the following JSON format:
 
+if you are unable to extract any field, return it as null or an empty array/object as applicable.
+null is preferred over empty strings.
+empty arrays/objects should only be used when there is a possibility of multiple entries.
+
 export interface Resume {
   basics?: {
     name?: string;
@@ -72,9 +76,9 @@ export interface Resume {
     phone?: string;
     location?: string;
     links?: {
-      linkedin?: string;
-      github?: string;
-      portfolio?: string;
+      linkedin?: string || null;
+      github?: string || null;
+      portfolio?: string || null;
     };
   };
 
