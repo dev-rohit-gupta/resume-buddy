@@ -2,7 +2,7 @@ const fileInput = document.getElementById("resumeUpload");
 const fileNameBtn = document.getElementById("fileNameBtn");
 const dropText = document.getElementById("dropText");
 const form = document.querySelector("form.signup-form");
-
+const submitBtn = document.querySelector(".btn-submit-resume");
 fileInput.addEventListener("change", function () {
   const file = this.files[0];
 
@@ -47,7 +47,10 @@ form.addEventListener("submit", async function (e) {
   }
   const form = e.target;
   const formData = new FormData(form);
-
+  // Loader display 
+  submitBtn.disabled = true;
+  showLoader("Signing up... Please wait." ,document.body);
+  
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     body: formData,
@@ -59,4 +62,6 @@ form.addEventListener("submit", async function (e) {
     const errorData = await response.json();
     alert("Error: " + (errorData.message || "Signup failed."));
   }
+  removeLoader(document.body);
+  submitBtn.disabled = false;
 });
