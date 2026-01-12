@@ -1,75 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resume Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <title>Editable Resume Editor</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/profile.css">
-</head>
+    <!-- css files -->
+    <link rel="stylesheet" href="/css/variable.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/loader.css" />
+    <!-- js files -->
+    <script src="/js/helper.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/components.js"></script>
+  </head>
 
-<body>
+  <body>
     <div class="container">
+      <!-- PROFILE -->
+      <div class="card profile-card">
+        <div class="avatar" id="avatar">
+          <img src="/assets/default-avatar.png" alt="avatar" />
+        </div>
+        <h3 id="displayName" class="profile-name">Your Name</h3>
+        <p id="displayEmail" class="profile-email">your.email@example.com</p>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="completionScore">0%</span>
+            <span class="stat-label">Complete</span>
+          </div>
+        </div>
+      </div>
 
-        <!-- PROFILE -->
-        <div class="card">
-            <div class="avatar" id="avatar">RG</div>
-            <label>Full Name</label>
-            <input id="name" oninput="save()">
-            <label>Email</label>
-            <input id="email" oninput="save()">
+      <!-- EDITOR -->
+      <div class="card editor-card">
+        <div class="header">
+          <h2>Resume</h2>
+          <button class="btn" onclick="saveResume()">Save Resume</button>
         </div>
 
-        <!-- EDITOR -->
-        <div class="card">
-            <div class="header">
-                <h2>Resume Editor</h2>
-                <button class="btn">Save Resume</button>
-            </div>
-
-            <div class="tabs">
-                <div class="tab active" onclick="openTab('basics')">Basics</div>
-                <div class="tab" onclick="openTab('summary')">Summary</div>
-                <div class="tab" onclick="openTab('experience')">Experience</div>
-                <div class="tab" onclick="openTab('projects')">Projects</div>
-                <div class="tab" onclick="openTab('skills')">Skills</div>
-            </div>
-
-            <!-- BASICS -->
-            <div id="basics" class="section active">
-                <div class="grid">
-                    <div><label>Phone</label><input id="phone" oninput="save()"></div>
-                    <div><label>Location</label><input id="location" oninput="save()"></div>
-                </div>
-            </div>
-
-            <!-- SUMMARY -->
-            <div id="summary" class="section">
-                <label>Professional Summary</label>
-                <textarea id="summaryText" rows="6" oninput="save()"></textarea>
-            </div>
-
-            <!-- EXPERIENCE -->
-            <div id="experience" class="section">
-                <button class="btn sm" onclick="addExperience()">+ Add Experience</button>
-                <div id="experienceList"></div>
-            </div>
-
-            <!-- PROJECTS -->
-            <div id="projects" class="section">
-                <button class="btn sm" onclick="addProject()">+ Add Project</button>
-                <div id="projectList"></div>
-            </div>
-
-            <!-- SKILLS -->
-            <div id="skills" class="section">
-                <input id="skillInput" placeholder="Type skill & press Enter">
-                <div class="skills" id="skillsList"></div>
-            </div>
-
+        <div class="tabs">
+          <div class="tab active" onclick="openTab(event, 'basics')">Basics</div>
+          <div class="tab" onclick="openTab(event, 'summary')">Summary</div>
+          <div class="tab" onclick="openTab(event, 'education')">Education</div>
+          <div class="tab" onclick="openTab(event, 'experience')">Experience</div>
+          <div class="tab" onclick="openTab(event, 'projects')">Projects</div>
+          <div class="tab" onclick="openTab(event, 'skills')">Skills</div>
+          <div class="tab" onclick="openTab(event, 'certifications')">Certifications</div>
+          <div class="tab" onclick="openTab(event, 'achievements')">Achievements</div>
+          <div class="tab" onclick="openTab(event, 'languages')">Languages</div>
         </div>
+
+        <!-- BASICS -->
+        <div id="basics" class="section active">
+          <div class="grid">
+            <div><label>Full Name</label><input id="name" placeholder="John Doe" /></div>
+            <div>
+              <label>Email</label
+              ><input type="email" id="email" placeholder="john.doe@example.com" />
+            </div>
+            <div><label>Phone</label><input id="phone" placeholder="+1 234 567 8900" /></div>
+            <div>
+              <label>Location</label><input id="location" placeholder="San Francisco, CA" />
+            </div>
+          </div>
+          <h4 class="section-title">Links</h4>
+          <div class="grid">
+            <div>
+              <label>LinkedIn</label
+              ><input id="linkedin" placeholder="https://linkedin.com/in/..." />
+            </div>
+            <div>
+              <label>GitHub</label><input id="github" placeholder="https://github.com/..." />
+            </div>
+            <div><label>Portfolio</label><input id="portfolio" placeholder="https://..." /></div>
+          </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div id="summary" class="section">
+          <label>Professional Summary</label>
+          <textarea
+            id="summaryText"
+            rows="6"
+            placeholder="Write a brief professional summary..."
+          ></textarea>
+        </div>
+
+        <!-- EDUCATION -->
+        <div id="education" class="section">
+          <button class="btn sm" onclick="addEducation()">+ Add Education</button>
+          <div id="educationList"></div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div id="experience" class="section">
+          <button class="btn sm" onclick="addExperience()">+ Add Experience</button>
+          <div id="experienceList"></div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div id="projects" class="section">
+          <button class="btn sm" onclick="addProject()">+ Add Project</button>
+          <div id="projectList"></div>
+        </div>
+
+        <!-- SKILLS -->
+        <div id="skills" class="section">
+          <h4 class="section-title">Technical Skills</h4>
+          <div class="skill-input-group">
+            <input id="technicalSkillInput" placeholder="Type skill & press Enter" />
+            <button class="btn sm" onclick="addTechnicalSkill()">Add</button>
+          </div>
+          <div class="skills" id="technicalSkillsList"></div>
+
+          <h4 class="section-title">Soft Skills</h4>
+          <div class="skill-input-group">
+            <input id="softSkillInput" placeholder="Type skill & press Enter" />
+            <button class="btn sm" onclick="addSoftSkill()">Add</button>
+          </div>
+          <div class="skills" id="softSkillsList"></div>
+
+          <h4 class="section-title">Tools</h4>
+          <div class="skill-input-group">
+            <input id="toolsInput" placeholder="Type tool & press Enter" />
+            <button class="btn sm" onclick="addTool()">Add</button>
+          </div>
+          <div class="skills" id="toolsList"></div>
+        </div>
+
+        <!-- CERTIFICATIONS -->
+        <div id="certifications" class="section">
+          <button class="btn sm" onclick="addCertification()">+ Add Certification</button>
+          <div id="certificationsList"></div>
+        </div>
+
+        <!-- ACHIEVEMENTS -->
+        <div id="achievements" class="section">
+          <button class="btn sm" onclick="addAchievement()">+ Add Achievement</button>
+          <div id="achievementsList"></div>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div id="languages" class="section">
+          <button class="btn sm" onclick="addLanguage()">+ Add Language</button>
+          <div id="languagesList"></div>
+        </div>
+      </div>
     </div>
     <script src="../js/profile.js"></script>
-</body>
-
+  </body>
 </html>
