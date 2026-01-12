@@ -1,4 +1,5 @@
 import { ResumeModel } from "../models/resume.model.js";
+import { ResumeDbSchema } from "@resume-buddy/schemas";
 import { ApiResponse, ApiError } from "@resume-buddy/utils";
 import { Request, Response } from "express";
 import { asyncHandler } from "@resume-buddy/utils";
@@ -26,7 +27,8 @@ export const getResumeController = asyncHandler(async (req: Request, res: Respon
 
 export const updateResumeController = asyncHandler(async (req: Request, res: Response) => {
   const userId = req.user?.id;
-  const newContent = req.body;
+  const newContent = ResumeDbSchema.partial().parse(req.body);
+  
 
   if (!userId) {
     throw new ApiError(401, "Unauthorized");

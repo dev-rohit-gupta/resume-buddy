@@ -45,7 +45,6 @@ export async function updateResumeService(userId: string, partialData: Partial<R
 
   // Deep merge existing resume with partial data
   const merged = deepMerge<any>(safeResume, partialData);
-
   let careerProfile = {};
 
   // Generate career profile if content is provided
