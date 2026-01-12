@@ -13,6 +13,9 @@ submitButton.addEventListener("click", async function (e) {
   try {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
+    // Loader display
+    showLoader("Logging in... Please wait.", document.body);
+    submitButton.disabled = true;
 
     const response = await fetch("/api/auth/login", {
       method: "POST",
@@ -23,7 +26,10 @@ submitButton.addEventListener("click", async function (e) {
     });
 
     const result = await response.json();
-
+    // Remove loader
+    removeLoader(document.body);
+    submitButton.disabled = false;
+    
     if (response.ok) {
       alert("Login successful");
       window.location.href = "/dashboard";
