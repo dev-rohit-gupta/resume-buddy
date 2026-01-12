@@ -29,7 +29,7 @@ submitButton.addEventListener("click", async function (e) {
     // Remove loader
     removeLoader(document.body);
     submitButton.disabled = false;
-    
+
     if (response.ok) {
       alert("Login successful");
       window.location.href = "/dashboard";

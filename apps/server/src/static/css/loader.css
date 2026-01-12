@@ -1,28 +1,60 @@
 /* ===== Layout utilities ===== */
-.position-fixed { position: fixed; }
-.top-0 { top: 0; }
-.start-0 { left: 0; }
-.w-100 { width: 100%; }
-.h-100 { height: 100%; }
+.position-fixed {
+  position: fixed;
+}
+.top-0 {
+  top: 0;
+}
+.start-0 {
+  left: 0;
+}
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
 
-.d-flex { display: flex; }
-.align-items-center { align-items: center; }
-.justify-content-center { justify-content: center; }
+.d-flex {
+  display: flex;
+}
+.align-items-center {
+  align-items: center;
+}
+.justify-content-center {
+  justify-content: center;
+}
 
-.text-center { text-align: center; }
+.text-center {
+  text-align: center;
+}
 
 /* ===== Background ===== */
-.bg-white { background-color: #fff; }
-.bg-opacity-75 { opacity: 0.75; }
+.bg-white {
+  background-color: #fff;
+}
+.bg-opacity-75 {
+  opacity: 0.75;
+}
 
 /* ===== Spacing ===== */
-.mb-3 { margin-bottom: 1rem; }
-.mb-0 { margin-bottom: 0; }
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.mb-0 {
+  margin-bottom: 0;
+}
 
 /* ===== Text utilities ===== */
-.text-primary { color: #0d6efd; }
-.text-muted { color: #6c757d; }
-.small { font-size: 0.875em; }
+.text-primary {
+  color: #0d6efd;
+}
+.text-muted {
+  color: #6c757d;
+}
+.small {
+  font-size: 0.875em;
+}
 
 /* ===== Spinner (Bootstrap core) ===== */
 .spinner-border {

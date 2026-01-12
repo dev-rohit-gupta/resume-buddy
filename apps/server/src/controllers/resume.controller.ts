@@ -28,7 +28,6 @@ export const getResumeController = asyncHandler(async (req: Request, res: Respon
 export const updateResumeController = asyncHandler(async (req: Request, res: Response) => {
   const userId = req.user?.id;
   const newContent = ResumeDbSchema.partial().parse(req.body);
-  
 
   if (!userId) {
     throw new ApiError(401, "Unauthorized");

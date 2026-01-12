@@ -5,7 +5,7 @@ function loadStats(stats, containerSelector = "#stats-container") {
   const skillsGapCard = createSkillsGapCard(stats.career.skillGaps);
   const bestRoleCard = createBestRoleCard(stats.career.bestRole);
   const nextBestRoleCard = createNextBestRoleCard(stats.career.nearestNextRole);
-  
+
   let container;
   if (typeof containerSelector === "string") {
     container = document.querySelector(containerSelector);
@@ -15,8 +15,8 @@ function loadStats(stats, containerSelector = "#stats-container") {
   // Clear existing content
   container.innerHTML = "";
   //Load components into the container
-  
-  loadComponents([atsCard, jobMatchCard, bestRoleCard ,nextBestRoleCard], containerSelector);
+
+  loadComponents([atsCard, jobMatchCard, bestRoleCard, nextBestRoleCard], containerSelector);
 }
 function loadAnalysedJobs(jobs, containerSelector = "section.jobs .opportunities") {
   const container = document.querySelector(containerSelector);
@@ -39,7 +39,7 @@ function loadAnalysedJobs(jobs, containerSelector = "section.jobs .opportunities
   });
   loadComponents(jobElements, container);
 }
-function loadSkillGapsList(skills,nearestRole, containerSelector = "#skills-gap-list") {
+function loadSkillGapsList(skills, nearestRole, containerSelector = "#skills-gap-list") {
   const container = document.querySelector(containerSelector);
   const titleElement = container.querySelector(".role-title");
   titleElement.textContent = capitalizeEachLetter(nearestRole);
@@ -88,13 +88,13 @@ function applyPagination(metadata) {
 function applyOpportunitySearchFilter() {
   const searchInput = document.getElementById("opportunitySearch");
   const searchBtn = document.getElementById("opportunitySearchBtn");
-  searchInput.addEventListener("keyup", (event)=>{
-    const key = event.key ;
-    if (key === "Enter"){
+  searchInput.addEventListener("keyup", (event) => {
+    const key = event.key;
+    if (key === "Enter") {
       handleSearchInput(searchInput.value.trim());
     }
   });
-  searchBtn.addEventListener("click", (event)=>{
+  searchBtn.addEventListener("click", (event) => {
     if (searchInput.value.trim() === "") return;
     handleSearchInput(searchInput.value.trim());
   });
@@ -114,7 +114,6 @@ async function initializeDashboard() {
   if (jobs.data.suggestions.suggestions.length === 0) {
     showNoOpportunitiesMessage();
   } else {
-    
     loadAnalysedJobs(jobs.data);
     applyPagination(jobs.data.suggestions.meta);
   }

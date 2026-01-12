@@ -47,10 +47,10 @@ form.addEventListener("submit", async function (e) {
   }
   const form = e.target;
   const formData = new FormData(form);
-  // Loader display 
+  // Loader display
   submitBtn.disabled = true;
-  showLoader("Signing up... Please wait." ,document.body);
-  
+  showLoader("Signing up... Please wait.", document.body);
+
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     body: formData,

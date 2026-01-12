@@ -32,7 +32,9 @@ async function getDashboardStats() {
 const getAnalysedJobs = async () => {
   const url = new URL(window.location.href);
   const { limit, page, q } = Object.fromEntries(url.searchParams.entries());
-  const data = await fetchData(`/api/users/me/suggestions?page=${Number(page || 1)}&limit=${Number(limit || 10)}&q=${q || ""}`);
+  const data = await fetchData(
+    `/api/users/me/suggestions?page=${Number(page || 1)}&limit=${Number(limit || 10)}&q=${q || ""}`
+  );
   return data;
 };
 function setParams(params) {
@@ -47,7 +49,7 @@ function setParams(params) {
   window.history.replaceState({}, "", url.toString());
 }
 
-async function getResume(){
+async function getResume() {
   const response = await fetchData("/api/users/me/resume");
   return response;
 }
