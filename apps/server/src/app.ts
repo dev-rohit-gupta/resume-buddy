@@ -13,7 +13,8 @@ import AuthRouter from "./routes/auth.router.js";
 //__filename & __dirname setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const STATIC_DIR = path.join(__dirname, "static");
+const STATIC_DIR = path.join(__dirname, process.env.STATIC_DIR ?? "static");
+
 // Express app
 const app = express();
 
