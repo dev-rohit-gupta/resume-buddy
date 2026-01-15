@@ -28,7 +28,7 @@ export async function runEngine({
   const contents = mapInputsToContents(inputs);
 
   const response = await ai.models.generateContent({
-    model: config.model ?? "gemini-1.0-pro",
+    model: process.env.GOOGLE_AI_MODEL ?? "gemini-1.0-pro",
     contents,
     config: {
       systemInstruction,
