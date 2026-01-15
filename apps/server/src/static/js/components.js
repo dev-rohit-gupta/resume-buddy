@@ -638,7 +638,7 @@ async function initOpportunityFormLogic(form) {
     }
 
     removeOpportunityAnalysisForm(form);
-    showLoader("Analyzing opportunity...", form);
+    showLoader("Analyzing opportunity...");
     const submitButton = document.querySelector('button[type="submit"][form="jobForm"]');
     submitButton.disabled = true;
     const jsonString = JSON.stringify(payload);
@@ -647,14 +647,14 @@ async function initOpportunityFormLogic(form) {
 
     if (!response.success) {
       submitButton.disabled = false;
-      removeLoader(form);
+      removeLoader();
       insertOpportunityAnalysisForm(form);
       alert(response.message || "Failed to analyze opportunity. Please try again.");
       return;
     }
     const suggestion = response.data.analysisResult;
     alert("Opportunity analyzed successfully!");
-    removeLoader(form);
+    removeLoader();
     insertOpportunityAnalysisResults(suggestion, form.parentElement);
     submitButton.disabled = false;
   };
@@ -665,7 +665,8 @@ function insertOpportunityAnalysisForm(container) {
     typeof container === "string" ? document.querySelector(container) : container;
 
   if (!containerNode) return;
-
+  const footer = document.querySelector(".modal-content .modal-footer");
+  showElement(footer,"flex");
   const formElement = createOpportunityAnalysisForm();
   containerNode.innerHTML = ""; // clear previous content
   containerNode.appendChild(formElement);
@@ -866,7 +867,7 @@ function createPagination({ page, totalPages, hasNextPage, hasPrevPage }) {
   const html = `
       <ul class="pagination">
         <li class="page-item ${hasPrevPage ? "" : "disabled"}">
-          <a href="/dashboard?page=${page - 1}" class="page-link" data-page="${page - 1}">Previous</a>
+          <a href=${hasPrevPage ? `/dashboard?page=${page - 1}` : "#"} class="page-link" data-page="${page - 1}">Previous</a>
         </li>
         ${Array.from({ length: totalPages }, (_, i) => i + 1)
           .map(
@@ -878,7 +879,7 @@ function createPagination({ page, totalPages, hasNextPage, hasPrevPage }) {
           )
           .join("")}
         <li class="page-item ${hasNextPage ? "" : "disabled"}">
-          <a href="/dashboard?page=${page + 1}" class="page-link" data-page="${page + 1}">Next</a>
+          <a href=${hasNextPage ? `/dashboard?page=${page + 1}` : "#"} class="page-link" data-page="${page + 1}">Next</a>
         </li>
       </ul>
     `;

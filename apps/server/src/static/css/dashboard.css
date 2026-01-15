@@ -291,10 +291,14 @@ body {
 
 .badge {
   font-size: var(--font-size-xs);
-  padding: 10px 15px;
+  padding: 8px 10px;
   border-radius: var(--border-radius-md);
   color: var(--text-white);
   align-self: flex-end;
+  user-select: none;
+  text-transform: capitalize;
+  text-align: center;
+  text-wrap: nowrap;
 }
 
 .badge.perfect {
@@ -313,6 +317,7 @@ body {
 .time {
   font-size: var(--font-size-xs);
   color: var(--text-time);
+  margin-top: var(--spacing-xs);
 }
 
 .right {
@@ -462,9 +467,10 @@ body {
   font-weight: bold;
 }
 #analyzeModal #contentWrapper {
-  padding: 0 10px;
+  padding:0  var(--spacing-md);
   max-height: 70vh;
   overflow-y: auto;
+  margin-bottom: var(--spacing-lg);
 }
 
 /* analysis form */
@@ -562,4 +568,39 @@ body {
   list-style: none;
   display: flex;
   gap: 8px;
+}
+.pagination-container ul li {
+  cursor: pointer;
+}
+.pagination-container ul li:first-child a {
+  border-top-left-radius: var(--border-radius-md);
+  border-bottom-left-radius: var(--border-radius-md);
+}
+.pagination-container ul li:last-child a {
+  border-top-right-radius: var(--border-radius-md);
+  border-bottom-right-radius: var(--border-radius-md);
+}
+.pagination-container ul li.disabled a {
+  background: var(--border-light);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+.pagination-container ul li:not(.disabled):hover a {
+  background: var(--primary-blue-hover);
+  border-color: var(--primary-blue);
+  color: var(--text-white);
+}
+.pagination-container ul li.active a {
+  background: var(--primary-blue);
+  color: var(--text-white);
+  border-color: var(--primary-blue);
+}
+.pagination-container ul li a {
+  padding: 8px 12px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+  text-decoration: none;
 }

@@ -692,65 +692,6 @@ function addLanguage() {
   renderLanguages();
 }
 
-const serverResponse = {
-  basics: {
-    name: "MRUNALI BARDE",
-    email: "mrunali816@gmail.com",
-    phone: "+91 89564 86551",
-    location: "Amravati, Maharashtra",
-  },
-  summary:
-    "I am pursuing a degree in Computer Science and Engineering at Prof. Ram Meghe Institute of Technology and Research, Badnera. I have a strong interest in problem-solving, gaining real-time experience, and exploring new technologies. I am eager to work on projects that allow me to apply my knowledge, learn continuously, and build my technical skills for future growth.",
-  education: [
-    {
-      degree: "Bachelor of Technology (B.Tech)",
-      field: "computer science and engineering",
-      institution: "Prof. Ram Meghe Institute of Technology & Research (PRMIT&R), Badnera",
-      endYear: "2028",
-    },
-    {
-      degree: "Higher Secondary Certificate (HSC), Science",
-      institution: "Smt. Jijabai Hanumantrao Deshmukh junior college,Jarud",
-      endYear: "2024",
-    },
-    {
-      degree: "Secondary School Certificate (SSC)",
-      institution: "Vasantrao Naik Highschool, Jarud",
-      endYear: "2022",
-    },
-  ],
-  experience: [],
-  projects: [
-    {
-      title: "Tic Tac Toe Game | Mini Project",
-      description:
-        "Developed an interactive Tic Tac Toe game using HTML, CSS, and JavaScript. Implemented game logic for win/draw detection and responsive design for smooth user experience. Demonstrated problem-solving and programming fundamentals through hands-on project work.",
-      techStack: ["HTML", "CSS", "JavaScript"],
-    },
-  ],
-  skills: {
-    technical: ["HTML5", "CSS3", "JavaScript"],
-    soft: [],
-    tools: [],
-  },
-  certifications: [],
-  achievements: [
-    {
-      title: "MHT-CET score",
-      description: "89.56%",
-    },
-    {
-      title: "SSC Score",
-      description: "94.80%",
-    },
-  ],
-  languages: [],
-  metadata: {
-    resumeVersion: 1,
-    extractedAt: "2024-05-15T12:00:00Z",
-    sourceFileType: "pdf",
-  },
-};
 
 // Add Enter key support for skill inputs
 document.addEventListener("DOMContentLoaded", function () {
