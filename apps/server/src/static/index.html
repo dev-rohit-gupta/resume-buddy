@@ -3,17 +3,351 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/variable.css" />
     <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="shortcut icon" href="assets/favicon.jpeg" type="image/x-icon" />
-    <title>Resume Buddy</title>
+    <title>Resume Buddy - AI-Powered Career Decision Engine</title>
   </head>
   <body>
-    <div class="welcome-container">
-      <h1>Welcome to Resume Buddy</h1>
-      <p>
-        The ultimate tool to help you choose best opportunities and improve your resume and yourself
-      </p>
-    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <img src="assets/favicon.jpeg" alt="Resume Buddy" class="logo-icon" />
+          <span class="logo-text">Resume Buddy</span>
+        </div>
+        <div class="nav-links">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#how-it-works" class="nav-link">How It Works</a>
+          <a href="#who-for" class="nav-link">Who's This For</a>
+          <a href="/login" class="btn-login">Login</a>
+          <a href="/signup" class="btn-signup">Get Started</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-badge">AI-Powered Career Intelligence</div>
+          <h1 class="hero-title">
+            Should I Apply or <span class="highlight">Prepare First?</span>
+          </h1>
+          <p class="hero-description">
+            Resume Buddy is an AI-powered career decision engine that analyzes job opportunities 
+            against your profile and gives you honest, structured insights—not motivational fluff.
+          </p>
+          <div class="hero-cta">
+            <a href="/signup" class="btn-primary">Start Analyzing Jobs</a>
+            <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-number">95%</div>
+              <div class="stat-label">ATS Accuracy</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">10k+</div>
+              <div class="stat-label">Jobs Analyzed</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">5k+</div>
+              <div class="stat-label">Students Helped</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-card">
+            <div class="card-header">
+              <span class="material-symbols-rounded card-icon">analytics</span>
+              <span class="card-title">Analysis Result</span>
+            </div>
+            <div class="card-body">
+              <div class="score-display">
+                <div class="score-circle">
+                  <span class="score">64</span>
+                </div>
+                <div class="score-label">ATS Score</div>
+              </div>
+              <div class="result-items">
+                <div class="result-item success">
+                  <span class="material-symbols-rounded result-icon">check_circle</span>
+                  <span>React, Node.js, TypeScript</span>
+                </div>
+                <div class="result-item warning">
+                  <span class="material-symbols-rounded result-icon">error</span>
+                  <span>Missing: MongoDB, Docker</span>
+                </div>
+                <div class="result-item info">
+                  <span class="material-symbols-rounded result-icon">arrow_forward</span>
+                  <span>Apply After Preparation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">What Makes Resume Buddy Different</h2>
+          <p class="section-subtitle">
+            Not a resume builder. Not a chatbot. A structured decision engine.
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="material-symbols-rounded feature-icon">analytics</span>
+            <h3 class="feature-title">ATS Compatibility Score</h3>
+            <p class="feature-description">
+              Get realistic ATS scores—not motivational ones. Know your actual chances before applying.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="material-symbols-rounded feature-icon">extension</span>
+            <h3 class="feature-title">Skill Gap Detection</h3>
+            <p class="feature-description">
+              Identify exactly what skills you're missing with priority levels for focused learning.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="material-symbols-rounded feature-icon">route</span>
+            <h3 class="feature-title">Learning Roadmap</h3>
+            <p class="feature-description">
+              Get a clear path on what to learn first—practical guidance, not overwhelming lists.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="material-symbols-rounded feature-icon">task_alt</span>
+            <h3 class="feature-title">Application Decision</h3>
+            <p class="feature-description">
+              Clear recommendations: Apply Now, Prepare First, or Skip. No vague suggestions.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="material-symbols-rounded feature-icon">description</span>
+            <h3 class="feature-title">Resume Improvements</h3>
+            <p class="feature-description">
+              Actionable steps to enhance your resume specifically for target opportunities.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="material-symbols-rounded feature-icon">warning</span>
+            <h3 class="feature-title">Risk Indicators</h3>
+            <p class="feature-description">
+              Spot red flags and precautions before you waste time on the wrong opportunities.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle">Simple, structured, and powered by AI</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3 class="step-title">Upload Your Resume</h3>
+              <p class="step-description">
+                Share your profile—skills, projects, and experience. AI extracts everything automatically.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3 class="step-title">Paste Job Description</h3>
+              <p class="step-description">
+                Add the job or internship details you're considering. Just copy and paste.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3 class="step-title">Get Structured Analysis</h3>
+              <p class="step-description">
+                Receive a complete breakdown: ATS score, skill gaps, roadmap, and clear next steps.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3 class="step-title">Make Informed Decisions</h3>
+              <p class="step-description">
+                Apply strategically based on data, not guesswork. Save time and increase success rate.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Highlight -->
+    <section class="architecture">
+      <div class="section-container">
+        <div class="architecture-content">
+          <div class="architecture-text">
+            <div class="section-badge">Built for Production</div>
+            <h2 class="section-title">Schema-First, Not Chat-Based</h2>
+            <p class="architecture-description">
+              Resume Buddy uses a structured AI engine that returns predictable, parseable JSON—not 
+              free-form text. This means consistent, reliable results every time.
+            </p>
+            <ul class="architecture-list">
+              <li>
+                <span class="list-icon">✓</span>
+                <span>AI returns structured JSON, never free text</span>
+              </li>
+              <li>
+                <span class="list-icon">✓</span>
+                <span>Schemas are the single source of truth</span>
+              </li>
+              <li>
+                <span class="list-icon">✓</span>
+                <span>Zero parsing hacks or prompt engineering tricks</span>
+              </li>
+              <li>
+                <span class="list-icon">✓</span>
+                <span>Predictable, debuggable, and production-ready</span>
+              </li>
+            </ul>
+          </div>
+          <div class="architecture-visual">
+            <div class="code-block">
+              <div class="code-header">AI Output Structure</div>
+              <pre class="code-content">{
+  "atsAnalysis": {
+    "atsScore": 64,
+    "selectionProbability": "Medium"
+  },
+  "skillGapAnalysis": {
+    "missingSkills": ["MongoDB"],
+    "priority": "High"
+  },
+  "applicationDecision": {
+    "recommendation": "Prepare First"
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who Is This For Section -->
+    <section class="who-for" id="who-for">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Who Is This For?</h2>
+        </div>
+        <div class="audience-grid">
+          <div class="audience-card include">
+            <span class="material-symbols-rounded audience-icon">check_circle</span>
+            <h3 class="audience-title">Perfect For</h3>
+            <ul class="audience-list">
+              <li>College students seeking internships</li>
+              <li>Fresh graduates entering the job market</li>
+              <li>Early-career developers</li>
+              <li>Anyone wanting strategic career decisions</li>
+            </ul>
+          </div>
+          <div class="audience-card exclude">
+            <span class="material-symbols-rounded audience-icon">cancel</span>
+            <h3 class="audience-title">Not For</h3>
+            <ul class="audience-list">
+              <li>Mass resume spamming</li>
+              <li>Experienced professionals (10+ years)</li>
+              <li>Those expecting generic motivation</li>
+              <li>Quick-fix seekers without commitment</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+      <div class="section-container">
+        <div class="philosophy-content">
+          <h2 class="philosophy-quote">
+            "Clarity is more valuable than motivation."
+          </h2>
+          <p class="philosophy-text">
+            Resume Buddy is built on honesty, not hype. We believe you deserve to know the truth 
+            about your applications—so you can prepare better, apply smarter, and succeed faster.
+          </p>
+          <div class="philosophy-principles">
+            <div class="principle">Apply Less</div>
+            <div class="principle">Prepare Better</div>
+            <div class="principle">Apply Smarter</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="cta-container">
+        <h2 class="cta-title">Ready to Make Better Career Decisions?</h2>
+        <p class="cta-description">
+          Join thousands of students who've stopped guessing and started applying strategically.
+        </p>
+        <a href="/signup" class="btn-cta">Get Started Free</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="assets/favicon.jpeg" alt="Resume Buddy" class="logo-icon" />
+            <span class="logo-text">Resume Buddy</span>
+          </div>
+          <p class="footer-tagline">AI-Powered Career Decision Engine</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-section">
+            <h4 class="footer-heading">Product</h4>
+            <a href="#features" class="footer-link">Features</a>
+            <a href="#how-it-works" class="footer-link">How It Works</a>
+          </div>
+          <div class="footer-section">
+            <h4 class="footer-heading">Resources</h4>
+            <a href="https://github.com/dev-rohit-gupta/resume-buddy" class="footer-link" target="_blank">GitHub</a>
+            <a href="#" class="footer-link">Documentation</a>
+            <a href="#" class="footer-link">API</a>
+          </div>
+          <div class="footer-section">
+            <h4 class="footer-heading">Company</h4>
+            <a href="#" class="footer-link">About</a>
+            <a href="#" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Terms</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; 2026 Resume Buddy. Built with clarity in mind.
+        </p>
+        <p class="footer-made-with">
+          Made with <span class="heart">❤️</span> by Team <span class="team-name">BugSlayer</span>
+        </p>
+      </div>
+    </footer>
   </body>
 </html>
