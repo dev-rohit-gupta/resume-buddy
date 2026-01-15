@@ -3,9 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "npx tsc",
-    "start": "node dist/index.js"
+    "dev": "npm run copy:bootstrap-js && tsx watch src/index.ts",
+    "build": "npm run build:css && npm run copy:bootstrap-js && npx tsc",
+    "start": "node dist/index.js",
+    "build:css": "npm run build:tailwind && npm run build:bootstrap",
+    "build:tailwind": "tailwindcss -i ./src/static/css/tailwind.input.css -o ./src/static/css/tailwind.output.css --minify",
+    "build:bootstrap": "sass --load-path=../../node_modules src/static/css/bootstrap.custom.scss src/static/css/bootstrap.output.css --style compressed",
+    "copy:bootstrap-js": "cp ../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js src/static/js/bootstrap.bundle.min.js",
+    "watch:css": "npm run watch:tailwind & npm run watch:bootstrap",
+    "watch:tailwind": "tailwindcss -i ./src/static/css/tailwind.input.css -o ./src/static/css/tailwind.output.css --watch",
+    "watch:bootstrap": "sass --load-path=../../node_modules src/static/css/bootstrap.custom.scss src/static/css/bootstrap.output.css --watch --style compressed"
   },
   "dependencies": {
     "@google/generative-ai": "^0.15.0",
@@ -29,6 +36,12 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
     "@types/node": "^20.14.0",
+    "autoprefixer": "^10.4.16",
+    "bootstrap": "^5.3.8",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.4.0",
     "tsx": "^4.15.0",
     "typescript": "^5.5.0"
   }

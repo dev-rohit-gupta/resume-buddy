@@ -35,3 +35,8 @@ Thumbs.db
 # Turbo cache
 .cache/
 .turbo
+
+# Generated CSS/JS from npm packages
+apps/server/src/static/css/tailwind.output.css
+apps/server/src/static/css/bootstrap.output.css
+apps/server/src/static/js/bootstrap.bundle.min.js

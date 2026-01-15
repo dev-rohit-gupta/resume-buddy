@@ -16,7 +16,9 @@
   },
   "scripts": {
     "dev": "npm run dev --workspace=@resume-buddy/server",
-    "build": "npx turbo run build",
+    "dev:css": "npm run watch:css --workspace=@resume-buddy/server",
+    "build": "npm run build:css && npx turbo run build",
+    "build:css": "npm run build:css --workspace=@resume-buddy/server",
     "format": "prettier --write ."
   },
   "devDependencies": {
