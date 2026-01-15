@@ -100,6 +100,20 @@ function applyOpportunitySearchFilter() {
   });
 }
 
+function setUpOpportunityAnalysisModal() {
+    // Setup modal event listener to insert form when modal opens
+  const analyzeModal = document.getElementById('analyzeModal');
+  analyzeModal.addEventListener('show.bs.modal', async function (event) {
+    const contentWrapper = document.querySelector("#analyzeModal #contentWrapper");
+    // Clear previous content and insert fresh form
+    contentWrapper.innerHTML = '';
+    insertOpportunityAnalysisForm(contentWrapper);
+    const form = contentWrapper.querySelector("#jobForm");
+    await initOpportunityFormLogic(form);
+  });
+  
+}
+
 // Initialization of the dashboard
 async function initializeDashboard() {
   const dashboard = document.querySelector(".app .dashboard");
@@ -123,10 +137,8 @@ async function initializeDashboard() {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   removeLoader(dashboard.parentElement);
   showElement(dashboard);
-  const contentWrapper = document.querySelector("#analyzeModal  #contentWrapper");
-  insertOpportunityAnalysisForm(contentWrapper);
-  const form = contentWrapper.querySelector("#jobForm");
-  await initOpportunityFormLogic(form);
+  // Setup modal logic
+  setUpOpportunityAnalysisModal();
   applyOpportunitySearchFilter();
 }
 

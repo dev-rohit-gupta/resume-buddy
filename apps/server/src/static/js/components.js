@@ -164,7 +164,7 @@ function createOpportunityAnalysisForm() {
     >
       <div class="flex justify-between items-start border-b border-[var(--border-light)] pb-6">
         <div>
-          <h1 class="text-[var(--font-size-6xl)] font-bold text-[var(--text-card-title)]">
+          <h1 class="font-bold text-[var(--text-card-title)]">
             Opportunity Analysis
           </h1>
           <p class="text-[var(--text-secondary)]">
