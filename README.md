@@ -71,30 +71,50 @@ resume-buddy/
 │       ├── src/
 │       │   ├── index.ts        # Entry point
 │       │   ├── app.ts          # Express setup
+│       │   ├── config/         # Configuration files
 │       │   ├── routes/         # API routes
 │       │   ├── controllers/    # Request handling
 │       │   ├── services/       # Business logic
+│       │   ├── middleware/     # Auth, error, multer middleware
+│       │   ├── models/         # MongoDB models
 │       │   ├── db/             # MongoDB connection
+│       │   ├── types/          # TypeScript definitions
 │       │   └── static/         # HTML / CSS / JS frontend
 │
 ├── packages/
 │   ├── ai-engine/              # Gemini-based AI engine
-│   │   ├── gemini/
-│   │   │   ├── client.ts
-│   │   │   ├── prompts.ts
-│   │   │   └── analyze.ts
+│   │   ├── client/
+│   │   │   └── gemini.client.ts
+│   │   ├── engine/
+│   │   │   └── run.engine.ts
+│   │   ├── operations/
+│   │   │   ├── analyze.job.ts
+│   │   │   ├── buildCareerProfile.ts
+│   │   │   └── resume.extract.ts
+│   │   └── prompts/
+│   │       └── system.prompt.ts
 │   │
-│   ├── schemas/                # AI input/output contracts
-│   │   ├── ai-input.schema.ts
-│   │   └── ai-output.schema.ts
+│   ├── schemas/                # Zod schemas for validation
+│   │   ├── api.ts
+│   │   ├── user.schema.ts
+│   │   ├── ai/                 # AI-specific schemas
+│   │   └── db/                 # Database schemas
 │   │
 │   └── utils/                  # Shared helpers
+│       ├── apiError.ts
+│       ├── asyncHandler.ts
+│       ├── auth/
+│       └── ai/
+│
+├── devcontainer/
+│   └── docker-compose-local.yaml
 │
 ├── docs/
-│   └── architecture.md
 │
-├── .env.example
+├── .env.sample
 ├── package.json
+├── turbo.json
+├── tsconfig.base.json
 └── README.md
 
 ```
@@ -157,15 +177,28 @@ npm install
 ### 3️⃣ Setup environment variables
 
 ```bash
-cp .env.example .env
+cp .env.sample apps/server/.env
 ```
 
-Add:
+Update the `.env` file with your credentials:
 
-- `GEMINI_API_KEY`
-- `MONGODB_URI`
+- `PORT` - Server port (default: 4000)
+- `MONGODB_URI` - MongoDB connection string
+- `GOOGLE_GENAI_API_KEY` - Google Gemini API key
+- `ACCESS_TOKEN_SECRET` - JWT secret for authentication
+- `ACCESS_TOKEN_EXPIRY` - Token expiration time
+- `CLOUDINARY_CLOUD_NAME` - Cloudinary cloud name
+- `CLOUDINARY_API_KEY` - Cloudinary API key
+- `CLOUDINARY_API_SECRET` - Cloudinary API secret
+- `NODE_ENV` - Environment (development/production)
 
-### 4️⃣ Run the development server
+### 4️⃣ Build the project
+
+```bash
+npm run build
+```
+
+### 5️⃣ Run the development server
 
 ```bash
 npm run dev
@@ -174,7 +207,7 @@ npm run dev
 Open in browser:
 
 ```
-http://localhost:3000
+http://localhost:4000
 ```
 
 ---
