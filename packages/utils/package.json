@@ -5,7 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "npx tsc"
   },
   "dependencies": {
     "@resume-buddy/schemas": "^1.0.0",
