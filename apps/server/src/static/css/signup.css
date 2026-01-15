@@ -176,6 +176,25 @@ body {
   transform: translateY(1px);
 }
 
+.footer-text {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
+  margin-top: var(--spacing-lg);
+}
+
+.footer-text a {
+  color: var(--blue-500);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-base);
+}
+
+.footer-text a:hover {
+  color: var(--primary-blue);
+  text-decoration: underline;
+}
+
 .card-right {
   flex: 1;
   background: var(--primary-teal-light);

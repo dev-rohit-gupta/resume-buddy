@@ -197,6 +197,32 @@ select {
   color: var(--text-primary);
 }
 
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  background: var(--gray-100);
+  color: var(--text-secondary);
+  transition: var(--transition-base);
+  text-decoration: none;
+  border: 1px solid var(--border-default);
+}
+
+.back-btn:hover {
+  background: var(--primary-blue);
+  color: var(--text-white);
+  border-color: var(--primary-blue);
+  transform: translateX(-2px);
+}
+
+.back-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
 .tabs {
   display: flex;
   gap: var(--spacing-xl);
