@@ -1,0 +1,22 @@
+/* Import only needed Bootstrap components - minimal custom build */
+
+// Required base imports (in order)
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+
+// Components we actually use
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/dropdown';
+@import 'bootstrap/scss/modal';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/close';
+
+// Utilities (minimal)
+@import 'bootstrap/scss/helpers';
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/utilities/api';
+

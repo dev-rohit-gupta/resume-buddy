@@ -1,0 +1,3 @@
+/* Tailwind base - only utilities, no reset to avoid Bootstrap conflicts */
+@tailwind components;
+@tailwind utilities;
