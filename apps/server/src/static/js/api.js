@@ -41,6 +41,9 @@ function setParams(params) {
   const url = new URL(window.location.href);
   Object.keys(params).forEach((key) => {
     if (params[key] !== undefined && params[key] !== null) {
+      if(String(params[key]).includes(" ")) {
+        params[key] = encodeURIComponent(params[key]);
+      }
       url.searchParams.set(key, params[key]);
     } else {
       url.searchParams.delete(key);
@@ -65,5 +68,19 @@ async function analyzeOpportunity(formData) {
     method: "POST",
     body: formData,
   });
+  return response;
+}
+
+async function getOpportunities(params) {
+  const url = new URL("/api/opportunities", window.location.origin);
+  Object.keys(params).forEach((key) => {
+    if (params[key] !== undefined && params[key] !== null) {
+      if(String(params[key]).includes(" ")) {
+        params[key] = encodeURIComponent(params[key]);
+      }
+      url.searchParams.set(key, params[key]);
+    }
+  });
+  const response = await fetchData(url.toString());
   return response;
 }
