@@ -3,12 +3,16 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { errorMiddleware } from "./middleware/error.middleware.js";
 import { verifyAccessToken, getToken } from "@resume-buddy/utils";
+import { requireAuth } from "./middleware/auth.middleware.js";
 import cookieParser from "cookie-parser";
 import fs from "fs";
 
 // Routes
 import UserRouter from "./routes/user.route.js";
-import AuthRouter from "./routes/auth.router.js";
+import AuthRouter from "./routes/auth.route.js";
+import OpportunityRouter from "./routes/opportunity.route.js";
+
+/* -------------------- APP SETUP -------------------- */
 
 //__filename & __dirname setup
 const __filename = fileURLToPath(import.meta.url);
@@ -32,9 +36,9 @@ app.use(express.static(STATIC_DIR));
 
 /* -------------------- ROUTES -------------------- */
 // authentication routes
-app.use("/api/users", UserRouter);
+app.use("/api/users",requireAuth, UserRouter);
 app.use("/api/auth", AuthRouter);
-
+app.use("/api/opportunities", requireAuth, OpportunityRouter);
 /* -------------------- FRONTEND ROUTES INFO -------------------- */
 // Define protected prefixes
 const protectedPrefixes = ["dashboard"];

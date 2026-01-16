@@ -27,7 +27,7 @@ export const suggestionController = asyncHandler(async (req: Request, res: Respo
   }
 
   const analysisResult = await suggestionService(userId, jobData.data);
-  res.status(200).json(new ApiResponse({ analysisResult }, "Job analyzed successfully"));
+  res.status(201).json(new ApiResponse({ analysisResult }, "Job analyzed successfully"));
 });
 /**
  * Controller to fetch paginated user suggestions.
@@ -38,7 +38,9 @@ export const getUserSuggestionsController = asyncHandler(async (req: Request, re
   const userId = req.user?.id;
   const page = Number(req.query.page ?? 1);
   const limit = Number(req.query.limit ?? 10);
-  const query = req.query.q?.toString() || "";
+  let query = req.query.q?.toString() || "";
+  // Decode the query parameter
+  query = decodeURIComponent(query);
 
   // Validate page and limit
   if (isNaN(page) || page < 1) {

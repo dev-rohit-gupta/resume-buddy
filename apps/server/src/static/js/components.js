@@ -506,44 +506,44 @@ async function initOpportunityFormLogic(form) {
     education: [],
   };
 
-  // Helper to handle list UI
-  const setupList = (inputId, btnId, listId, listKey, isSkill = false) => {
-    const input = form.querySelector(`#${inputId}`);
-    const btn = form.querySelector(`#${btnId}`);
-    const listUI = form.querySelector(`#${listId}`);
+// Helper to handle list UI
+const setupList = (inputId, btnId, listId, listKey, isSkill = false) => {
+  const input = form.querySelector(`#${inputId}`);
+  const btn = form.querySelector(`#${btnId}`);
+  const listUI = form.querySelector(`#${listId}`);
 
-    const updateUI = () => {
-      listUI.innerHTML = "";
-      lists[listKey].forEach((item, idx) => {
-        const text = isSkill ? `${item.name} (${item.level})` : item;
-        const chip = document.createElement("div");
-        chip.className = "chip";
-        chip.innerHTML = `${text} <span class="cursor-pointer font-bold ml-1">×</span>`;
-        chip.onclick = () => {
-          lists[listKey].splice(idx, 1);
-          updateUI();
-        };
-        listUI.appendChild(chip);
-      });
-    };
-
-    btn.onclick = () => {
-      if (isSkill) {
-        const name = form.querySelector("#skillName").value;
-        const level = form.querySelector("#skillLevel").value;
-        if (name) {
-          lists[listKey].push({ name, level });
-          updateUI();
-        }
-      } else {
-        if (input.value) {
-          lists[listKey].push(input.value);
-          input.value = "";
-          updateUI();
-        }
-      }
-    };
+  const updateUI = () => {
+    listUI.innerHTML = "";
+    lists[listKey].forEach((item, idx) => {
+      const text = isSkill ? `${item.name} (${item.level})` : item;
+      const chip = document.createElement("div");
+      chip.className = "chip";
+      chip.innerHTML = `${text} <span class="cursor-pointer font-bold ml-1">×</span>`;
+      chip.onclick = () => {
+        lists[listKey].splice(idx, 1);
+        updateUI();
+      };
+      listUI.appendChild(chip);
+    });
   };
+
+  btn.onclick = () => {
+    if (isSkill) {
+      const name = form.querySelector("#skillName").value;
+      const level = form.querySelector("#skillLevel").value;
+      if (name) {
+        lists[listKey].push({ name, level });
+        updateUI();
+      }
+    } else {
+      if (input.value) {
+        lists[listKey].push(input.value);
+        input.value = "";
+        updateUI();
+      }
+    }
+  };
+};
 
   // Setup all dynamic lists
   setupList("respInput", "addResp", "respList", "responsibilities");

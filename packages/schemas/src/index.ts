@@ -10,3 +10,4 @@ export * from "./ai/engineInput.schema.js";
 export * from "./optional.schemas.js";
 export * from "./ai/careerProfile.schema.js";
 export * from "./db/resume.schema.js";
+export * from "./job.schema.js";
