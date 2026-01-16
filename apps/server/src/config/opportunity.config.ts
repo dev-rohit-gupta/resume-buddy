@@ -1,0 +1,1 @@
+export const OPPORTUNITY_API_BASE_URL = 'https://jobicy.com/api/v2/remote-jobs';
