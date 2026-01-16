@@ -27,7 +27,7 @@ export const suggestionController = asyncHandler(async (req: Request, res: Respo
   }
 
   const analysisResult = await suggestionService(userId, jobData.data);
-  res.status(200).json(new ApiResponse({ analysisResult }, "Job analyzed successfully"));
+  res.status(201).json(new ApiResponse({ analysisResult }, "Job analyzed successfully"));
 });
 /**
  * Controller to fetch paginated user suggestions.
