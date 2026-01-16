@@ -3,18 +3,18 @@ import { OPPORTUNITY_API_BASE_URL } from "../config/opportunity.config.js";
 import { Job, JobSchema } from "@resume-buddy/schemas";
 
 type FilterOptions = {
-  count?: number;
-  geo?: string;
-  industry?: string;
-  tag?: string;
+  search?: string;
+  limit?: number;
+  company_name?: string;
+  category?: string;
 };
 
-export async function getOpportunityService(options: FilterOptions = {}): Promise<Job[]> {
+export async function getOpportunityService(options: FilterOptions = {}): Promise<any> {
   // Validate and construct query parameters
   const url = new URL(OPPORTUNITY_API_BASE_URL);
   // Validate options
   Object.entries(options).forEach(([key, value]) => {
-    if (value === undefined) return;
+    if (!value) return;
 
     if (key === "count") {
       const count = Number(value);
@@ -25,14 +25,8 @@ export async function getOpportunityService(options: FilterOptions = {}): Promis
 
     url.searchParams.append(key, value.toString());
   });
-
   // Fetch data from the API
-  const response = await fetch(url.toString(), {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(url.toString());
 
   if (!response.ok) {
     const errorBody = await response.text();
@@ -49,5 +43,5 @@ export async function getOpportunityService(options: FilterOptions = {}): Promis
       validJobs.push(parsed.data);
     }
   }
-  return validJobs;
+  return data;
 }

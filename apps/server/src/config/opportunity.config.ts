@@ -1,1 +1,1 @@
-export const OPPORTUNITY_API_BASE_URL = 'https://jobicy.com/api/v2/remote-jobs';
+export const OPPORTUNITY_API_BASE_URL = 'https://remotive.com/api/remote-jobs';

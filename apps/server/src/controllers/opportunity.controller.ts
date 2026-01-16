@@ -6,10 +6,10 @@ import { Job } from "@resume-buddy/schemas";
 
 export const getOpportunitiesController = asyncHandler(async (req: Request, res: Response) => {
     const filterOptions = {
-        count: req.query.count ? Number(req.query.count) : undefined,
-        geo: req.query.geo as string | undefined,
-        industry: req.query.industry as string | undefined,
-        tag: req.query.tag as string | undefined,
+        search: req.query.search as string | undefined,
+        limit: req.query.limit ? Number(req.query.limit) : undefined,
+        company_name: req.query.company_name as string | undefined,
+        category: req.query.category as string | undefined,
     };
 
     const jobs =  await getOpportunityService(filterOptions);
