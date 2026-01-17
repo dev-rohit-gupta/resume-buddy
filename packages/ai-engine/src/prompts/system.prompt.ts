@@ -14,48 +14,54 @@ Your goal is to:
 
 You MUST return output strictly in the following JSON format:
 
-{
-  "stats": {
-    "difficulty": "Beginner" | "Intermediate" | "Advanced",
-    "learningFocused": boolean,
-    "competitionLevel": "Low" | "Medium" | "High",
-    "match": "Low" | "Partial" | "Good" | "Perfect"
-  },
-  "atsAnalysis": {
-    "atsScore": number,
-    "selectionProbability": "Low" | "Medium" | "High",
-    "reasons": string[]
-  },
-  "skillGapAnalysis": {
-    "matchedSkills": string[],
-    "missingSkills": {
-      "skill": string,
-      "priority": "High" | "Medium" | "Low",
-      "whyItMatters": string
-    }[]
-  },
-  "learningPlan": {
-    "mustLearnFirst": {
-      "skill": string,
-      "estimatedTime": string,
-      "impact": string
-    }[],
-    "goodToHave": string[]
-  },
-  "applicationDecision": {
-    "shouldApply": boolean,
-    "recommendation": "Apply Now" | "Apply After Preparation" | "Skip",
-    "reasoning": string[]
-  },
-  "precautions": {
-    "riskLevel": "Low" | "Medium" | "High",
-    "notes": string[]
-  },
-  "resumeActions": {
-    "add": string[],
-    "improve": string[],
-    "remove": string[]
-  }
+export interface AIOutput {
+  stats: {
+    difficulty: "Beginner" | "Intermediate" | "Advanced";
+    learningFocused: boolean;
+    competitionLevel: "Low" | "Medium" | "High";
+    match: "Low" | "Partial" | "Good" | "Perfect";
+  };
+
+  atsAnalysis: {
+    atsScore: number;
+    selectionProbability: "Low" | "Medium" | "High";
+    reasons: string[];
+  };
+
+  skillGapAnalysis: {
+    matchedSkills: string[];
+    missingSkills: {
+      skill: string;
+      priority: "High" | "Medium" | "Low";
+      whyItMatters: string;
+    }[];
+  };
+
+  learningPlan: {
+    mustLearnFirst: {
+      skill: string;
+      estimatedTime: string;
+      impact: string;
+    }[];
+    goodToHave: string[];
+  };
+
+  applicationDecision: {
+    shouldApply: boolean;
+    recommendation: "Apply Now" | "Apply After Preparation" | "Skip";
+    reasoning: string[];
+  };
+
+  precautions: {
+    riskLevel: "Low" | "Medium" | "High";
+    notes: string[];
+  };
+
+  resumeActions: {
+    add: string[];
+    improve: string[];
+    remove: string[];
+  };
 }
 
 Rules:
@@ -77,69 +83,80 @@ Resume content is the single source of truth.
 
 You MUST return output strictly in the following JSON format:
 
-{
-  "basics": {
-    "name": string | null,
-    "email": string | null,
-    "phone": string | null,
-    "location": string | null,
-    "links": {
-      "linkedin": string | null,
-      "github": string | null,
-      "portfolio": string | null
-    }
-  },
-  "summary": string | null,
-  "education": [{
-    "degree": string | null,
-    "field": string | null,
-    "institution": string | null,
-    "startYear": string | null,
-    "endYear": string | null,
-    "grade": string | null
-  }],
-  "experience": [{
-    "role": string | null,
-    "company": string | null,
-    "location": string | null,
-    "startDate": string | null,
-    "endDate": string | null,
-    "description": string[],
-    "type": "job" | "internship" | null
-  }],
-  "projects": [{
-    "title": string | null,
-    "description": string | null,
-    "techStack": string[],
-    "link": string | null
-  }],
-  "skills": {
-    "technical": string[],
-    "soft": string[],
-    "tools": string[]
-  },
-  "certifications": [{
-    "name": string | null,
-    "issuer": string | null,
-    "year": string | null,
-    "url": string | null
-  }],
-  "achievements": [{
-    "title": string | null,
-    "description": string | null,
-    "year": string | null
-  }],
-  "languages": [{
-    "name": string,
-    "proficiency": "basic" | "intermediate" | "fluent" | "native" | null
-  }],
-  "metadata": {
-    "resumeVersion": number,
-    "extractedAt": string,
-    "sourceFileType": "pdf" | "docx",
-    "confidenceScore": number | null
-  }
+export interface Resume {
+  basics: {
+    name?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    location?: string | null;
+
+    links?: {
+      linkedin?: string | null;
+      github?: string | null;
+      portfolio?: string | null;
+    } | null;
+  };
+
+  summary?: string | null;
+
+  education: {
+    degree?: string | null;
+    field?: string | null;
+    institution?: string | null;
+    startYear?: string | null;
+    endYear?: string | null;
+    grade?: string | null;
+  }[];
+
+  experience: {
+    role?: string | null;
+    company?: string | null;
+    location?: string | null;
+    startDate?: string | null;
+    endDate?: string | null;
+    description: string[];
+    type?: "job" | "internship";
+  }[];
+
+  projects: {
+    title?: string | null;
+    description?: string | null;
+    techStack: string[];
+    link?: string | null;
+  }[];
+
+  skills?: {
+    technical: string[];
+    soft: string[];
+    tools: string[];
+  } | null;
+
+  certifications: {
+    name?: string | null;
+    issuer?: string | null;
+    year?: string | null;
+    url?: string | null;
+  }[];
+
+  achievements: {
+    title?: string | null;
+    description?: string | null;
+    year?: string | null;
+  }[];
+
+  languages: {
+    name: string;
+    proficiency?: "basic" | "intermediate" | "fluent" | "native";
+  }[];
+
+  metadata: {
+    resumeVersion: number;
+    extractedAt: string;
+    sourceFileType: "pdf" | "docx";
+    confidenceScore?: number;
+  };
 }
+
 
 Rules:
 - Output ONLY valid JSON with proper double quotes
@@ -165,12 +182,16 @@ Core Principles:
 
 You MUST return output strictly in the following JSON format:
 
-{
-  "atsScore": number,
-  "bestRole": string,
-  "nearestNextRole": string,
-  "skillGaps": string[]
+export interface CareerProfile {
+  atsScore: number;
+
+  bestRole: "N/A" | string;
+
+  nearestNextRole: "N/A" | string;
+
+  skillGaps: string[];
 }
+
 
 Rules:
 - Output ONLY valid JSON with proper double quotes
