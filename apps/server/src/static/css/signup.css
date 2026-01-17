@@ -254,6 +254,13 @@ body {
   right: 20%;
 }
 
+@media (max-width: 480px) {
+  .card-right{
+    display: none;
+  }
+}
+
+
 @media (max-width: 768px) {
   .card {
     flex-direction: column;
