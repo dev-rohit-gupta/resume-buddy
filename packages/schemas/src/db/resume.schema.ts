@@ -10,7 +10,7 @@ const RoleSchema = z.union([z.literal("N/A"), z.string().min(2).max(100)]);
 export const ResumeDbSchema = z.object({
   user: ObjectIdSchema,
 
-  id: z.string().min(1),
+  key: z.string().min(1),
 
   resourceType: z.string().min(1),
 
