@@ -4,9 +4,8 @@ import { Resume } from "@resume-buddy/schemas";
 export interface IResume {
   user: mongoose.Types.ObjectId;
 
-  id: string;
+  key: string;
   resourceType: string;
-  extension: string;
 
   // ===== Extracted / Parsed Resume Content =====
   content: Resume;
@@ -16,7 +15,7 @@ export interface IResume {
   bestRole: string;
   nearestNextRole: string;
   skillGaps: string[];
-
+  
   // ===== Meta =====
   version: number;
   analysedAt?: Date;
@@ -34,17 +33,12 @@ const ResumeSchema = new mongoose.Schema<IResume>(
       unique: true,
     },
 
-    id: {
+    key: {
       type: String,
       required: true,
     },
 
     resourceType: {
-      type: String,
-      required: true,
-    },
-
-    extension: {
       type: String,
       required: true,
     },

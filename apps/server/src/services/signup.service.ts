@@ -1,10 +1,12 @@
 import { UserModel } from "../models/user.model.js";
 import { ResumeModel } from "../models/resume.model.js";
 import { ApiError } from "@resume-buddy/utils";
-import { uploadToCloudinary } from "./cloudinary.service.js";
 import { extractResumeService } from "./resumeExtraction.service.js";
 import { buildCareerProfile } from "@resume-buddy/ai-engine";
 import { JobStatsModel } from "../models/jobStats.model.js";
+import { uploadToS3 } from "./aws.service.js";
+import { generateResumeKey } from "@resume-buddy/utils";
+
 interface SignupInput {
   name: string;
   email: string;
@@ -20,11 +22,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
   if (existingUser) {
     throw new ApiError(409, "User with this email already exists");
   }
-  // Upload resume to Cloudinary
-  const resumeInfoFromCloudinary = await uploadToCloudinary(resume, "resumes");
-  if (!resumeInfoFromCloudinary) {
-    throw new ApiError(500, "File upload failed");
-  }
+
   // extract from resume
   const resumeData = await extractResumeService(resume);
   if (!resumeData) {
@@ -40,7 +38,7 @@ export async function signupService({ name, email, password, avatar, resume }: S
     name,
     email,
     password,
-    ...(avatar && { avatar }), // only include avatar if provided else use defaul
+    ...(avatar && { avatar }), // only include avatar if provided else use default
   });
 
   // Initialize job stats for the new user
@@ -52,12 +50,20 @@ export async function signupService({ name, email, password, avatar, resume }: S
   });
   await newJobStats.save();
 
+  // Get user's resume key
+  const newUserId = newUser._id.toString();
+  const resumeKey = generateResumeKey(newUserId,resume.originalname);
+  // Upload resume to S3
+  const response = await uploadToS3(resume, resumeKey);
+  if (!response.$metadata.httpStatusCode || response.$metadata.httpStatusCode >= 300) {
+    throw new ApiError(500, "File upload failed");
+  }
+
   // Create a new resume document
   const newResume = new ResumeModel({
     user: newUser._id,
-    id: resumeInfoFromCloudinary.id,
-    resourceType: resumeInfoFromCloudinary.resourceType,
-    extension: resumeInfoFromCloudinary.extension,
+    key: resumeKey,
+    resourceType: "raw",
     content: resumeData,
     version: 1,
     ...careerProfile,

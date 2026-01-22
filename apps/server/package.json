@@ -15,6 +15,7 @@
     "watch:bootstrap": "sass --load-path=../../node_modules src/static/css/bootstrap.custom.scss src/static/css/bootstrap.output.css --watch --style compressed"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.972.0",
     "@google/generative-ai": "^0.15.0",
     "@resume-buddy/ai-engine": "^1.0.0",
     "@resume-buddy/schemas": "^1.0.0",

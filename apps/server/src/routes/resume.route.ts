@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { uploader } from "../middleware/multer.middleware.js";
+import { downloadResumeFileController } from "../controllers/resume.controller.js";
 import {
   getResumeController,
   updateResumeController,
@@ -12,6 +13,9 @@ const router = Router();
 router.route("/").get(getResumeController).put(updateResumeController);
 
 // Update resume file
-router.route("/file").put(uploader.single("file"), updateResumeFileController);
+router
+  .route("/file")
+  .get(downloadResumeFileController)
+  .put(uploader.single("file"), updateResumeFileController);
 
 export default router;

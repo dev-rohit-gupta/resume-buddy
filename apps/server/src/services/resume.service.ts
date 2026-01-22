@@ -1,10 +1,20 @@
 import { ResumeModel } from "../models/resume.model.js";
 import type { ResumeDb } from "@resume-buddy/schemas";
-import { uploadToCloudinary, deleteFromCloudinary, getResumeUrl } from "./cloudinary.service.js";
 import { ApiError, deepMerge } from "@resume-buddy/utils";
 import { extractResumeService } from "./resumeExtraction.service.js";
 import { buildCareerProfile } from "@resume-buddy/ai-engine";
 import { UpdateQuery } from "mongoose";
+import { uploadToS3 , getS3Object } from "./aws.service.js";
+/*-------------- Constants -----------------*/
+const resumeUrl = "me/resume";
+
+
+export async function getResumeKey(userId : string ){
+  const resume = await ResumeModel.findOne({ user: userId }).select("key").lean();
+  if(!resume) throw new ApiError(404, "Resume not found");
+  return resume.key;
+}
+
 
 /**
  * Get resume by user ID
@@ -12,13 +22,10 @@ import { UpdateQuery } from "mongoose";
 export async function getResumeByUserIdService(userId: string) {
   // Find resume document by user ID
   const resume = await ResumeModel.findOne({ user: userId })
-    .select("content id extension resourceType atsScore bestRole nearestNextRole skillGaps version")
+    .select("content key extension resourceType atsScore bestRole nearestNextRole skillGaps version")
     .lean();
 
   if (!resume) throw new ApiError(404, "Resume not found");
-
-  // Generate resume URL from Cloudinary
-  const resumeUrl = getResumeUrl(resume.id, resume.extension);
 
   return { ...resume, url: resumeUrl };
 }
@@ -57,7 +64,7 @@ export async function updateResumeService(userId: string, partialData: Partial<R
     !!partialData.content ||
     !!partialData.extension ||
     !!partialData.resourceType ||
-    !!partialData.id;
+    !!partialData.key;
 
   // Prepare update query
   const updateSet: UpdateQuery<any> = {
@@ -65,7 +72,7 @@ export async function updateResumeService(userId: string, partialData: Partial<R
       content: merged.content,
       extension: merged.extension,
       resourceType: merged.resourceType,
-      id: merged.id,
+      key: merged.key,
       ...careerProfile,
     },
   };
@@ -86,11 +93,8 @@ export async function updateResumeService(userId: string, partialData: Partial<R
       resourceType: 1,
     },
   })
-    .select("id content extension resourceType version")
+    .select("key content extension resourceType version")
     .lean();
-
-  // Generate resume URL
-  const resumeUrl = getResumeUrl(updatedResume!.id, updatedResume!.extension);
 
   return { ...updatedResume, url: resumeUrl };
 }
@@ -98,27 +102,22 @@ export async function updateResumeService(userId: string, partialData: Partial<R
 /**
  * Update resume file by uploading new file to Cloudinary
  */
-export async function updateResumeFileService(userId: string, file: Express.Multer.File) {
+export async function updateResumeFileService(userId: string, file: Express.Multer.File ) {
   // Find existing resume
   const resume = await ResumeModel.findOne({ user: userId }).lean();
   if (!resume) {
     throw new ApiError(404, "Resume not found");
   }
-
+  const resumeKey = resume.key;
   // Remove internal MongoDB fields
   const { _id, createdAt, updatedAt, __v, user, ...safeResume } = resume;
 
-  // Upload new resume to Cloudinary
-  const { id, extension, resourceType } = await uploadToCloudinary(file, "resumes");
-  if (!id) {
+  // Upload new resume to S3 it will overwrite existing file
+  const response = await uploadToS3(file,resumeKey );
+  if (!response.$metadata.httpStatusCode || response.$metadata.httpStatusCode >= 300) {
     throw new ApiError(500, "File upload failed");
   }
-
-  // Delete old resume from Cloudinary
-  if (resume.id && resume.id !== id) {
-    await deleteFromCloudinary(safeResume.id);
-  }
-
+  const resourceType = "raw"; // Since we are uploading resume files
   // Extract content from uploaded file
   const extractedContent = await extractResumeService(file);
   if (!extractedContent) {
@@ -134,9 +133,8 @@ export async function updateResumeFileService(userId: string, file: Express.Mult
     {
       $set: {
         content: extractedContent,
-        extension,
         resourceType,
-        id,
+        key: resumeKey,
         ...careerProfile,
       },
       $inc: { version: 1 },
@@ -146,17 +144,26 @@ export async function updateResumeFileService(userId: string, file: Express.Mult
       projection: {
         content: 1,
         version: 1,
-        id: 1,
-        extension: 1,
+        key: 1,
         resourceType: 1,
       },
     }
   )
-    .select("id content extension resourceType version")
+    .select("key content resourceType version")
     .lean();
 
-  // Generate resume URL
-  const resumeUrl = getResumeUrl(updatedResume!.id, updatedResume!.extension);
-
   return { ...updatedResume, url: resumeUrl };
+}
+
+
+export async function downloadResumeFileService(userId: string, range?: string) {
+  // Find existing resume
+  const resumeKey = await getResumeKey(userId);
+  
+  // Get resume file from S3
+  const s3Object = await getS3Object(resumeKey, range);
+  if (!s3Object.$metadata.httpStatusCode || s3Object.$metadata.httpStatusCode >= 300) {
+    throw new ApiError(404, "Resume file not found");
+  }
+  return s3Object;
 }

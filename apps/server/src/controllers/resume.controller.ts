@@ -3,10 +3,12 @@ import { ResumeDbSchema } from "@resume-buddy/schemas";
 import { ApiResponse, ApiError } from "@resume-buddy/utils";
 import { Request, Response } from "express";
 import { asyncHandler } from "@resume-buddy/utils";
+import { toNodeReadable } from "@resume-buddy/utils";
 import {
   getResumeByUserIdService,
   updateResumeService,
   updateResumeFileService,
+  downloadResumeFileService
 } from "../services/resume.service.js";
 
 export const getResumeController = asyncHandler(async (req: Request, res: Response) => {
@@ -59,3 +61,29 @@ export const updateResumeFileController = asyncHandler(async (req: Request, res:
 
   res.status(200).json(new ApiResponse({ updatedResume }, "Resume file updated successfully"));
 });
+
+export const downloadResumeFileController = asyncHandler(async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  // Ensure user is authenticated
+  if (!userId) throw new ApiError(401, "Unauthorized");
+  // range request support can be added later if needed
+  const range = req.headers.range;
+  const data = await downloadResumeFileService(userId, range);
+
+  if (!data) throw new ApiError(404, "Resume file not found");
+
+  // Headers set
+  if (range) {
+    res.status(206);
+    res.setHeader("Content-Range", data.ContentRange!);
+    res.setHeader("Accept-Ranges", "bytes");
+    res.setHeader("Content-Length", data.ContentLength!);
+  }
+
+  res.setHeader("Content-Type", data.ContentType!);
+  res.setHeader("Cache-Control", "no-store");
+
+  const stream = toNodeReadable(data.Body);
+
+  stream.pipe(res);
+})
