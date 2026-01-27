@@ -468,7 +468,6 @@ body {
 }
 #analyzeModal #contentWrapper {
   padding:0  var(--spacing-md);
-  max-height: 70vh;
   overflow-y: auto;
   margin-bottom: var(--spacing-lg);
 }

@@ -78,12 +78,12 @@ function createAnalysedJobCard({ title, company, skills, match, createdAt }) {
   const html = `
     <div class="job-card" data-bs-toggle="modal" data-bs-target="#analyzeModal">
           <div class="job-main">
-            <div class="job-icon">${title.charAt(0)}</div>
+            <div class="job-icon">${capitalizeEachLetter(title.charAt(0))}</div>
             <div>
-              <h3>${title}</h3>
-              <p class="company">${company}</p>
+              <h3>${capitalizeEachLetter(title)}</h3>
+              <p class="company">${capitalizeEachLetter(company)}</p>
               <div class="tags">
-                ${skills.map((skill) => `<span class="tag">${skill}</span>`).join("")}
+                ${skills.map((skill) => `<span class="tag">${capitalizeEachLetter(skill)}</span>`).join("")}
               </div>
             </div>
           </div>
@@ -248,12 +248,23 @@ function createOpportunityAnalysisForm() {
           </select>
         </div>
         <div>
-          <label class="label">City (nullable)</label
+          <label class="label">City (optional)</label
           ><input class="custom-input" id="city" placeholder="e.g. Nagpur / Bangalore" />
         </div>
         <div>
           <label class="label">Country</label
-          ><input class="custom-input" id="country" value="India" placeholder="e.g. India" required />
+          ><select class="custom-select" id="country" required>
+            <option>India</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>Germany</option>
+            <option>Singapore</option>
+            <option>UAE</option>
+            <option>Netherlands</option>
+            <option>Ireland</option>
+          </select>
         </div>
 
         <div>
@@ -381,8 +392,6 @@ function createOpportunityAnalysisForm() {
                   class="custom-input"
                   placeholder="e.g. Next.js, Django"
                 /><button type="button" id="addFrame" class="btn-add">+</button>
-              </div>
-              <ul id="frameList" class="chip-container"></ul>
             </div>
             <div>
               <label class="label">Databases</label>
@@ -412,6 +421,8 @@ function createOpportunityAnalysisForm() {
               <input id="eduInput" class="custom-input" placeholder="e.g. B.Tech IT / BCA" /><button
                 type="button"
                 id="addEdu"
+                class="btn-add"
+              >
                 class="btn-add"
               >
                 +
@@ -823,7 +834,7 @@ function createOpportunityAnalysisResults(response) {
             ${type}
           </p>
           <ul class="text-[11px] space-y-2 text-slate-300">
-            ${list.length ? list.map((i) => `<li>• ${i}</li>`).join("") : `<li class="opacity-50">Nothing</li>`}
+            ${list.length ? list.map((i) => `<li>${i}</li>`).join("") : `<li class="opacity-50">Nothing</li>`}
           </ul>
         </div>`;
         })
