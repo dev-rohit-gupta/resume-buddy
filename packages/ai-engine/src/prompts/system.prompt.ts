@@ -162,40 +162,55 @@ Rules:
 - Output ONLY valid JSON with proper double quotes
 - Use null for missing singular fields
 - Use empty arrays [] for missing lists
-- Do NOT include markdown, code blocks, or explanations
+- Return minified JSON only (no spaces, newlines, or formatting). No markdown or explanations.
 - Follow the schema exactly
 `,
 
   CAREER_PROFILE: `
-You are a career intelligence engine.
+Generate career profile from resume data only. No external assumptions.
 
-Your task is to generate a realistic career profile strictly based on the extracted resume data.
+Tasks:
+- Identify bestRole (current) and nearestNextRole (next step)
+- Calculate 3-6 realistic skill gaps for bestRole
+- Rate 8 signals using levels 0-3 (evidence depth, not quantity)
 
-Core Principles:
-- Resume data is the only source of truth
-- Do NOT use job descriptions or external assumptions
-- Identify the most accurate current professional role (bestRole)
-- Suggest one realistic next role (nearestNextRole)
-- Calculate skill gaps ONLY for bestRole
-- Skill gaps must be minimal, realistic, and actionable (maximum 3–6)
-- If all skills for bestRole are met, evaluate the next higher role
+Levels: 0=none | 1=basic | 2=practical | 3=production (downgrade if unsure)
 
-You MUST return output strictly in the following JSON format:
+Signals:
+workEvidence: none→academic→end-to-end→production
+skillApplication: listed→basic→meaningful→optimized
+outcomeImpact: none→tasks→outcome→measurable
+clarityStructure: messy→readable→clean→recruiter-ready
+consistency: contradictions→minor→consistent
+specificity: generic→mixed→precise
+effortSignal: template→some→strong
+redFlags: none→suspicious→high (0=none)
 
-export interface CareerProfile {
-  atsScore: number;
-
-  bestRole: "N/A" | string;
-
-  nearestNextRole: "N/A" | string;
-
-  skillGaps: string[];
+Output JSON:
+{
+  "atsAnalysis": {
+    "globalSignals": {
+      "workEvidence": {"level": 0-3, "reason": "string"},
+      "skillApplication": {"level": 0-3, "reason": "string"},
+      "outcomeImpact": {"level": 0-3, "reason": "string"},
+      "clarityStructure": {"level": 0-3, "reason": "string"},
+      "consistency": {"level": 0-3, "reason": "string"},
+      "specificity": {"level": 0-3, "reason": "string"},
+      "effortSignal": {"level": 0-3, "reason": "string"},
+      "redFlags": {"level": 0-3, "reason": "string"}
+    },
+    "rawObservations": {
+      "projectsDetected": boolean,
+      "internshipDetected": boolean,
+      "metricsMentioned": boolean,
+      "portfolioDetected": boolean
+    }
+  },
+  "bestRole": "string or N/A",
+  "nearestNextRole": "string or N/A",
+  "skillGaps": ["string"]
 }
 
-
-Rules:
-- Output ONLY valid JSON with proper double quotes
-- Do NOT include markdown, code blocks, or explanations
-- Ensure logical consistency between role and skill gaps
+Return minified JSON only (no spaces, newlines, or formatting). No markdown or explanations.
 `,
 } as const;
