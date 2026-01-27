@@ -1,17 +1,14 @@
 import { z } from "zod";
-
+import { generalAtsReportSchema } from "./atsAnalysis.schema.js";
 const RoleSchema = z.union([z.literal("N/A"), z.string().min(2).max(100)]);
 /**
  * Career Profile Schema
  */
 export const CareerProfileSchema = z
   .object({
-    atsScore: z.number().int().min(0).max(100),
-
+    atsAnalysis: generalAtsReportSchema,
     bestRole: RoleSchema,
-
     nearestNextRole: RoleSchema,
-
     skillGaps: z.array(z.string().min(1)),
   })
   .refine(

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Resume } from "@resume-buddy/schemas";
-
+import { GeneralAtsReport } from "@resume-buddy/schemas";
 export interface IResume {
   user: mongoose.Types.ObjectId;
 
@@ -11,14 +11,14 @@ export interface IResume {
   content: Resume;
 
   // ===== Career Analysis (SOURCE OF TRUTH) =====
-  atsScore: number;
+  atsAnalysis: GeneralAtsReport;
   bestRole: string;
   nearestNextRole: string;
   skillGaps: string[];
   
   // ===== Meta =====
   version: number;
-  analysedAt?: Date;
+  analyzedAt?: Date;
 
   createdAt: Date;
   updatedAt: Date;
@@ -50,11 +50,10 @@ const ResumeSchema = new mongoose.Schema<IResume>(
     },
 
     // ---------- Career Analysis ----------
-    atsScore: {
-      type: Number,
-      min: 0,
-      max: 100,
-      default: 0,
+    atsAnalysis: {
+      type: Object,
+      required: true,
+      default: {},
     },
 
     bestRole: {
@@ -72,7 +71,7 @@ const ResumeSchema = new mongoose.Schema<IResume>(
       default: [],
     },
 
-    analysedAt: {
+    analyzedAt: {
       type: Date,
     },
 

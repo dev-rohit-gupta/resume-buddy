@@ -39,6 +39,10 @@ export async function runEngine({
   if (!response?.text) {
     throw new Error("Empty AI response");
   }
-
+  if (process.env.NODE_ENV !== "production") {
+  console.log("AI model used : ", response.modelVersion);
+  console.log("AI Tokens Used:", response.usageMetadata);
+  console.log("AI Response:", response.text);
+  }
   return response.text;
 }

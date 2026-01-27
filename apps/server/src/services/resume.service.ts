@@ -22,7 +22,7 @@ export async function getResumeKey(userId : string ){
 export async function getResumeByUserIdService(userId: string) {
   // Find resume document by user ID
   const resume = await ResumeModel.findOne({ user: userId })
-    .select("content key extension resourceType atsScore bestRole nearestNextRole skillGaps version")
+    .select("content key extension resourceType atsAnalysis bestRole nearestNextRole skillGaps version")
     .lean();
 
   if (!resume) throw new ApiError(404, "Resume not found");
