@@ -1,13 +1,11 @@
 import { GoogleGenAI, GenerateContentConfig } from "@google/genai";
-import type { AIEngineConfig } from "../ai-engine.config.js";
 import { EngineInput } from "@resume-buddy/schemas";
 import { mapInputsToContents } from "@resume-buddy/utils";
-
 interface RunEngineParams {
   ai: InstanceType<typeof GoogleGenAI>;
   inputs: EngineInput[];
-  config: AIEngineConfig;
-  systemInstruction: string;
+  model: string;
+  config: GenerateContentConfig;
 }
 
 /**
@@ -16,24 +14,16 @@ interface RunEngineParams {
  */
 export async function runEngine({
   ai,
-  systemInstruction,
+  model,
   inputs,
   config,
-}: {
-  ai: InstanceType<typeof GoogleGenAI>;
-  inputs: EngineInput[];
-  config: AIEngineConfig;
-  systemInstruction: string;
-}) {
+}: RunEngineParams) {
   const contents = mapInputsToContents(inputs);
 
   const response = await ai.models.generateContent({
-    model: process.env.GOOGLE_AI_MODEL ?? "gemini-1.0-pro",
+    model,
     contents,
-    config: {
-      systemInstruction,
-      ...config.generation,
-    },
+    config,
   });
 
   if (!response?.text) {

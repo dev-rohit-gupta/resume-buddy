@@ -166,7 +166,7 @@ Rules:
 - Follow the schema exactly
 `,
 
-  CAREER_PROFILE: `
+  CAREER_PROFILE_BUILD: `
 Generate career profile from resume data only. No external assumptions.
 
 Tasks:
