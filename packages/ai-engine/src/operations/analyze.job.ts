@@ -2,10 +2,17 @@ import { createGeminiClient } from "../client/gemini.client.js";
 import { runEngine } from "../engine/run.engine.js";
 import { AIInputSchema, AIOutputSchema } from "@resume-buddy/schemas";
 import type { AIInput, AIOutput, User } from "@resume-buddy/schemas";
-import { AI_ENGINE_CONFIG } from "../ai-engine.config.js";
 import { SYSTEM_INSTRUCTION } from "../prompts/system.prompt.js";
 import { EngineInput } from "@resume-buddy/schemas";
 import { safeParseAIJson } from "@resume-buddy/utils";
+import { GenerateContentConfig, ThinkingLevel } from "@google/genai";
+
+const config : GenerateContentConfig = {
+  systemInstruction: SYSTEM_INSTRUCTION.JOB_ANALYSIS,
+  thinkingConfig : {
+    thinkingLevel: ThinkingLevel.HIGH,
+  }
+};
 
 export async function analyzeJob(user: User, jobData: AIInput): Promise<AIOutput> {
   // create Gemini AI client
@@ -19,9 +26,9 @@ export async function analyzeJob(user: User, jobData: AIInput): Promise<AIOutput
   ];
   const result = await runEngine({
     ai,
-    systemInstruction: SYSTEM_INSTRUCTION.JOB_ANALYSIS,
+    model: "gemini-3-flash-preview",
     inputs,
-    config: AI_ENGINE_CONFIG,
+    config,
   });
 
   // validate AI output

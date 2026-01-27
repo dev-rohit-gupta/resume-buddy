@@ -1,10 +1,17 @@
 import { createGeminiClient } from "../client/gemini.client.js";
 import { runEngine } from "../engine/run.engine.js";
 import { ResumeSchema, Resume } from "@resume-buddy/schemas";
-import { AI_ENGINE_CONFIG } from "../ai-engine.config.js";
 import { SYSTEM_INSTRUCTION } from "../prompts/system.prompt.js";
 import { EngineInput } from "@resume-buddy/schemas";
 import { safeParseAIJson } from "@resume-buddy/utils";
+import { GenerateContentConfig, ThinkingLevel } from "@google/genai";
+
+const config  : GenerateContentConfig = {
+  systemInstruction: SYSTEM_INSTRUCTION.RESUME_EXTRACTION,
+  thinkingConfig : {
+    thinkingLevel: ThinkingLevel.MINIMAL,
+  }
+};
 
 export async function analyzeResume(
   text?: string,
@@ -24,9 +31,9 @@ export async function analyzeResume(
   if (metadata) inputs.push({ type: "metadata", value: metadata });
   const result = await runEngine({
     ai,
-    systemInstruction: SYSTEM_INSTRUCTION.RESUME_EXTRACTION,
+    model: "gemini-3-pro-preview",
     inputs,
-    config: AI_ENGINE_CONFIG,
+    config,
   });
   const cleanedResult = safeParseAIJson<Resume>(result);
   return ResumeSchema.parse(cleanedResult);
