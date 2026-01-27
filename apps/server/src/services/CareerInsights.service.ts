@@ -4,7 +4,8 @@ import { ApiError } from "@resume-buddy/utils";
 export async function getCareerStatsService(userId: string) {
   let jobStats = await JobStatsModel.findOne({ user: userId })
     .select(
-      ` createdAt
+      ` user
+        createdAt
         updatedAt
         totalMatched
         thisWeekMatched 
@@ -13,19 +14,20 @@ export async function getCareerStatsService(userId: string) {
     )
     .populate({ path: "user", select: "name email avatar role" })
     .lean();
+    
   return jobStats;
 }
 export async function updateCareerInsightsService(
   userId: string,
-  incriments: { totalMatched: number; thisWeekMatched: number; previousWeekMatched: number }
+  increments: { totalMatched: number; thisWeekMatched: number; previousWeekMatched: number }
 ) {
   const updatedJobStats = await JobStatsModel.findOneAndUpdate(
     { user: userId },
     {
       $inc: {
-        totalMatched: incriments.totalMatched,
-        thisWeekMatched: incriments.thisWeekMatched,
-        previousWeekMatched: incriments.previousWeekMatched,
+        totalMatched: increments.totalMatched,
+        thisWeekMatched: increments.thisWeekMatched,
+        previousWeekMatched: increments.previousWeekMatched,
       },
       $setOnInsert: { user: userId, totalMatched: 0, thisWeekMatched: 0, previousWeekMatched: 0 },
     },
