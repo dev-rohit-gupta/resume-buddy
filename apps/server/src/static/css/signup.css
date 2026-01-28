@@ -7,10 +7,6 @@
 
 body {
   background: var(--bg-gray);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 }
 
 .page {
@@ -135,6 +131,12 @@ body {
   cursor: pointer;
 }
 
+#file-name-display{
+  margin-top: 8px;
+  font-size: var(--font-size-sm);
+  color: var(--text-dark-gray);
+}
+
 .drop-main-text {
   font-size: var(--font-size-base);
   color: var(--text-dark-gray);
@@ -255,22 +257,26 @@ body {
 }
 
 @media (max-width: 480px) {
-  .card-right{
-    display: none;
-  }
+  /* for phone */
 }
 
 
 @media (max-width: 768px) {
   .card {
-    flex-direction: column;
     max-width: 420px;
   }
-
-  .card-right {
+  /* aligning the text to center */
+  .step-text{
+    text-align: center;
+  }
+  .signup-form .title,
+  .signup-form .upload-section,
+  .signup-form .footer-text {
+    text-align: center;
+  }
+  .card-right{
     display: none;
   }
-
   .card-left {
     padding: 24px 20px 28px;
   }

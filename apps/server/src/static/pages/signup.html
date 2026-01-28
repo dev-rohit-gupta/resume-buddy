@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Join Our Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon" />
     <!-- css files -->
     <link rel="stylesheet" href="/css/variable.css" />
@@ -83,16 +84,12 @@
                 </span>
 
                 <span class="drop-sub-text"> PDF or DOCX (max 3MB) </span>
-
+                <span id="file-name-display" class="file-name"></span>
                 <input type="file" name="file" id="resumeUpload" accept=".pdf,.docx" required />
               </label>
 
-              <button type="button" id="fileNameBtn" class="file-name-btn">
-                selected: no file chosen
-              </button>
-
               <button type="submit" class="btn-submit-resume">Submit Resume</button>
-              
+
               <p class="footer-text">Already have an account? <a href="/login">Login here</a></p>
             </div>
           </form>

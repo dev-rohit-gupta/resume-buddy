@@ -1,5 +1,5 @@
 const fileInput = document.getElementById("resumeUpload");
-const fileNameBtn = document.getElementById("fileNameBtn");
+const fileNameDisplay = document.getElementById("file-name-display");
 const dropText = document.getElementById("dropText");
 const form = document.querySelector("form.signup-form");
 const submitBtn = document.querySelector(".btn-submit-resume");
@@ -7,7 +7,7 @@ fileInput.addEventListener("change", function () {
   const file = this.files[0];
 
   if (!file) {
-    fileNameBtn.textContent = "selected: no file chosen";
+    fileNameDisplay.textContent = "no file chosen";
     dropText.textContent = "Drop your resume here or click to upload";
     return;
   }
@@ -21,7 +21,7 @@ fileInput.addEventListener("change", function () {
   if (!allowed.includes(ext)) {
     alert("Only PDF or DOCX files are allowed.");
     this.value = "";
-    fileNameBtn.textContent = "selected: no file chosen";
+    fileNameDisplay.textContent = "no file chosen";
     dropText.textContent = "Drop your resume here or click to upload";
     return;
   }
@@ -30,12 +30,12 @@ fileInput.addEventListener("change", function () {
   if (fileSize > maxSize) {
     alert("File is too large. Maximum size is 3MB.");
     this.value = "";
-    fileNameBtn.textContent = "selected: no file chosen";
+    fileNameDisplay.textContent = "no file chosen";
     dropText.textContent = "Drop your resume here or click to upload";
     return;
   }
 
-  fileNameBtn.textContent = "selected: " + fileName;
+  fileNameDisplay.textContent = fileName;
   dropText.textContent = "File ready to upload";
 });
 
@@ -49,7 +49,7 @@ form.addEventListener("submit", async function (e) {
   const formData = new FormData(form);
   // Loader display
   submitBtn.disabled = true;
-  showLoader("Signing up... Please wait.", document.body);
+  showLoader("Signing up...", document.body);
 
   const response = await fetch("/api/auth/signup", {
     method: "POST",
