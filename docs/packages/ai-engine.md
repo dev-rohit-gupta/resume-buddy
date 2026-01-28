@@ -84,7 +84,7 @@ console.log(result.applicationDecision.recommendation); // "Apply After Preparat
 ```
 
 **AI Configuration**:
-- Model: `gemini-1.5-flash` (Gemini Flash 1.5)
+- Model: `gemini-3-flash-preview` (Gemini Flash 3)
 - Thinking Level: `HIGH`
 - System Instruction: `SYSTEM_INSTRUCTION.JOB_ANALYSIS`
 
@@ -128,7 +128,7 @@ console.log(resume.metadata.confidenceScore); // 85
 ```
 
 **AI Configuration**:
-- Model: `gemini-1.5-flash` (Gemini Flash 1.5)
+- Model: `gemini-3-flash-preview` (Gemini Flash 3)
 - System Instruction: `SYSTEM_INSTRUCTION.RESUME_EXTRACTION`
 - Input: Resume text content
 
@@ -167,7 +167,7 @@ console.log(profile.atsAnalysis.globalSignals.workEvidence.level); // 2
 ```
 
 **AI Configuration**:
-- Model: `gemini-1.5-flash` (Gemini Flash 1.5)
+- Model: `gemini-3-flash-preview` (Gemini Flash 3)
 - System Instruction: `SYSTEM_INSTRUCTION.CAREER_PROFILE_BUILD`
 - Thinking Level: `HIGH`
 
@@ -196,7 +196,6 @@ const ai = createGeminiClient();
 
 **Configuration**:
 - API Key from environment: `GOOGLE_GENAI_API_KEY`
-- Default model: `gemini-1.5-flash` (Gemini Flash 1.5)
 - Safety settings: Block only high-harm content
 
 ---
@@ -217,7 +216,7 @@ interface RunEngineParams {
   ai: GenerativeModel;
   model: string;
   inputs: EngineInput[];
-  config?: GenerateContentConfig;
+  config: GenerateContentConfig;
 }
 
 async function runEngine(params: RunEngineParams): Promise<string>
@@ -343,13 +342,13 @@ GOOGLE_GENAI_API_KEY=your_gemini_api_key_here
 
 ### Model Selection
 
-Current default: `gemini-1.5-flash` (Gemini Flash 1.5)
+Current default: `gemini-3-flash` (Gemini Flash 3)
 
 To change model (if needed):
 ```typescript
 const result = await runEngine({
   ai: createGeminiClient(),
-  model: 'gemini-1.5-pro', // More powerful model
+  model: 'gemini-3-pro', // More powerful model
   inputs: [...],
   config: {...}
 });
@@ -367,41 +366,6 @@ const config = {
     thinkingLevel: ThinkingLevel.HIGH, // or MEDIUM, LOW
   }
 };
-```
-
----
-
-## 🧪 Testing
-
-### Unit Tests
-
-```typescript
-import { analyzeJob } from '@resume-buddy/ai-engine';
-
-describe('analyzeJob', () => {
-  it('should return valid AIOutput', async () => {
-    const result = await analyzeJob(mockUser, mockJobData);
-    expect(result).toHaveProperty('atsAnalysis');
-    expect(result.atsAnalysis.atsScore).toBeGreaterThan(0);
-  });
-});
-```
-
-### Integration Tests
-
-```typescript
-// Test with real Gemini API
-const result = await analyzeJob(realUser, realJobData);
-AIOutputSchema.parse(result); // Should not throw
-```
-
-### Mock for Development
-
-```typescript
-// Mock AI engine for fast testing
-jest.mock('@resume-buddy/ai-engine', () => ({
-  analyzeJob: jest.fn().mockResolvedValue(mockAIOutput),
-}));
 ```
 
 ---
@@ -530,7 +494,7 @@ try {
 2. **Validate outputs** - Never trust AI output without validation
 3. **Handle errors gracefully** - AI can fail, plan for it
 4. **Keep prompts versioned** - Track prompt changes in git
-5. **Test with real data** - Mock tests aren't enough
+5. **Verify with real data** - Always validate with actual use cases
 6. **Monitor AI costs** - Track API usage and costs
 7. **Update schemas carefully** - Breaking changes affect AI output
 

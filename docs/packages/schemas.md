@@ -505,56 +505,6 @@ const response: ApiResponse<User> = {
 
 ---
 
-## 🧪 Testing with Schemas
-
-### Valid Data Testing
-
-```typescript
-import { AIInputSchema } from '@resume-buddy/schemas';
-
-describe('AIInputSchema', () => {
-  it('should validate correct input', () => {
-    const validInput = {
-      meta: { /* valid data */ },
-      workDetails: { /* valid data */ },
-      // ...
-    };
-
-    expect(() => AIInputSchema.parse(validInput)).not.toThrow();
-  });
-});
-```
-
-### Invalid Data Testing
-
-```typescript
-it('should reject invalid input', () => {
-  const invalidInput = {
-    meta: { title: 123 }, // Wrong type
-  };
-
-  expect(() => AIInputSchema.parse(invalidInput)).toThrow();
-});
-```
-
-### Error Messages
-
-```typescript
-try {
-  AIInputSchema.parse(invalidData);
-} catch (error) {
-  console.log(error.errors);
-  // [
-  //   {
-  //     path: ['meta', 'title'],
-  //     message: 'Expected string, received number'
-  //   }
-  // ]
-}
-```
-
----
-
 ## 🔄 Schema Versioning
 
 When updating schemas:
@@ -703,7 +653,7 @@ No other dependencies - schemas are pure Zod.
 2. **Runtime Safety** - Validate all external inputs (API, files, AI)
 3. **Documentation** - Schemas serve as documentation
 4. **Single Source of Truth** - Don't duplicate type definitions
-5. **Test Your Schemas** - Write tests for edge cases
+5. **Validate Your Schemas** - Check edge cases manually
 
 ---
 

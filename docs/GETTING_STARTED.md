@@ -22,9 +22,10 @@ Before you begin, ensure you have the following installed:
    - Local installation OR
    - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (free tier available)
 
-3. **Cloudinary Account** (for file uploads)
-   - Sign up at [Cloudinary](https://cloudinary.com/)
-   - Get Cloud Name, API Key, and API Secret
+3. **AWS S3 Account** (for file uploads)
+   - Sign up at [AWS](https://aws.amazon.com/free/storage/s3/)
+   - Create an S3 bucket
+   - Get Access Key ID and Secret Access Key
 
 ## 🚀 Installation Steps
 
@@ -70,10 +71,11 @@ GOOGLE_GENAI_API_KEY=your_gemini_api_key_here
 ACCESS_TOKEN_SECRET=your_super_secret_jwt_key_here
 ACCESS_TOKEN_EXPIRY=7d
 
-# Cloudinary (File Storage)
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+# AWS S3 (File Storage)
+AWS_S3_ACCESS_KEY_ID=your_aws_access_key_id_here
+AWS_S3_SECRET_ACCESS_KEY=your_aws_secret_access_key_here
+AWS_S3_BUCKET_NAME=your-s3-bucket-name
+AWS_REGION=your-aws-region
 
 # Static Files Directory (optional)
 STATIC_DIR=static
@@ -185,9 +187,9 @@ npm run build:css    # Build Tailwind CSS
 npm run watch:css    # Watch CSS changes
 ```
 
-## 🧪 Testing the Setup
+## ✅ Verifying the Setup
 
-### 1. Test Server Health
+### 1. Check Server Health
 
 ```bash
 curl http://localhost:4000
@@ -195,7 +197,7 @@ curl http://localhost:4000
 
 Should return the home page HTML.
 
-### 2. Test API Endpoint
+### 2. Verify API Endpoint
 
 ```bash
 curl http://localhost:4000/api/auth/login \
@@ -204,7 +206,7 @@ curl http://localhost:4000/api/auth/login \
   -d '{"email":"test@example.com","password":"test123"}'
 ```
 
-### 3. Create Test User
+### 3. Create a User Account
 
 Use the signup page at `http://localhost:4000/signup` or:
 

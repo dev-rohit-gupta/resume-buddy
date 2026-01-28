@@ -61,7 +61,7 @@ Shared, reusable modules:
 User → /api/auth/signup → Controller → Service → MongoDB
                         → Multer (resume upload)
                         → AI Engine (resume extraction)
-                        → Cloudinary (file storage)
+                        → AWS S3 (file storage)
                         → Generate JWT
                         → Set HTTP-only cookie
 ```
@@ -147,7 +147,7 @@ User → /dashboard (protected route)
 
 ### **File Handling**
 - **Upload**: Multer middleware
-- **Storage**: Cloudinary
+- **Storage**: AWS S3
 - **Validation**: File type and size limits
 - **Processing**: Resume parsing with pdf-parse/mammoth
 
@@ -174,7 +174,7 @@ User → /dashboard (protected route)
 - `jose` - JWT handling
 - `cookie-parser` - Cookie parsing
 - `multer` - File uploads
-- `cloudinary` - File storage
+- `@aws-sdk/client-s3` - File storage
 - All internal packages
 
 ## 🚦 Error Handling Strategy

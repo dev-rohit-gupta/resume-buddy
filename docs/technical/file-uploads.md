@@ -1,18 +1,18 @@
 # File Uploads Documentation
 
-Resume Buddy handles file uploads for resume documents using Multer for local processing and Cloudinary for cloud storage.
+Resume Buddy handles file uploads for resume documents using Multer for local processing and AWS S3 for cloud storage.
 
 ## 🎯 Overview
 
 **Supported Files**: PDF, DOCX  
-**Max Size**: 10MB  
-**Storage**: Cloudinary (cloud) + Local buffer (temporary)  
+**Max Size**: 3MB  
+**Storage**: AWS S3 (cloud) + Local buffer (temporary)  
 **Processing**: Text extraction → AI analysis → Cloud backup
 
 ## 🔧 Technology Stack
 
 - **Multer** - Express middleware for handling multipart/form-data
-- **Cloudinary** - Cloud storage and CDN
+- **AWS S3** - Cloud storage service
 - **pdf-parse** - PDF text extraction
 - **mammoth** - DOCX text extraction
 
@@ -36,7 +36,7 @@ Parse file to text
   ↓
 AI extraction (analyzeResume)
   ↓
-Upload original to Cloudinary
+Upload original to AWS S3
   ↓
 Save data to database
   ↓
@@ -72,7 +72,7 @@ export const uploader = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 10 * 1024 * 1024,  // 10MB
+    fileSize: 3 * 1024 * 1024,  // 10MB
     files: 1                      // Single file
   }
 });
@@ -97,41 +97,45 @@ if (!allowedExtensions.includes(ext)) {
 **Size Limits**:
 ```typescript
 limits: {
-  fileSize: 10 * 1024 * 1024,  // 10MB
+  fileSize: 3 * 1024 * 1024,  // 10MB
   files: 1,                     // Single file upload
   fields: 10,                   // Max number of non-file fields
   fieldSize: 1024 * 1024        // 1MB per field
 }
 ```
 
-## ☁️ Cloudinary Configuration
+## ☁️ AWS S3 Configuration
 
-**File**: `config/cloudinary.config.ts`
+**File**: `services/aws.service.ts`
 
 ```typescript
-import { v2 as cloudinary } from 'cloudinary';
+import { S3Client } from '@aws-sdk/client-s3';
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
-
-export default cloudinary;
+function createS3Client() {
+  return new S3Client({
+    region: process.env.AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY!,
+    },
+  });
+}
 ```
 
 ### Environment Variables
 
 ```env
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+AWS_S3_ACCESS_KEY_ID=your_aws_access_key_id_here
+AWS_S3_SECRET_ACCESS_KEY=your_aws_secret_access_key_here
+AWS_S3_BUCKET_NAME=your-s3-bucket-name
+AWS_REGION=your-aws-region
 ```
 
 **Get Credentials**:
-1. Sign up at [Cloudinary](https://cloudinary.com/)
-2. Dashboard → Account Details
-3. Copy Cloud Name, API Key, API Secret
+1. Sign up at [AWS](https://aws.amazon.com/)
+2. Create an S3 bucket
+3. Create IAM user with S3 access
+4. Copy Access Key ID and Secret Access Key
 
 ## 📁 File Upload Implementation
 
@@ -167,8 +171,8 @@ export const signupController = asyncHandler(async (req, res) => {
   // Process file
   const resumeData = await processResume(file.buffer, file.mimetype);
   
-  // Upload to Cloudinary
-  const cloudinaryUrl = await uploadToCloudinary(file);
+  // Upload to AWS S3
+  const s3Response = await uploadToS3(file, resumeKey);
   
   // ...
 });
@@ -247,58 +251,84 @@ async function parseResume(
 }
 ```
 
-## ☁️ Cloudinary Upload
+## ☁️ AWS S3 Upload
 
 ### Upload Function
 
 ```typescript
-import cloudinary from '../config/cloudinary.config';
-import { Readable } from 'stream';
+import { uploadToS3 } from './aws.service';
 
-async function uploadToCloudinary(file: Express.Multer.File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const uploadStream = cloudinary.uploader.upload_stream(
-      {
-        folder: 'resumes',
-        resource_type: 'raw',
-        public_id: `resume_${Date.now()}`,
-        overwrite: true
-      },
-      (error, result) => {
-        if (error) {
-          reject(new ApiError(500, 'Cloudinary upload failed'));
-        } else {
-          resolve(result!.secure_url);
-        }
-      }
-    );
-    
-    // Convert buffer to stream
-    const bufferStream = Readable.from(file.buffer);
-    bufferStream.pipe(uploadStream);
+export async function uploadToS3(file: Express.Multer.File, key: string) {
+  const s3 = createS3Client();
+  const command = new PutObjectCommand({
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: key,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  });
+
+  return await s3.send(command);
+}
+```
+
+### S3 Configuration
+
+```typescript
+import { S3Client } from '@aws-sdk/client-s3';
+
+function createS3Client() {
+  return new S3Client({
+    region: process.env.AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY!,
+    },
   });
 }
 ```
 
-### Upload Options
+### Get S3 Object
 
 ```typescript
-{
-  folder: 'resumes',              // Organize in folders
-  resource_type: 'raw',           // Non-image files
-  public_id: 'resume_user123',   // Custom filename
-  overwrite: true,                // Replace if exists
-  use_filename: true,             // Use original filename
-  unique_filename: true,          // Add random string
-  tags: ['resume', 'pdf'],        // Tags for organization
+export function getS3Object(key: string, range?: string) {
+  const s3 = createS3Client();
+  const command = new GetObjectCommand({
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: key,
+    ...(range && { Range: range }),
+  });
+
+  return s3.send(command);
 }
 ```
 
-### Retrieve URL
+### Delete from S3
 
 ```typescript
-const url = result.secure_url;
-// https://res.cloudinary.com/cloud/raw/upload/v123/resumes/resume_123.pdf
+export async function deleteFromS3(key: string) {
+  const s3 = createS3Client();
+  const command = new DeleteObjectCommand({
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: key,
+  });
+
+  return await s3.send(command);
+}
+```
+
+### Get S3 Object URL
+
+```typescript
+export function getS3Object(key: string, range?: string) {
+  const s3 = createS3Client();
+  const command = new GetObjectCommand({
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: key,
+    ...(range && { Range: range }),
+  });
+
+  return s3.send(command);
+}
 ```
 
 ## 📊 Complete Upload Service
@@ -317,12 +347,12 @@ export async function uploadAndProcessResume(
   // 2. AI extraction
   const resumeData = await analyzeResume(file.buffer, file.mimetype);
   
-  // 3. Upload to Cloudinary
-  const cloudinaryUrl = await uploadToCloudinary(file);
+  // 3. Upload to AWS S3
+  const s3Response = await uploadToS3(file, resumeKey);
   
   return {
     data: resumeData,
-    url: cloudinaryUrl
+    key: resumeKey
   };
 }
 ```
@@ -482,57 +512,6 @@ export const errorMiddleware = (err, req, res, next) => {
     message: err.message
   });
 };
-```
-
-## 🧪 Testing
-
-### Unit Tests
-
-```typescript
-describe('File Upload', () => {
-  it('should accept valid PDF file', async () => {
-    const buffer = fs.readFileSync('test-resume.pdf');
-    const file = {
-      buffer,
-      mimetype: 'application/pdf',
-      originalname: 'test-resume.pdf',
-      size: buffer.length
-    };
-    
-    const text = await parseResume(file.buffer, file.mimetype);
-    expect(text).toBeDefined();
-    expect(text.length).toBeGreaterThan(0);
-  });
-});
-```
-
-### Integration Tests
-
-```typescript
-describe('Signup with Resume', () => {
-  it('should upload resume on signup', async () => {
-    const res = await request(app)
-      .post('/api/auth/signup')
-      .field('name', 'Test User')
-      .field('email', 'test@example.com')
-      .field('password', 'password123')
-      .attach('file', 'test-resume.pdf');
-    
-    expect(res.status).toBe(201);
-    expect(res.body.data.user).toHaveProperty('id');
-  });
-  
-  it('should reject invalid file type', async () => {
-    const res = await request(app)
-      .post('/api/auth/signup')
-      .field('name', 'Test User')
-      .field('email', 'test@example.com')
-      .field('password', 'password123')
-      .attach('file', 'image.jpg');
-    
-    expect(res.status).toBe(400);
-  });
-});
 ```
 
 ## 📈 Performance Optimization

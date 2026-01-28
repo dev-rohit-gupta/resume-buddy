@@ -520,28 +520,6 @@ ATS score improves
 Applies with confidence
 ```
 
-## 🧪 Testing
-
-### Unit Tests
-
-```typescript
-describe('buildCareerProfile', () => {
-  it('should generate career profile', async () => {
-    const profile = await buildCareerProfile(mockResume);
-    
-    expect(profile).toHaveProperty('bestRole');
-    expect(profile).toHaveProperty('nearestNextRole');
-    expect(profile.skillGaps.length).toBeGreaterThan(0);
-  });
-  
-  it('should calculate ATS score', () => {
-    const score = calcAtsScore(mockAtsReport);
-    expect(score).toBeGreaterThanOrEqual(0);
-    expect(score).toBeLessThanOrEqual(100);
-  });
-});
-```
-
 ## 🔄 Profile Updates
 
 Career profiles are regenerated when:

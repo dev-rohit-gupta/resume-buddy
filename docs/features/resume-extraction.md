@@ -32,7 +32,7 @@ Validate with Zod schema
         ↓
 Save to database
         ↓
-Upload original file to Cloudinary
+Upload original file to AWS S3
         ↓
 Return structured resume object
 ```
@@ -44,12 +44,12 @@ Return structured resume object
 1. **PDF** (`.pdf`)
    - MIME: `application/pdf`
    - Library: `pdf-parse`
-   - Max Size: 10MB
+   - Max Size: 3MB
 
 2. **DOCX** (`.docx`)
    - MIME: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`
    - Library: `mammoth`
-   - Max Size: 10MB
+   - Max Size: 3MB
 
 ### File Upload Configuration
 
@@ -77,7 +77,7 @@ export const uploader = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 10 * 1024 * 1024  // 10MB
+    fileSize: 3 * 1024 * 1024  // 3MB
   }
 });
 ```
@@ -300,22 +300,15 @@ const ResumeSchema = new Schema({
 
 ### Cloud Storage
 
-Original resume file is uploaded to Cloudinary for backup:
+Original resume file is uploaded to AWS S3 for backup:
 
 ```typescript
-import { v2 as cloudinary } from 'cloudinary';
+import { uploadToS3 } from './aws.service';
 
-const uploadResult = await cloudinary.uploader.upload_stream(
-  {
-    folder: 'resumes',
-    resource_type: 'raw',
-    public_id: `resume_${userId}`
-  },
-  (error, result) => {
-    if (error) throw error;
-    return result.secure_url;
-  }
-).end(file.buffer);
+const uploadResult = await uploadToS3(file, resumeKey);
+if (!uploadResult.$metadata.httpStatusCode || uploadResult.$metadata.httpStatusCode >= 300) {
+  throw new Error('S3 upload failed');
+}
 ```
 
 ## 🔍 Extraction Examples
@@ -493,45 +486,6 @@ try {
 }
 ```
 
-## 🧪 Testing
-
-### Unit Tests
-
-```typescript
-describe('Resume Extraction', () => {
-  it('should extract PDF resume', async () => {
-    const buffer = fs.readFileSync('test-resume.pdf');
-    const result = await analyzeResume(buffer, 'application/pdf');
-    
-    expect(result.basics.name).toBeDefined();
-    expect(result.metadata.confidenceScore).toBeGreaterThan(0);
-  });
-  
-  it('should handle DOCX files', async () => {
-    const buffer = fs.readFileSync('test-resume.docx');
-    const result = await analyzeResume(buffer, 'application/vnd...');
-    
-    expect(result).toHaveProperty('basics');
-  });
-});
-```
-
-### Integration Tests
-
-```typescript
-it('should upload and extract on signup', async () => {
-  const response = await request(app)
-    .post('/api/auth/signup')
-    .field('name', 'Test User')
-    .field('email', 'test@example.com')
-    .field('password', 'password123')
-    .attach('file', 'test-resume.pdf');
-  
-  expect(response.status).toBe(201);
-  expect(response.body.data.user).toHaveProperty('resume');
-});
-```
-
 ## 📈 Performance
 
 - **PDF Parsing**: ~500ms
@@ -543,9 +497,9 @@ it('should upload and extract on signup', async () => {
 
 1. **Parallel Operations**
 ```typescript
-const [text, cloudinaryUrl] = await Promise.all([
+const [text, s3Response] = await Promise.all([
   parseResume(buffer, mimeType),
-  uploadToCloudinary(buffer)
+  uploadToS3(file, resumeKey)
 ]);
 ```
 
@@ -595,7 +549,7 @@ PUT /api/users/resume
 
 1. **Validate all inputs** - File type, size
 2. **Handle errors gracefully** - Retry logic
-3. **Test with various formats** - Different resume styles
+3. **Verify with various formats** - Different resume styles
 4. **Monitor confidence scores** - Track extraction quality
 5. **Log extraction failures** - Debug issues
 6. **Provide fallback** - Manual input option
@@ -605,7 +559,7 @@ PUT /api/users/resume
 - [AI Engine](../packages/ai-engine.md) - Extraction implementation
 - [Schemas](../packages/schemas.md) - Resume schema details
 - [Utils](../packages/utils.md) - Parsing utilities
-- [File Uploads](../technical/file-uploads.md) - Multer & Cloudinary
+- [File Uploads](../technical/file-uploads.md) - Multer & AWS S3
 
 ---
 

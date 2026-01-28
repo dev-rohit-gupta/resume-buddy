@@ -497,67 +497,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 ```
 
-## 🧪 Testing
-
-### Login Tests
-
-```typescript
-describe('Login', () => {
-  it('should login with valid credentials', async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({
-        email: 'test@example.com',
-        password: 'password123'
-      });
-    
-    expect(res.status).toBe(200);
-    expect(res.headers['set-cookie']).toBeDefined();
-  });
-  
-  it('should reject invalid credentials', async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({
-        email: 'test@example.com',
-        password: 'wrongpassword'
-      });
-    
-    expect(res.status).toBe(401);
-  });
-});
-```
-
-### Protected Route Tests
-
-```typescript
-describe('Protected Routes', () => {
-  let authCookie;
-  
-  beforeAll(async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({...});
-    authCookie = res.headers['set-cookie'];
-  });
-  
-  it('should access protected route with valid token', async () => {
-    const res = await request(app)
-      .get('/api/users/profile')
-      .set('Cookie', authCookie);
-    
-    expect(res.status).toBe(200);
-  });
-  
-  it('should reject without token', async () => {
-    const res = await request(app)
-      .get('/api/users/profile');
-    
-    expect(res.status).toBe(401);
-  });
-});
-```
-
 ## 🚨 Common Issues
 
 ### 1. Cookie Not Set

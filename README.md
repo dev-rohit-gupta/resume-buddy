@@ -42,7 +42,8 @@ Resume Buddy analyzes **job/internship details** + **your skills & profile** to 
 - ✅ **Resume Improvement** - Actionable enhancement suggestions
 - ✅ **Risk Indicators** - Red flags and precautions
 
-> ### ⚠️ What Resume Buddy is NOT
+> 
+### ⚠️ What Resume Buddy is NOT
 > 
 > - ❌ **Not a chatbot** - No conversational AI
 > - ❌ **Not a resume builder** - Focuses on decision-making
@@ -72,6 +73,17 @@ Resume Buddy analyzes **job/internship details** + **your skills & profile** to 
 ### 🔧 Technical Highlights
 
 - 🧠 **Google Gemini AI** - Advanced decision-making engine
+- 📦 **Monorepo Architecture** - Turborepo (apps + packages)
+- 🔒 **Secure Authentication** - JWT + HTTP-only cookies
+- 📄 **Resume Parsing** - PDF & DOCX support
+- ☁️ **Cloud Storage** - AWS S3 integration
+- ✅ **Type-Safe** - TypeScript + Zod validation
+
+---
+
+## 🏗️ Architecture Overview
+
+```
 ┌─────────────────────────────────────────────────────────┐
 │                    Resume Buddy System                   │
 └─────────────────────────────────────────────────────────┘
@@ -91,7 +103,7 @@ Resume Buddy analyzes **job/internship details** + **your skills & profile** to 
        │                   │               │
        ▼                   ▼               ▼
 ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-│   MongoDB    │   │  Cloudinary  │   │ Gemini AI    │
+│   MongoDB    │   │  AWS S3  │   │ Gemini AI    │
 │  (Database)  │   │(File Storage)│   │  (Google)    │
 └──────────────┘   └──────────────┘   └──────────────┘
        │
@@ -106,33 +118,21 @@ Resume Buddy analyzes **job/internship details** + **your skills & profile** to 
 
 | Layer | Technology |
 |-------|------------|
-| **Frontend** | Static HTML5, CSS3 (Tailwind), Vanilla JavaScript |
+| **Frontend** | Static HTML5, CSS3 (Tailwind + Bootstrap), Vanilla JavaScript |
 | **Backend** | Node.js 18+, Express 4.19, TypeScript 5.5 |
 | **AI Engine** | Google Gemini Flash 1.5 (Structured Output) |
 | **Database** | MongoDB 7.0+ with Mongoose 8.5 |
-| **Storage** | Cloudinary (Resume files) |
+| **Storage** | AWS S3 (Resume files) |
 | **Validation** | Zod schemas (Runtime + Compile-time) |
 | **Authentication** | JWT + HTTP-only cookies + bcrypt |
 | **File Processing** | Multer, pdf-parse, mammoth |
 | **Monorepo** | Turborepo (apps + packages) |
-Strict JSON Output
-↓
-Dashboard (HTML / CSS / JS)
-
-```
-
-- **Frontend**: Static HTML, CSS, JavaScript
-- **Backend**: Node.js + Express
-- **AI Engine**: Google Gemini (via SDK)
-- **Database**: MongoDB (for saving job + analysis history)
-- **Monorepo**: apps + packages structure
 
 ---
 
 ## 📁 Monorepo Structure
 
 ```
-
 resume-buddy/
 │
 ├── apps/
@@ -200,17 +200,21 @@ resume-buddy/
 
 This makes the system:
 
-- predictable
-- debuggable
-- scalable
-- prodQuick Start
+- ✅ Predictable
+- ✅ Debuggable
+- ✅ Scalable
+- ✅ Production-ready
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
 - **Node.js** 18+ and npm 10+
 - **MongoDB** 7.0+ (local or Atlas)
 - **Google AI API Key** ([Get it here](https://makersuite.google.com/app/apikey))
-- **Cloudinary Account** ([Sign up](https://cloudinary.com/))
+- **AWS S3 Account** ([Sign up](https://aws.amazon.com/free/storage/s3/))
 
 ### Installation
 
@@ -252,10 +256,11 @@ GOOGLE_GENAI_API_KEY=your_gemini_api_key_here
 ACCESS_TOKEN_SECRET=your-super-secret-jwt-key-min-32-characters
 ACCESS_TOKEN_EXPIRY=7d
 
-# Cloudinary (File Storage)
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+# AWS S3 (File Storage)
+AWS_S3_ACCESS_KEY_ID=your_aws_access_key_id_here
+AWS_S3_SECRET_ACCESS_KEY=your_aws_secret_access_key_here
+AWS_S3_BUCKET_NAME=your-s3-bucket-name
+AWS_REGION=your-aws-region
 ```
 
 ### ✅ Perfect For
@@ -325,7 +330,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 - [x] Learning roadmap generation
 - [x] Career insights dashboard
 - [x] JWT authentication
-- [x] File upload (Cloudinary)
+- [x] File upload (AWS S3)
 
 ### 🚧 Coming Soon
 
@@ -349,20 +354,11 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 ## 🐛 Known Issues & Limitations
 
-- Resume parsing may struggle with heavily formatted PDFs
-- Scanned PDFs (images) not supported - use text-based PDFs
-- AI analysis limited by job description quality
+- AI analysis quality depends on job description completeness
 - Free Gemini API has rate limits (60 requests/min)
 
 See [Issues](https://github.com/dev-rohit-gupta/resume-buddy/issues) for current bugs and feature requests.
 
----
-
-## 📊 Project Stats
-
-![TypeScript](https://img.shields.io/github/languages/top/dev-rohit-gupta/resume-buddy)
-![Code Size](https://img.shields.io/github/languages/code-size/dev-rohit-gupta/resume-buddy)
-![Last Commit](https://img.shields.io/github/last-commit/dev-rohit-gupta/resume-buddy)
 
 ---
 
@@ -370,7 +366,7 @@ See [Issues](https://github.com/dev-rohit-gupta/resume-buddy/issues) for current
 
 - **Google Gemini AI** - Powering intelligent decision-making
 - **MongoDB** - Reliable data storage
-- **Cloudinary** - Seamless file management
+- **AWS S3** - Seamless file management
 - **Open Source Community** - Inspiration and support
 
 ---
@@ -408,23 +404,15 @@ Don't apply blindly. Don't spam resumes.
 
 [⬆ Back to Top](#-resume-buddy)
 
-</div>t Guidelines
+</div>
 
-```bash
-# Run tests
-npm test
+---
 
-# Type checking
-npm run type-check
+## 📚 Documentation
 
-# Lint code
-npm run lint
+For detailed documentation, visit the [docs/](docs/) directory.
 
-# Format code
-npm run format
-```
-
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for detailed guidelines.
+### Package Documentation
 
 - [🤖 AI Engine](docs/packages/ai-engine.md) - Gemini integration and operations
 - [📋 Schemas](docs/packages/schemas.md) - Zod validation schemas
@@ -440,80 +428,44 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for detailed guidelines.
 
 - [💾 Database](docs/technical/database.md) - MongoDB models and queries
 - [🔐 Authentication](docs/technical/authentication.md) - JWT and security
-- [📤 File Uploads](docs/technical/file-uploads.md) - Multer and CloudinaryMONGODB_URI` - MongoDB connection string
-- `GOOGLE_GENAI_API_KEY` - Google Gemini API key
-- `ACCESS_TOKEN_SECRET` - JWT secret for authentication
-- `ACCESS_TOKEN_EXPIRY` - Token expiration time
-- `CLOUDINARY_CLOUD_NAME` - Cloudinary cloud name
-- `CLOUDINARY_API_KEY` - Cloudinary API key
-- `CLOUDINARY_API_SECRET` - Cloudinary API secret
-- `NODE_ENV` - Environment (development/production)
-
-### 4️⃣ Build the project
-
-```bash
-npm run build
-```
-
-### 5️⃣ Run the development server
-
-```bash
-npm run dev
-```
-
-Open in browser:
-
-```
-http://localhost:4000
-```
-
----
-
-## 🧩 Who Is This For?
-
-- 🎓 College students
-- 👶 Freshers
-- 🧑‍💻 Early-career developers
-- ❌ Not for mass resume spamming
-- ✅ For thoughtful, strategic applications
-
-<!-- ---
-
-## 🛣️ Roadmap
-
-* [ ] ATS score hybrid logic (AI + rules)
-* [ ] Resume auto-rewrite engine
-* [ ] Job comparison dashboard
-* [ ] Skill progress tracking
-* [ ] PDF resume reviewer
-* [ ] Chrome extension -->
+- [📤 File Uploads](docs/technical/file-uploads.md) - Multer and AWS S3
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome.
+Contributions are welcome! Here's how to get started:
 
-Before contributing:
+### Development Guidelines
+
+```bash
+# Start development server
+npm run dev
+
+# Build project
+npm run build
+
+# Build CSS only
+npm run build:css
+
+# Watch CSS changes
+npm run dev:css
+
+# Format code
+npm run format
+```
+
+### Important Principles
 
 - Follow schema-first design
 - Do not add chat-based features
 - Keep AI output strictly structured
+- Validate changes manually before submitting
+
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
 ## 📜 License
 
-MIT License
-
----
-
-## 🧠 Final Note
-
-Resume Buddy is built on one belief:
-
-> **Clarity is more valuable than motivation.**
-
-Apply less.
-Prepare better.
-Apply smarter.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.

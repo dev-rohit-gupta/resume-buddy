@@ -6,7 +6,7 @@ Thank you for your interest in contributing to Resume Buddy! This guide will hel
 
 - **Code**: New features, bug fixes, refactoring
 - **Documentation**: Improve guides, add examples
-- **Testing**: Write tests, report bugs
+- **Bug Reports**: Identify and report bugs
 - **Design**: UI/UX improvements
 - **Ideas**: Feature requests, architectural suggestions
 
@@ -68,28 +68,22 @@ git checkout -b fix/bug-description
 - `fix/bug-description` - Bug fixes
 - `docs/topic` - Documentation
 - `refactor/component` - Code refactoring
-- `test/feature` - Testing
 
 ### 3. Make Changes
 
 Follow our coding standards (see below).
 
-### 4. Test Your Changes
+### 4. Verify Your Changes
 
 ```bash
-# Run all tests
-npm test
-
-# Run specific package tests
-cd packages/ai-engine
-npm test
-
-# Run server tests
-cd apps/server
-npm test
-
-# Manual testing
+# Start development server and test manually
 npm run dev
+
+# Build to check for errors
+npm run build
+
+# Format code
+npm run format
 ```
 
 ### 5. Commit Changes
@@ -107,7 +101,6 @@ git commit -m "type(scope): description"
 - `docs`: Documentation changes
 - `style`: Code style (formatting, missing semicolons, etc.)
 - `refactor`: Code refactoring
-- `test`: Adding or updating tests
 - `chore`: Maintenance tasks
 
 **Examples**:
@@ -116,7 +109,6 @@ git commit -m "feat(resume): add confidence score calculation"
 git commit -m "fix(auth): correct JWT expiration validation"
 git commit -m "docs(api): update authentication endpoints"
 git commit -m "refactor(schemas): simplify resume validation"
-git commit -m "test(opportunity): add unit tests for job analysis"
 ```
 
 ### 6. Push & Create PR
@@ -166,10 +158,10 @@ Why is this change needed?
 - Change 2
 - Change 3
 
-## Testing
-- [ ] Unit tests added/updated
+## Verification
 - [ ] Manual testing performed
-- [ ] All tests passing
+- [ ] Build succeeds without errors
+- [ ] Code formatted
 
 ## Screenshots (if applicable)
 Before: [image]
@@ -178,7 +170,7 @@ After: [image]
 ## Checklist
 - [ ] Code follows project style
 - [ ] Documentation updated
-- [ ] Tests added/updated
+- [ ] Manually verified functionality
 - [ ] No breaking changes (or documented)
 ```
 
@@ -658,7 +650,7 @@ Always provide:
 - **Questions**: Open a [discussion](https://github.com/yourusername/resume-buddy/discussions)
 - **Bugs**: File an [issue](https://github.com/yourusername/resume-buddy/issues)
 - **Chat**: Join our [Discord/Slack] (if applicable)
-- **Email**: contact@resumebuddy.com
+- **Email**: contact@resumebuddy.com(comming soon)
 
 ## 🏆 Recognition
 

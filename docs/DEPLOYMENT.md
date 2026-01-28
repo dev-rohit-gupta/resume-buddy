@@ -5,7 +5,7 @@ Complete guide for deploying Resume Buddy to production.
 ## 🎯 Deployment Checklist
 
 - [ ] MongoDB Atlas cluster configured
-- [ ] Cloudinary account setup
+- [ ] AWS S3 bucket created
 - [ ] Google AI API key obtained
 - [ ] Environment variables configured
 - [ ] Build successful
@@ -32,7 +32,7 @@ Complete guide for deploying Resume Buddy to production.
        │
        ├──────────► MongoDB Atlas (Database)
        │
-       ├──────────► Cloudinary (File Storage)
+       ├──────────► AWS S3 (File Storage)
        │
        └──────────► Google AI (Gemini API)
 ```
@@ -82,22 +82,33 @@ nvm use 18
    - Copy connection string
    - Format: `mongodb+srv://username:password@cluster.mongodb.net/dbname?retryWrites=true&w=majority`
 
-### 3. Cloudinary
+### 3. AWS S3
 
 **Setup Steps**:
 
-1. **Create Account** → [Cloudinary](https://cloudinary.com/)
+1. **Create AWS Account** → [AWS](https://aws.amazon.com/)
 
-2. **Get Credentials**:
-   - Dashboard → Account Details
+2. **Create S3 Bucket**:
+   - Navigate to S3 console
+   - Click "Create bucket"
+   - Bucket name: `resume-buddy-files` (must be globally unique)
+   - Region: Choose closest to your server
+   - Block all public access: **Enabled** (for security)
+   - Create bucket
+
+3. **Create IAM User**:
+   - Navigate to IAM console
+   - Users → Add user
+   - Username: `resume-buddy-app`
+   - Attach policy: `AmazonS3FullAccess` (or create custom policy)
+   - Create user
+
+4. **Get Credentials**:
+   - Select the user
+   - Security credentials → Create access key
    - Note down:
-     - Cloud Name
-     - API Key
-     - API Secret
-
-3. **Create Upload Preset** (Optional):
-   - Settings → Upload → Upload Presets
-   - Add preset for resumes
+     - Access Key ID
+     - Secret Access Key
 
 ### 4. Google AI (Gemini)
 
@@ -127,10 +138,11 @@ NODE_ENV=production
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/resume-buddy?retryWrites=true&w=majority
 # For MongoDB 7.0+, ensure your cluster is using compatible version
 
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+# AWS S3
+AWS_S3_ACCESS_KEY_ID=your_aws_access_key_id_here
+AWS_S3_SECRET_ACCESS_KEY=your_aws_secret_access_key_here
+AWS_S3_BUCKET_NAME=your-s3-bucket-name
+AWS_REGION=your-aws-region
 
 # Google AI
 GOOGLE_AI_API_KEY=your_gemini_api_key
