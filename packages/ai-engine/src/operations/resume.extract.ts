@@ -31,7 +31,7 @@ export async function analyzeResume(
   if (metadata) inputs.push({ type: "metadata", value: metadata });
   const result = await runEngine({
     ai,
-    model: "gemini-3-pro-preview",
+    model: "gemini-3-flash-preview",
     inputs,
     config,
   });
