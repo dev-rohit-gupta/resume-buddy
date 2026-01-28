@@ -7,14 +7,14 @@ if (!submitButton) {
   console.error("Login button not found");
 }
 
-submitButton.addEventListener("click", async function (e) {
+form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   try {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     // Loader display
-    showLoader("Logging in... Please wait.", document.body);
+    showLoader("Logging in...", document.body);
     submitButton.disabled = true;
 
     const response = await fetch("/api/auth/login", {
@@ -26,18 +26,21 @@ submitButton.addEventListener("click", async function (e) {
     });
 
     const result = await response.json();
-    // Remove loader
-    removeLoader(document.body);
-    submitButton.disabled = false;
-
     if (response.ok) {
       alert("Login successful");
       window.location.href = "/dashboard";
     } else {
       alert(result.message || "Login failed");
     }
+    // Remove loader
+    removeLoader(document.body);
+    submitButton.disabled = false;
+
   } catch (error) {
     console.error(error);
     alert("Server error. Please try again.");
+    // Remove loader
+    removeLoader(document.body);
+    submitButton.disabled = false;
   }
 });

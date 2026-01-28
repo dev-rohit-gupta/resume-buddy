@@ -11,7 +11,7 @@
     <!-- js files -->
     <script src="/js/helper.js"></script>
     <script src="/js/components.js"></script>
-    <title>Login Page</title>
+    <title>Login</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4CVVN014RK"></script>
     <script>
@@ -29,7 +29,7 @@
       <h2 class="title">WELCOME BACK</h2>
       <p class="subtitle">Fill below details to login</p>
 
-      <form class="login-form">
+      <form class="login-form" id="login-form">
         <div class="input-group">
           <label for="email">Email</label>
           <input type="email" name="email" id="email" placeholder="Enter email here" required />
@@ -44,7 +44,7 @@
             required
           />
         </div>
-        <button type="button" class="login-btn">Login</button>
+        <button type="submit" class="login-btn">Login</button>
       </form>
 
       <p class="footer-text">Don't have account? <a href="/signup">sign up</a></p>
