@@ -2,6 +2,8 @@
     "cSpell.words": [
         "genai",
         "toon",
+        "turbopack",
         "weightage"
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
