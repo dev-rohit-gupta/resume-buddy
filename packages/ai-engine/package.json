@@ -5,15 +5,16 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx tsc"
+    "build": "pnpm exec tsc"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",
     "@google/generative-ai": "^0.15.0",
-    "@resume-buddy/schemas": "^1.0.0",
-    "@resume-buddy/utils": "^1.0.0"
+    "@resume-buddy/schemas": "workspace:^",
+    "@resume-buddy/utils": "workspace:^"
   },
   "devDependencies": {
+    "@types/node": "^25.2.1",
     "typescript": "^5.5.0"
   }
 }

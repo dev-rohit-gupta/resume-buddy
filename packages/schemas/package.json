@@ -5,7 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx tsc"
+    "build": "pnpm exec tsc"
   },
   "devDependencies": {
     "typescript": "^5.5.0"

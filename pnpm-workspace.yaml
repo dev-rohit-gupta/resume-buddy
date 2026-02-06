@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - bcrypt
+  - esbuild
+  - protobufjs
+  - sharp
+  - unrs-resolver

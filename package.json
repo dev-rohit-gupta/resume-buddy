@@ -15,10 +15,10 @@
     "url": "https://github.com/dev-rohit-gupta/resume-buddy/issues"
   },
   "scripts": {
-    "dev": "npm run dev --workspace=@resume-buddy/server",
-    "dev:css": "npm run watch:css --workspace=@resume-buddy/server",
-    "build": "npm run build:css && npx turbo run build",
-    "build:css": "npm run build:css --workspace=@resume-buddy/server",
+    "dev": "pnpm --filter @resume-buddy/server dev",
+    "dev:css": "pnpm --filter @resume-buddy/server watch:css",
+    "build": "pnpm --filter @resume-buddy/server build:css && pnpm exec turbo run build",
+    "build:css": "pnpm --filter @resume-buddy/server build:css",
     "format": "prettier --write ."
   },
   "devDependencies": {
@@ -26,6 +26,6 @@
     "turbo": "^2.7.4",
     "typescript": "^5.5.0"
   },
-  "packageManager": "npm@10.9.2",
+  "packageManager": "pnpm@10.28.2",
   "homepage": "https://github.com/dev-rohit-gupta/resume-buddy#readme"
 }
